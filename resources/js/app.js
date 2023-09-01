@@ -3,7 +3,6 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 //inertia SPA
 import { Link } from '@inertiajs/vue3'
-
 //components
 
 import * as components from './components';
@@ -28,7 +27,7 @@ createInertiaApp({
       .component('layout-auth', components.AuthLayout)
       //components
       .component('Link', Link)
-      .component('example-component', components.ExampleComponent)
+      .component('simple-card', components.SimpleCard)
     //   app.config.globalProperties.$route = route;
       app.mount(el)
 

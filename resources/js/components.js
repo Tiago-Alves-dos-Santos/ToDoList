@@ -1,10 +1,10 @@
 //layouts
 import AuthLayout from './layouts/Auth.vue';
 //components
-import ExampleComponent from './components/ExampleComponent.vue';
+import SimpleCard from './components/SimpleCard.vue';
 
 
 export {
     AuthLayout,
-    ExampleComponent
+    SimpleCard
 }
