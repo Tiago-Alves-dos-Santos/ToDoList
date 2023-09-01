@@ -1,39 +1,34 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 import './bootstrap';
-import { createApp } from 'vue';
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/vue3'
+//inertia SPA
+import { Link } from '@inertiajs/vue3'
 
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
-
-const app = createApp({});
-
+//components
 import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+// import * as myComponents from './teste';
+createInertiaApp({
+  progress: {
+      delay: 250,
+      // The color of the progress bar.
+      color: '#ff0a0a',
+      // Whether to include the default NProgress styles.
+      includeCSS: true,
+      // Whether the NProgress spinner will be shown.
+      showSpinner: false,
+  },
+  resolve: name => {
+    const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
+    return pages[`./Pages/${name}.vue`]
+  },
+  setup({ el, App, props, plugin }) {
+    const app = createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .component('Link', Link)
+      .component('example-component', ExampleComponent)
+    //   .component('example-component', myComponents.ExampleComponent)
+    //   app.config.globalProperties.$route = route;
+      app.mount(el)
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-/**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
- */
-
-app.mount('#app');
+  },
+})
