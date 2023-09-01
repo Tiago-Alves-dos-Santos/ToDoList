@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <h1>Olá inertia vue</h1>
-        <example-coponent></example-coponent>
-    </div>
+    <layout-auth>
+        <example-component></example-component>
+    </layout-auth>
 </template>
 <script>
 

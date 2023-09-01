@@ -5,8 +5,8 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3'
 
 //components
-import ExampleComponent from './components/ExampleComponent.vue';
-// import * as myComponents from './teste';
+
+import * as components from './components';
 createInertiaApp({
   progress: {
       delay: 250,
@@ -24,9 +24,11 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
+      //layouts
+      .component('layout-auth', components.AuthLayout)
+      //components
       .component('Link', Link)
-      .component('example-component', ExampleComponent)
-    //   .component('example-component', myComponents.ExampleComponent)
+      .component('example-component', components.ExampleComponent)
     //   app.config.globalProperties.$route = route;
       app.mount(el)
 
