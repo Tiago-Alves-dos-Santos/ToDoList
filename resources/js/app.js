@@ -28,6 +28,7 @@ createInertiaApp({
       //components
       .component('Link', Link)
       .component('simple-card', components.SimpleCard)
+      .component('modal', components.Modal)
     //   app.config.globalProperties.$route = route;
       app.mount(el)
 
