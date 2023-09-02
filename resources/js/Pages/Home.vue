@@ -1,5 +1,8 @@
 <template>
-    <layout-auth>
+    <layout-auth ref="layout_auth">
+        <div class="img-logo">
+            <img src="img/list_100.png" alt="">
+        </div>
         <simple-card title="Formulário" sub_title="Login" v-if="form_type == 0">
             <form method="POST">
                 <div class="form-row">
@@ -62,19 +65,14 @@
                         <input type="password" class="form-control">
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col-12">
-                        <label for="">Confirmar Senha</label>
-                        <input type="password" class="form-control">
-                    </div>
-                </div>
+
 
                 <div class="form-row mt-2">
                     <div class="col-12" style="display: flex; justify-content: space-between;">
                         <button class="btn btn-success">Cadastrar</button>
                         <a class="icon-link" href="#" @click="toggleForm">
-                            <i class="bi bi-arrow-right"></i>
                             Login
+                            <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -82,13 +80,24 @@
         </simple-card>
     </layout-auth>
 </template>
-<script setup>
-import * as vue from 'vue'
-const form_type = vue.ref(0);
+<script>
+export default {
+    data() {
+        return {
+            form_type: 0
+        }
+    },
+    methods: {
 
-
-function toggleForm() {
-    form_type.value = form_type.value == 1 ?0:1;
+        toggleForm() {
+            //0 - login
+            let middle_time = (1 / 2) * 1000;
+            let value = this.form_type == 1 ? 0 : 1;
+            this.$refs.layout_auth.loadAnimationToggleDirection(value);
+            setTimeout(() => {
+                this.form_type = value;
+            }, middle_time);
+        }
+    }
 }
-
 </script>

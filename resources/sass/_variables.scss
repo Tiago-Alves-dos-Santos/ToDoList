@@ -1,3 +1,5 @@
+//colors
+
 $theme-colors: (
   "primary":    #0d6efd,
   "secondary":  #6c757d,
@@ -9,11 +11,11 @@ $theme-colors: (
   "dark":       #212529,
 );
 
-
 // Body
 $body-bg: #f8fafc;
-
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+//animations
+$time-toggle-direction: 1s;
