@@ -1,9 +1,9 @@
 <template>
     <layout-auth ref="layout_auth">
         <div class="img-logo">
-            <img src="img/list_100.png" alt="">
+            <img src="img/favicon/list_100.png" alt="">
         </div>
-        <simple-card title="Formulário" sub_title="Login" v-if="form_type == 0">
+        <simple-card title="Formulário" sub_title="Login" v-if="form_type_operation == dataTypeOperation.auth.login">
             <form method="POST">
                 <div class="form-row">
                     <div class="col-12">
@@ -18,13 +18,14 @@
                     </div>
                 </div>
                 <div class="form-row mt-2">
-                    <div class="col-12">
+                    <div class="col-12 d-flex justify-content-between">
                         <div class="form-check">
                             <input class="form-check-input pointer" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label pointer" for="flexCheckDefault">
                                 Lembrar-me
                             </label>
                         </div>
+                        <a href="#" class="link-danger">Esqueceu a senha?</a>
                     </div>
                 </div>
 
@@ -39,7 +40,7 @@
                 </div>
             </form>
         </simple-card>
-        <simple-card title="Formulário" sub_title="Cadastro" v-else-if="form_type == 1">
+        <simple-card title="Formulário" sub_title="Cadastro" v-else-if="form_type_operation == dataTypeOperation.auth.register">
             <form method="POST">
                 <div class="form-row">
                     <div class="col-12">
@@ -81,21 +82,23 @@
     </layout-auth>
 </template>
 <script>
+import TypeOperation from '../enums/TypeOperation';
+
 export default {
     data() {
         return {
-            form_type: 0
+            dataTypeOperation: TypeOperation,
+            form_type_operation: TypeOperation.auth.login
         }
     },
     methods: {
-
         toggleForm() {
             //0 - login
-            let middle_time = (1 / 2) * 1000;
-            let value = this.form_type == 1 ? 0 : 1;
+            let middle_time = (0.75 / 2) * 1000;//(time-toggle-direction(animations.scss) / 2)*1000
+            let value = this.form_type_operation == this.dataTypeOperation.auth.login ? this.dataTypeOperation.auth.register : this.dataTypeOperation.auth.login;
             this.$refs.layout_auth.loadAnimationToggleDirection(value);
             setTimeout(() => {
-                this.form_type = value;
+                this.form_type_operation = value;
             }, middle_time);
         }
     }

@@ -10,9 +10,12 @@
     </div>
 </template>
 <script>
+import TypeOperation from '../enums/TypeOperation';
+
 export default {
     data() {
         return {
+            dataTypeOperation: TypeOperation,
             animationsClass: {
                 containerImage: '',
                 containerBody: ''
@@ -22,11 +25,11 @@ export default {
     methods: {
         loadAnimationToggleDirection(operation) {
             switch (operation) {
-                case 0:
+                case TypeOperation.auth.login:
                     this.animationsClass.containerImage = 'animation-left-to-right-back';
                     this.animationsClass.containerBody = 'animation-right-to-left-back';
                     break;
-                case 1:
+                case TypeOperation.auth.register:
                     this.animationsClass.containerImage = 'animation-left-to-right';
                     this.animationsClass.containerBody = 'animation-right-to-left';
                     break;
