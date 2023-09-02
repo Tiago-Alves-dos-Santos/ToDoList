@@ -3,8 +3,9 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 //inertia SPA
 import { Link } from '@inertiajs/vue3'
+//pacotes terceiros
+import Swal from 'sweetalert2'
 //components
-
 import * as components from './components';
 createInertiaApp({
   progress: {
@@ -29,6 +30,7 @@ createInertiaApp({
       .component('Link', Link)
       .component('simple-card', components.SimpleCard)
       .component('modal', components.Modal)
+      app.config.globalProperties.$alert = Swal;
     //   app.config.globalProperties.$route = route;
       app.mount(el)
 

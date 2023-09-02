@@ -25,7 +25,8 @@
                                 Lembrar-me
                             </label>
                         </div>
-                        <a href="#" class="link-danger" data-bs-toggle="modal" data-bs-target="#passwordRecovery">Esqueceu a senha?</a>
+                        <a href="#" class="link-danger" data-bs-toggle="modal" data-bs-target="#passwordRecovery">Esqueceu a
+                            senha?</a>
                     </div>
                 </div>
 
@@ -40,7 +41,8 @@
                 </div>
             </form>
         </simple-card>
-        <simple-card title="Formulário" sub_title="Cadastro" v-else-if="form_type_operation == dataTypeOperation.auth.register">
+        <simple-card title="Formulário" sub_title="Cadastro"
+            v-else-if="form_type_operation == dataTypeOperation.auth.register">
             <form method="POST">
                 <div class="form-row">
                     <div class="col-12">
@@ -84,11 +86,11 @@
     <modal title="Recuperar senha" id="passwordRecovery">
         <form action="" method="post">
             <label for="">Digite o email da sua conta</label>
-            <input type="email" class="form-control"/>
+            <input type="email" class="form-control" />
             <hr>
             <div class="w-100 d-flex justify-content-end">
                 <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary">Enviar email</button>
+                <button type="button" class="btn btn-primary" @click="alerts">Enviar email</button>
             </div>
         </form>
     </modal>
@@ -111,6 +113,14 @@ export default {
             setTimeout(() => {
                 this.form_type_operation = value;
             }, middle_time);
+        },
+        alerts() {
+            this.$alert.fire({
+                title: 'Error!',
+                text: 'Do you want to continue',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            })
         }
     }
 }
