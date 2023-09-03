@@ -9,6 +9,7 @@
     <title>List</title>
     @vite(['resources/sass/app.scss','bootstrap-icons/font/bootstrap-icons.css','resources/js/app.js'])
     @inertiaHead
+    @routes
 </head>
 <body>
     @inertia

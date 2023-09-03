@@ -23,6 +23,9 @@ export default defineConfig({
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm-bundler.js',
+            ziggy: '/vendor/tightenco/ziggy/src/js',
+            'ziggy-vue': '/vendor/tightenco/ziggy/src/js/vue'
+
         },
     },
 });

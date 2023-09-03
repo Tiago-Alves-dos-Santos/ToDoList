@@ -5,6 +5,7 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3'
 //pacotes terceiros
 import Swal from 'sweetalert2'
+
 //components
 import * as components from './components';
 createInertiaApp({
@@ -31,7 +32,7 @@ createInertiaApp({
       .component('simple-card', components.SimpleCard)
       .component('modal', components.Modal)
       app.config.globalProperties.$alert = Swal;
-    //   app.config.globalProperties.$route = route;
+      app.config.globalProperties.$route = route;
       app.mount(el)
 
   },

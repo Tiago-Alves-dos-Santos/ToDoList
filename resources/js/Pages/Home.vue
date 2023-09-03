@@ -122,6 +122,9 @@ export default {
                 confirmButtonText: 'Cool'
             })
         }
+    },
+    mounted(){
+        console.log(this.$route('index'));
     }
 }
 </script>
