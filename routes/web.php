@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Route::get('/', function(){
+//     return redirect()->route('register');
+// })->name('home_i');
 Route::get('/', [TaskController::class, 'index'])->name('index');
+Route::get('/home', function(){
+    return Inertia::render('Teste');
+})->middleware('auth')->name('home');

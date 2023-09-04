@@ -43,29 +43,29 @@
         </simple-card>
         <simple-card title="Formulário" sub_title="Cadastro"
             v-else-if="form_type_operation == dataTypeOperation.auth.register">
-            <form method="POST">
+            <form method="POST" @submit.prevent="create">
                 <div class="form-row">
                     <div class="col-12">
-                        <label for="">Email</label>
-                        <input type="text" class="form-control">
+                        <label for="">Nome</label>
+                        <input type="text" class="form-control" v-model="form.name">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12">
-                        <label for="">Nome</label>
-                        <input type="text" class="form-control">
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" v-model="form.email">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12">
                         <label for="">Senha</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" v-model="form.password">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12">
                         <label for="">Confirmar Senha</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" v-model="form.password_confirmation">
                     </div>
                 </div>
 
@@ -81,6 +81,7 @@
                 </div>
             </form>
         </simple-card>
+        <Link href="/home">teste</Link>
     </layout-auth>
 
     <modal title="Recuperar senha" id="passwordRecovery">
@@ -96,13 +97,23 @@
     </modal>
 </template>
 <script>
+import { router } from '@inertiajs/vue3';
 import TypeOperation from '../enums/TypeOperation';
 
 export default {
     data() {
         return {
             dataTypeOperation: TypeOperation,
-            form_type_operation: TypeOperation.auth.login
+            form_type_operation: TypeOperation.auth.login,
+            loads: {
+
+            },
+            form: {
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: ''
+            }
         }
     },
     methods: {
@@ -114,6 +125,16 @@ export default {
                 this.form_type_operation = value;
             }, middle_time);
         },
+        create() {
+            let route_url = '/register';
+            router.post(route_url, this.form, {
+                onSuccess: (page) => {
+                    this.$alert.fire('Sucesso');
+                    console.log(page);
+                }
+            });
+            console.log(this.form);
+        },
         alerts() {
             this.$alert.fire({
                 title: 'Error!',
@@ -123,8 +144,8 @@ export default {
             })
         }
     },
-    mounted(){
-        console.log(this.$route('index'));
+    mounted() {
+        // console.log(this.$route('index'));
     }
 }
 </script>
