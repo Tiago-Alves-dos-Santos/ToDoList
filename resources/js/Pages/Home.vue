@@ -81,7 +81,6 @@
                 </div>
             </form>
         </simple-card>
-        <Link href="/home">teste</Link>
     </layout-auth>
 
     <modal title="Recuperar senha" id="passwordRecovery">

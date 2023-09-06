@@ -107,5 +107,18 @@ return [
     */
 
     'password_timeout' => 10800,
+    /*
+    |--------------------------------------------------------------------------
+    | Email Confirmation Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the amount of minutes before a email confirmation
+    |
+    */
+
+    'verification' => [
+        'expire' => 30,
+    ],
+
 
 ];

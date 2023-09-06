@@ -21,3 +21,7 @@ Route::get('/', [TaskController::class, 'index'])->name('index');
 Route::get('/home', function(){
     return Inertia::render('Teste');
 })->middleware('auth')->name('home');
+
+Route::get('/email', function(){
+    return view('email.verify_email');
+});
