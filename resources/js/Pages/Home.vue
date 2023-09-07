@@ -48,24 +48,36 @@
                     <div class="col-12">
                         <label for="">Nome</label>
                         <input type="text" class="form-control" v-model="form.name">
+                        <div class="text-danger" v-if="errors.name">
+                            {{ errors.name }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12">
                         <label for="">Email</label>
                         <input type="email" class="form-control" v-model="form.email">
+                        <div class="text-danger" v-if="errors.email">
+                            {{ errors.email }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12">
                         <label for="">Senha</label>
                         <input type="password" class="form-control" v-model="form.password">
+                        <div class="text-danger" v-if="errors.password">
+                            {{ errors.password }}
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-12">
                         <label for="">Confirmar Senha</label>
                         <input type="password" class="form-control" v-model="form.password_confirmation">
+                        <div class="text-danger" v-if="errors.password_confirmation">
+                            {{ errors.password_confirmation }}
+                        </div>
                     </div>
                 </div>
 
@@ -115,6 +127,9 @@ export default {
             }
         }
     },
+    props: {
+        errors: Object
+    },
     methods: {
         toggleForm() {
             let middle_time = (0.75 / 2) * 1000;//(time-toggle-direction(animations.scss) / 2)*1000
@@ -132,7 +147,7 @@ export default {
                     console.log(page);
                 }
             });
-            console.log(this.form);
+            // console.log(this.form);
         },
         alerts() {
             this.$alert.fire({
@@ -144,7 +159,7 @@ export default {
         }
     },
     mounted() {
-        // console.log(this.$route('index'));
+        // console.log(this.errors);
     }
 }
 </script>

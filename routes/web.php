@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\TaskController;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Auth\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +16,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/', function(){
-//     return redirect()->route('register');
-// })->name('home_i');
+//auth_fortify
 Route::get('/', [TaskController::class, 'index'])->name('index');
-Route::get('/home', function(){
-    return Inertia::render('Teste');
-})->middleware('auth')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/email', function(){
-    return view('email.verify_email');
-});
