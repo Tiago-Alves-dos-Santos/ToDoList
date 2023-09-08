@@ -6,8 +6,8 @@
                 <div class="col-md-12">
                     <div v-if="!verified_email">
                         <div class="alert alert-warning d-flex justify-content-center align-items-center" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="font-size: 30px;" role="img"
-                                aria-label="Warning:"></i>
+                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="font-size: 30px;"
+                                role="img" aria-label="Warning:"></i>
                             <div>
                                 <p>
                                     Confirme seu email! Novo login não sera permitido caso email não confirmado! <br>
@@ -42,7 +42,7 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <simple-card title="Gráfico" class="bg-white w-100">
+                    <simple-card :title="`Gráfico mensal: ${monthNowFormat}` " class="bg-white w-100">
 
                     </simple-card>
                 </div>
@@ -56,6 +56,14 @@ export default {
     data() {
         return {
 
+        }
+    },
+    computed: {
+        monthNowFormat() {
+            let date = new Date();
+            let month = date.getMonth() + 1;
+            const formattedMonth = month < 10 ? `0${month}` : month.toString();
+            return formattedMonth+"/"+date.getFullYear();
         }
     },
     props: {

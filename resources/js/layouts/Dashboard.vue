@@ -32,6 +32,12 @@
                     </li>
                     <li>
                         <a href="">
+                            <i class="bi bi-filetype-pdf"></i>
+                            Relatorio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
                             <i class="bi bi-person-fill-gear"></i>
                             Perfil
                         </a>
