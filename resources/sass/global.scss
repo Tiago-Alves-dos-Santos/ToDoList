@@ -3,12 +3,17 @@
     padding: 0;
 }
 body{
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 div{
-    // position: relative;
     box-sizing: border-box;
 }
 .pointer{
     cursor: pointer;
+}
+
+/**************REESCRITA BS***************/
+.dropdown-item:hover, .dropdown-item:focus {
+    color: white;
+    background-color: $theme-primary;
 }

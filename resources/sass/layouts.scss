@@ -37,3 +37,48 @@ div#layout-auth {
         }
     }
 }
+/********************************************LAYOUT DASHBOARD*************************************************/
+div#layout-dashboard{
+    div.myNavbar{
+        width: 100%;
+        background-color: $theme-primary;
+        color: white;
+        div.container{
+            position: relative;
+            padding: 5px 0 3px 0;
+            h3{
+                line-height: 30px;
+            }
+        }
+        a{ //menu hamburger
+            position: absolute;
+            left: 3px;
+            top: 0px;
+            font-size: 30px;
+            color: inherit;
+        }
+    }
+    div.offcanvas-body{
+        ul{
+            list-style-type: none;
+            padding: 0;
+            a{
+                display: block;
+                margin: 3px 0;
+                padding: 5px 10px;
+                color: #bababa;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 20px;
+                &:hover{
+                    color: white;
+                    background-color: $theme-primary;
+                }
+            }
+            a.logout{
+                color: white;
+                background-color: red;
+            }
+        }
+    }
+}

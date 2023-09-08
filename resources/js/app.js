@@ -27,6 +27,7 @@ createInertiaApp({
       .use(plugin)
       //layouts
       .component('layout-auth', components.AuthLayout)
+      .component('layout-dashboard', components.DashboardLayout)
       //components
       .component('Link', Link)
       .component('simple-card', components.SimpleCard)
