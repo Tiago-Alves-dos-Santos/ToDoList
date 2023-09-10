@@ -1,13 +1,12 @@
 <template>
-    <div>
-        <layout-dashboard>
-
+    <layout-dashboard>
+        <div id="auth-home" class="w-100">
             <div class="row">
                 <div class="col-md-12">
                     <div v-if="!verified_email">
                         <div class="alert alert-warning d-flex justify-content-center align-items-center" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="font-size: 30px;"
-                                role="img" aria-label="Warning:"></i>
+                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="font-size: 30px;" role="img"
+                                aria-label="Warning:"></i>
                             <div>
                                 <p>
                                     Confirme seu email! Novo login não sera permitido caso email não confirmado! <br>
@@ -25,31 +24,24 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <simple-card title="Tarefas total" class="bg-white w-100">
-
-                    </simple-card>
+                    <icon-card title="Tarefas Total" icon="bi bi-database" text="35" class="hover-yellow"></icon-card>
                 </div>
                 <div class="col-md-4">
-                    <simple-card title="Tarefas concluidas" class="bg-white w-100">
-
-                    </simple-card>
+                    <icon-card title="Tarefas Concluidas" icon="bi bi-database-check" text="35" class="hover-green"></icon-card>
                 </div>
                 <div class="col-md-4">
-                    <simple-card title="Tarefas excluidas" class="bg-white w-100">
-
-                    </simple-card>
+                    <icon-card title="Tarefas Excluidas" icon="bi bi-database-fill-dash" text="35" class="hover-red"></icon-card>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <simple-card :title="`Gráfico mensal: ${monthNowFormat}` " class="bg-white w-100">
+                    <simple-card :title="`Gráfico mensal: ${monthNowFormat}`" class="bg-white w-100">
 
                     </simple-card>
                 </div>
             </div>
-        </layout-dashboard>
-
-    </div>
+        </div>
+    </layout-dashboard>
 </template>
 <script>
 export default {
@@ -63,7 +55,7 @@ export default {
             let date = new Date();
             let month = date.getMonth() + 1;
             const formattedMonth = month < 10 ? `0${month}` : month.toString();
-            return formattedMonth+"/"+date.getFullYear();
+            return formattedMonth + "/" + date.getFullYear();
         }
     },
     props: {

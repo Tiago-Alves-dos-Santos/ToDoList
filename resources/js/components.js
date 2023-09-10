@@ -4,6 +4,7 @@ import DashboardLayout from './layouts/Dashboard.vue';
 //components
 import SimpleCard from './components/SimpleCard.vue';
 import Modal from './components/Modal.vue';
+import IconCard from './components/IconCard.vue';
 
 
 export {
@@ -12,5 +13,6 @@ export {
     DashboardLayout,
     //components
     SimpleCard,
-    Modal
+    Modal,
+    IconCard
 }

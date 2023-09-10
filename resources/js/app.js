@@ -31,6 +31,7 @@ createInertiaApp({
       //components
       .component('Link', Link)
       .component('simple-card', components.SimpleCard)
+      .component('icon-card', components.IconCard)
       .component('modal', components.Modal)
       app.config.globalProperties.$alert = Swal;
       app.config.globalProperties.$route = route;
