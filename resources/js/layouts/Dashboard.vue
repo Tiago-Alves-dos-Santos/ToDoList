@@ -19,7 +19,7 @@
             <div class="offcanvas-body">
                 <ul>
                     <li>
-                        <a href="">
+                        <a href="" class="active">
                             <i class="bi bi-speedometer2"></i>
                             Dashboard
                         </a>
@@ -38,7 +38,7 @@
                     </li>
                     <li>
                         <a href="">
-                            <i class="bi bi-person-fill-gear"></i>
+                            <i class="bi bi-person-gear"></i>
                             Perfil
                         </a>
                     </li>

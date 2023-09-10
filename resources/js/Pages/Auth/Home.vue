@@ -30,7 +30,7 @@
                     <icon-card title="Tarefas Concluidas" icon="bi bi-database-check" text="35" class="hover-green"></icon-card>
                 </div>
                 <div class="col-md-4">
-                    <icon-card title="Tarefas Excluidas" icon="bi bi-database-fill-dash" text="35" class="hover-red"></icon-card>
+                    <icon-card title="Tarefas Excluidas" icon="bi bi-database-dash" text="35" class="hover-red"></icon-card>
                 </div>
             </div>
             <div class="row mt-2">
