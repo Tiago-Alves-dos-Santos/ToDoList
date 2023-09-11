@@ -128,7 +128,8 @@ export default {
         }
     },
     props: {
-        errors: Object
+        errors: Object,
+        routes_fortify: Object
     },
     methods: {
         toggleForm() {
@@ -140,7 +141,7 @@ export default {
             }, middle_time);
         },
         create() {
-            let route_url = '/register';
+            let route_url = this.routes_fortify.register;
             router.post(route_url, this.form, {
                 onSuccess: (page) => {
                     this.$alert.fire('Sucesso');

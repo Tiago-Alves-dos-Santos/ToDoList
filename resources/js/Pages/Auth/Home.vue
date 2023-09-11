@@ -63,11 +63,12 @@ export default {
     props: {
         verified_email: Boolean,
         email_time_expiration: Number,
+        routes_fortify: Object
     },
     methods: {
         sendMail() {
-            let url = this.$route('teste');
-            router.get(url, {}, {
+            let url = this.routes_fortify.verificationSend;
+            router.post(url, {}, {
                 onError: (errors) => {
                     console.log(errors);
                     this.$alert.fire(
@@ -76,6 +77,10 @@ export default {
                         'error'
                     )
                 },
+                onSuccess: page => {
+                    alert('sucesso')
+                },
+
 
             });
             console.log('envio ' + url)

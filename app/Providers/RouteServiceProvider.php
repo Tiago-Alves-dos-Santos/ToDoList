@@ -48,10 +48,10 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
-        RateLimiter::for('three-per-minute', function (Request $request) {
-            return Limit::perMinute(3,1)->response(function(){
-                return back()->withErrors(['error' => 'Limite de taxa excedido. Tente novamente mais tarde.']);
-            });
-        });
+        // RateLimiter::for('three-per-minute', function (Request $request) {
+        //     return Limit::perMinutes(3,1)->response(function(){
+        //         return back()->withErrors(['error' => 'Limite de taxa excedido. Tente novamente mais tarde.']);
+        //     });
+        // });
     }
 }

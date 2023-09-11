@@ -17,9 +17,5 @@ use Illuminate\Http\Request;
 */
 //auth_fortify
 Route::get('/', [TaskController::class, 'index'])->name('index');
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/teste/tes', function(Request $request){
-    // dd('teste rate limit');
-    echo 'teste rate limit';
-})->middleware('throttle:three-per-minute')->name('teste');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
