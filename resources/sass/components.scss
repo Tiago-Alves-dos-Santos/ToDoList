@@ -55,6 +55,9 @@ $colors-card-task: (
             div{
                 h1 {
                     color: white;
+                    &::after{
+                        background-color: white !important;
+                    }
                 }
             }
         }

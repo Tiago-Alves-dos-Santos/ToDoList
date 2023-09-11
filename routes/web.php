@@ -1,10 +1,9 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\Auth\PageController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +18,8 @@ use App\Http\Controllers\Auth\PageController;
 //auth_fortify
 Route::get('/', [TaskController::class, 'index'])->name('index');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/teste/tes', function(Request $request){
+    // dd('teste rate limit');
+    echo 'teste rate limit';
+})->middleware('throttle:three-per-minute')->name('teste');
 
