@@ -3,7 +3,7 @@
         <!-- Navbar -->
         <div class="myNavbar shadow">
             <div class="container">
-                <a  href="#sideMenu" data-bs-toggle="offcanvas">
+                <a href="#sideMenu" data-bs-toggle="offcanvas">
                     <i class="bi bi-list"></i>
                 </a>
                 <h3 class="text-center">Titulo</h3>
@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="logout">
+                        <a @click="logout" class="logout">
                             <i class="bi bi-box-arrow-left"></i>
                             Sair
                         </a>
@@ -59,7 +59,18 @@
     </div>
 </template>
 <script>
-export default {
+import { router } from '@inertiajs/vue3';
 
+export default {
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        logout(){
+            router.post('/logout');
+        }
+    }
 }
 </script>

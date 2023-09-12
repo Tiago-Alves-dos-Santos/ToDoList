@@ -70,6 +70,7 @@ div#layout-dashboard{
                 border-radius: 5px;
                 text-decoration: none;
                 font-size: 20px;
+                cursor: pointer;
                 &:hover, &.active{
                     color: white;
                     background-color: $theme-primary;
