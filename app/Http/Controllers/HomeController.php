@@ -10,7 +10,7 @@ use Inertia\Response;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
