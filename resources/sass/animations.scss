@@ -1,0 +1,52 @@
+@keyframes left-to-right{
+    0%{
+        transform: translate(0%);
+    }
+    100%{
+        transform: translate(100%);
+    }
+}
+@keyframes left-to-right-back{
+    0%{
+        transform: translate(100%);
+    }
+    100%{
+        transform: translate(0%);
+    }
+}
+@keyframes right-to-left{
+    0%{
+        transform: translate(0%);
+    }
+    100%{
+        transform: translate(-100%);
+    }
+}
+@keyframes right-to-left-back{
+    0%{
+        transform: translate(-100%);
+    }
+    100%{
+        transform: translate(0%);
+    }
+}
+
+.animation-right-to-left{
+    animation: right-to-left $time-toggle-direction linear 1 normal;
+    animation-fill-mode: forwards;
+}
+
+.animation-right-to-left-back{
+    animation: right-to-left-back $time-toggle-direction linear 1 normal;
+    animation-fill-mode: forwards;
+}
+
+.animation-left-to-right{
+    animation: left-to-right $time-toggle-direction linear 1 normal;
+    animation-fill-mode: forwards;
+}
+.animation-left-to-right-back{
+    animation: left-to-right-back $time-toggle-direction linear 1 normal;
+    animation-fill-mode: forwards;
+}
+

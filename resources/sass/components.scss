@@ -1,0 +1,80 @@
+/*******************************ICON CARD******************************/
+div.container-task-card {
+    background-color: white;
+    margin-top: 3px;
+    cursor: pointer;
+
+    div.task-card {
+        display: flex;
+
+        div.icon {
+            position: absolute;
+            left: 3px;
+            top: calc(25% + 2px);
+
+            h1 {
+                font-size: 60px;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: -10px;
+                    bottom: 0;
+                    display: inline-block;
+                    width: 3px;
+                    height: 90%;
+                    background-color: #d6d6d6;
+                }
+            }
+        }
+
+        div.text {
+            width: 100%;
+            text-align: center;
+
+            h1 {
+                font-size: 60px;
+            }
+        }
+    }
+}
+
+$colors-card-task: (
+    "yellow": linear-gradient(170deg, rgba(247,216,3,1) 3%, rgba(252,254,34,1) 99%),
+    "green": linear-gradient(170deg, rgba(135,249,9,1) 3%, rgba(197,242,4,1) 99%),
+    "red": linear-gradient(170deg, rgba(249,20,9,1) 3%, rgba(242,164,4,1) 99%),
+);
+
+@mixin hover_color($color_name, $color){
+    div.container-task-card.hover-#{$color_name} {
+        &:hover {
+            h5{
+                color: white;
+            }
+            background: $color;
+            div{
+                h1 {
+                    color: white;
+                    &::after{
+                        background-color: white !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@each $color_name,
+$color in $colors-card-task {
+    @if $color_name =="yellow" {
+        @include hover_color($color_name, $color);
+    }
+
+    @else if $color_name =="green" {
+        @include hover_color($color_name, $color);
+    }
+
+    @else if $color_name =="red" {
+        @include hover_color($color_name, $color);
+    }
+}

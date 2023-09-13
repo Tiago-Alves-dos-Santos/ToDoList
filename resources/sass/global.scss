@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow-x: hidden !important;
+}
+div{
+    box-sizing: border-box;
+}
+.pointer{
+    cursor: pointer;
+}
+
+/**************REESCRITA BS***************/
+.dropdown-item:hover, .dropdown-item:focus {
+    color: white;
+    background-color: $theme-primary;
+}
