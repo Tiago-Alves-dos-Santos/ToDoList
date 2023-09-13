@@ -43,7 +43,8 @@
                             <i class="bi bi-arrow-left"></i>
                             Cadastrar
                         </a>
-                        <button-load text="Login" :load="loads.form_login" class="btn btn-success" type="submit"></button-load>
+                        <button-load text="Login" :load="loads.form_login" class="btn btn-success"
+                            type="submit"></button-load>
                     </div>
                 </div>
             </form>
@@ -91,7 +92,8 @@
 
                 <div class="form-row mt-2">
                     <div class="col-12" style="display: flex; justify-content: space-between;">
-                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                        <button-load text="Cadastrar" :load="loads.form" class="btn btn-success"
+                            type="submit"></button-load>
                         <a class="icon-link" href="#" @click="toggleForm">
                             Login
                             <i class="bi bi-arrow-right"></i>
@@ -124,8 +126,8 @@ export default {
             dataTypeOperation: TypeOperation,
             form_type_operation: TypeOperation.auth.login,
             loads: {
-                form_login:false,
-                form:false //form_create
+                form_login: false,
+                form: false //form_create
             },
             form_login: {
                 email: '',
@@ -157,9 +159,11 @@ export default {
         create() {
             let route_url = this.routes_fortify.register;
             router.post(route_url, this.form, {
-                onSuccess: (page) => {
-                    this.$alert.fire('Sucesso');
-                    console.log(page);
+                onStart: () => {
+                    this.loads.form = true;
+                },
+                onFinish: () => {
+                    this.loads.form = false;
                 }
             });
         },
@@ -170,9 +174,15 @@ export default {
                 onStart: () => {
                     this.loads.form_login = true;
                 },
-                onSuccess: (page) => {
-                    this.$alert.fire('Sucesso');
-                    console.log(page);
+                onError: (errors) => {
+                    if (errors.email_verify) {
+                        this.$alert.fire({
+                            title: 'Error!',
+                            text: errors.email_verify,
+                            icon: 'error',
+                            confirmButtonText: 'Cool'
+                        })
+                    }
                 },
                 onFinish: () => {
                     this.loads.form_login = false;

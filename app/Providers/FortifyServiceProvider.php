@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\User;
-use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
@@ -15,6 +14,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -41,14 +41,21 @@ class FortifyServiceProvider extends ServiceProvider
 
             $user = User::where('email', $request->email)->first();
             $remember_me = (bool)$request->remember_me;
-            if ($user && Hash::check($request->password, $user->password) && $user->hasVerifiedEmail()) {
-                $user = Auth::guard('web')->login($user, $remember_me);
-                if(Auth::viaRemember()){
-                    //colocar cokkies aq
+            if ($user && Hash::check($request->password, $user->password)) {
+                if(!$user->hasVerifiedEmail()){
+                    throw ValidationException::withMessages([
+                        'email_verify' => 'Seu email não foi verficado! Sua conta sera excluida após o prazo do email.',
+                    ]);
                 }else{
-                    //remover cokkies
+                    $user = Auth::guard('web')->login($user, $remember_me);
+                    if(Auth::viaRemember()){
+                        //colocar cokkies aq
+                    }else{
+                        //remover cokkies
+                    }
+                    return $user;
                 }
-                return $user;
+
             }
         });
 
