@@ -19,10 +19,10 @@
             <div class="offcanvas-body">
                 <ul>
                     <li>
-                        <a href="" class="active">
+                        <Link href="/dashboard" class="active">
                             <i class="bi bi-speedometer2"></i>
                             Dashboard
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="">
@@ -37,10 +37,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <Link href="/user/">
                             <i class="bi bi-person-gear"></i>
                             Perfil
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a @click="logout" class="logout">

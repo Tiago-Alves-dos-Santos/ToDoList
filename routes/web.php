@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -17,5 +18,11 @@ use Illuminate\Http\Request;
 */
 //auth_fortify
 Route::get('/', [TaskController::class, 'index'])->name('index');
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware('auth')->name('dashboard');
+
+Route::prefix("/user")->group(function(){
+    //pagina inicial do barra app
+    Route::get('/', [UserController::class, 'profile'])->name('user.profile');
+});
+
 
