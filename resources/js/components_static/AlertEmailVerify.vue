@@ -48,7 +48,7 @@ export default {
                     this.$alert.fire(
                         'Sucesso!',
                         'E-mail enviado! Verfique seu e-mail!',
-                        'error'
+                        'success'
                     );
                 },
             });

@@ -32,9 +32,6 @@
                     </simple-card>
                     <simple-card title="Ações" class="w-100 mt-3 bg-white">
                         <div class="actions-users">
-                            <div class="update-password" @click="redirectUpdatePassword">
-                                Atualizar Senha
-                            </div>
                             <div class="two-factor-authenticate disable">
                                 2FA
                             </div>
@@ -89,7 +86,6 @@ export default {
             });
         },
         redirectUpdatePassword(){
-            // window.location.href = this.routes_fortify.forgot_password;
         }
     }
 }

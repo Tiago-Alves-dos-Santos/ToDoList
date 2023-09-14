@@ -140,7 +140,18 @@ export default {
     methods: {
         toggleForm() {
             let middle_time = (0.75 / 2) * 1000;//(time-toggle-direction(animations.scss) / 2)*1000
-            let value = this.form_type_operation == this.dataTypeOperation.auth.login ? this.dataTypeOperation.auth.register : this.dataTypeOperation.auth.login;
+            let value = null;
+            if(this.form_type_operation == this.dataTypeOperation.auth.login){
+                value = this.dataTypeOperation.auth.register;
+                router.visit('/register', {
+                    preserveState:true
+                });
+            }else{
+                value = this.dataTypeOperation.auth.login;
+                router.visit('/login', {
+                    preserveState:true
+                });
+            }
             this.$refs.layout_auth.loadAnimationToggleDirection(value);
             setTimeout(() => {
                 this.$page.props.errors = {};
