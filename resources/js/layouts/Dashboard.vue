@@ -19,7 +19,7 @@
             <div class="offcanvas-body">
                 <ul>
                     <li>
-                        <Link href="/dashboard" class="active">
+                        <Link :href="this.$route('dashboard')" class="active">
                             <i class="bi bi-speedometer2"></i>
                             Dashboard
                         </Link>
@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li>
-                        <Link href="/user/">
+                        <Link :href="this.$route('user.viewProfile')">
                             <i class="bi bi-person-gear"></i>
                             Perfil
                         </Link>
@@ -67,9 +67,10 @@ export default {
 
         }
     },
+
     methods: {
         logout(){
-            router.post('/logout');
+            router.post(this.$page.props.routes_fortify.logout);
         }
     }
 }

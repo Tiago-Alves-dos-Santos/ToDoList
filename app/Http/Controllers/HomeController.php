@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\RoutesFortify;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
+use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-        $email_time_expiration = config('auth.verification.expire');
-        return Inertia::render('Auth/Home',[
-            'verified_email' => $user->hasVerifiedEmail(),
-            'email_time_expiration' => $email_time_expiration,
-        ]);
+        return $this->homeUser($request);
+    }
+
+    private function homeUser(Request $request,array $data = []): Response
+    {
+        return Inertia::render('Auth/Home', $data);
     }
 
 }

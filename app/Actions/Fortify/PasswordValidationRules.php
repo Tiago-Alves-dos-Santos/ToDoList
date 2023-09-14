@@ -12,10 +12,11 @@ trait PasswordValidationRules
      *
      * @return array<int, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    protected function passwordRules(): array
+    protected function passwordRules($confirmed = true): array
     {
         $password = new Password();
         $password->length(5);
-        return ['required', 'string', $password, 'confirmed'];
+        $confirmed ? 'confirmed':'';
+        return ['required', 'string', $password, $confirmed];
     }
 }

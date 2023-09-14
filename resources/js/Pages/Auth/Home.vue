@@ -2,28 +2,6 @@
     <layout-dashboard>
         <div id="auth-home" class="w-100">
             <div class="row">
-                <div class="col-md-12">
-                    <div v-if="!verified_email">
-                        <div class="alert alert-warning d-flex justify-content-center align-items-center" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="font-size: 30px;"
-                                role="img" aria-label="Warning:"></i>
-                            <div>
-                                <p>
-                                    Confirme seu email! Novo login não sera permitido caso email não confirmado! <br>
-                                    Você tera apenas {{ email_time_expiration }} minutos para confirmar seu email!<br>
-                                    Você tera uma tentativa a cada 3 minutos
-                                </p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p> Reenviar email: </p>
-                                    <a class="btn btn-primary d-inline-block" @click="sendMail">Reenviar email</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <icon-card title="Tarefas Total" icon="bi bi-database" text="35" class="hover-yellow"></icon-card>
                 </div>
@@ -45,7 +23,6 @@
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
-
 export default {
     data() {
         return {
@@ -61,35 +38,10 @@ export default {
         }
     },
     props: {
-        verified_email: Boolean,
-        email_time_expiration: Number,
         routes_fortify: Object
     },
     methods: {
-        sendMail() {
-            let url = this.routes_fortify.verificationSend;
-            router.post(url, {}, {
-                onError: (errors) => {
-                    console.log(errors);
-                    this.$alert.fire(
-                        'Erro!',
-                        errors.error,
-                        'error'
-                    )
-                },
-                onSuccess: page => {
-                    alert('sucesso')
-                },
 
-
-            });
-            console.log('envio ' + url)
-            // this.$alert.fire(
-            //     'Enviar email!',
-            //     'You clicked the button!',
-            //     'success'
-            // )
-        }
     }
 }
 </script>
