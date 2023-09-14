@@ -12,6 +12,7 @@ use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Facades\FortifyViewFacade;
+use App\Models\User;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         Fortify::authenticateUsing(function (Request $request) {
-            return FortifyViewFacade::authenticateUsing($request);
+            return FortifyViewFacade::authenticateUsing($request, User::class);
         });
 
         Fortify::loginView(function (Request $request) {

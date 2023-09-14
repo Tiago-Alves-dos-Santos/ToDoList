@@ -8,6 +8,7 @@ use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
 
 final class FortifyView
@@ -38,29 +39,33 @@ final class FortifyView
     {
         return Inertia::render('Auth/ResetPassword');
     }
-    public function authenticateUsing(Request $request): mixed
+    public function authenticateUsing(Request $request, Model $model): mixed
     {
-        return $this->loginUser($request);
+        return $this->genericLogin($request, $model);
     }
 
-    private function loginUser(Request $request): mixed
+    private function genericLogin(Request $request, Model $model): mixed
     {
-        $user = User::where('email', $request->email)->first();
+        $user = $model::where('email', $request->email)->first();
         $remember_me = (bool)$request->remember_me;
+
         if ($user && Hash::check($request->password, $user->password)) {
             if (!$user->hasVerifiedEmail()) {
                 throw ValidationException::withMessages([
-                    'email_verify' => 'Seu email não foi verficado! Sua conta sera excluida após o prazo do email.',
+                    'email_verify' => 'Seu email não foi verificado! Sua conta será excluída após o prazo do email.',
                 ]);
             } else {
                 $user = Auth::guard('web')->login($user, $remember_me);
+
                 if (Auth::viaRemember()) {
-                    //colocar cokkies aq
+                    // Colocar cookies aqui
                 } else {
-                    //remover cokkies
+                    // Remover cookies aqui
                 }
+
                 return $user;
             }
         }
     }
+
 }
