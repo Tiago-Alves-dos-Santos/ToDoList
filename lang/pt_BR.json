@@ -129,5 +129,6 @@
   "click here to request another": "clique aqui para solicitar outro",
   "of": "de",
   "results": "resultados",
-  "to": "até"
+  "to": "até",
+  "The provided password does not match your current password.":"A senha fornecida não corresponde à sua senha atual."
 }

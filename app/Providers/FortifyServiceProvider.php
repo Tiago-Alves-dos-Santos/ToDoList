@@ -35,7 +35,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         Fortify::authenticateUsing(function (Request $request) {
-            return FortifyViewFacade::authenticateUsing($request, User::class);
+            return FortifyViewFacade::authenticateUsing($request, app(User::class));
         });
 
         Fortify::loginView(function (Request $request) {

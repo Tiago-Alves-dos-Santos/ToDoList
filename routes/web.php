@@ -17,7 +17,10 @@ use Illuminate\Http\Request;
 |
 */
 //auth_fortify
-Route::get('/', [TaskController::class, 'index'])->name('index');
+Route::get('/', function(){
+    $routes_fortify = (object)routesFortify();
+    return redirect($routes_fortify->login);
+})->name('index');
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
 Route::prefix("/user")->group(function(){
     Route::get('/', [UserController::class, 'viewProfile'])->name('user.viewProfile');
