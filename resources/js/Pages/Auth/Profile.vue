@@ -3,8 +3,8 @@
         <div id="auth-profile">
             <div class="row">
                 <div class="col-md-12">
-                    <send-email :verified_email="verified_email" :email_time_expiration="email_time_expiration"
-                        :routes_fortify="routes_fortify"></send-email>
+                    <alert-email-verify :verified_email="verified_email" :email_time_expiration="email_time_expiration"
+                        :routes_fortify="routes_fortify"></alert-email-verify>
                 </div>
             </div>
             <div class="row">
@@ -53,7 +53,7 @@
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
-import SendEmailAlert from '../../components_static/SendEmailAlert.vue';
+import AlertEmailVerify from '../../components_static/AlertEmailVerify.vue';
 export default {
     data() {
         return {
@@ -63,7 +63,7 @@ export default {
         }
     },
     components: {
-        'send-email': SendEmailAlert
+        'alert-email-verify': AlertEmailVerify
     },
     computed: {
         user() {
