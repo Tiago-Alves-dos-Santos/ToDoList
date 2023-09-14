@@ -3,13 +3,13 @@
         <div id="auth-profile">
             <div class="row">
                 <div class="col-md-12">
-                    <send-email :verified_email="verified_email"
-                        :email_time_expiration="email_time_expiration" :routes_fortify="routes_fortify"></send-email>
+                    <send-email :verified_email="verified_email" :email_time_expiration="email_time_expiration"
+                        :routes_fortify="routes_fortify"></send-email>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <simple-card title="Seu perfil" class="w-100">
+                    <simple-card title="Seu perfil" class="w-100 bg-white">
                         <form @submit.prevent="update">
                             <div class="form-row">
                                 <div class="col-md-12">
@@ -36,6 +36,16 @@
                             </div>
                         </form>
                     </simple-card>
+                    <simple-card title="Ações" class="w-100 mt-3 bg-white">
+                        <div class="actions-users">
+                            <div class="update-password">
+                                Atualizar Senha
+                            </div>
+                            <div class="two-factor-authenticate disable">
+                                2FA
+                            </div>
+                        </div>
+                    </simple-card>
                 </div>
             </div>
         </div>
@@ -53,7 +63,7 @@ export default {
         }
     },
     components: {
-        'send-email':SendEmailAlert
+        'send-email': SendEmailAlert
     },
     computed: {
         user() {

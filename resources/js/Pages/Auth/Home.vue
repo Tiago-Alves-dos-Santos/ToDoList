@@ -53,24 +53,7 @@ export default {
         routes_fortify: Object
     },
     methods: {
-        sendMail() {
-            let url = this.routes_fortify.verificationSend;
-            router.post(url, {}, {
-                onError: (errors) => {
-                    console.log(errors);
-                    this.$alert.fire(
-                        'Erro!',
-                        errors.error,
-                        'error'
-                    )
-                },
-                onSuccess: page => {
-                    alert('sucesso')
-                },
 
-
-            });
-        }
     }
 }
 </script>

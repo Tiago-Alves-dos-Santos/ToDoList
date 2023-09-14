@@ -36,20 +36,21 @@ export default {
     },
     methods:{
         sendMail() {
-            let url = this.routes_fortify.verificationSend;
-            router.post(url, {}, {
+            router.post(this.routes_fortify.verificationSend, {}, {
                 onError: (errors) => {
                     this.$alert.fire(
                         'Erro!',
                         errors.error,
                         'error'
-                    )
+                    );
                 },
-                onSuccess: page => {
-                    alert('sucesso')
+                onSuccess: () => {
+                    this.$alert.fire(
+                        'Sucesso!',
+                        'E-mail enviado! Verfique seu e-mail!',
+                        'error'
+                    );
                 },
-
-
             });
         }
     }
