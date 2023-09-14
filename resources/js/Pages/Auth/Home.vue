@@ -2,12 +2,6 @@
     <layout-dashboard>
         <div id="auth-home" class="w-100">
             <div class="row">
-                <div class="col-md-12">
-                    <alert-email-verify :verified_email="verified_email" :email_time_expiration="email_time_expiration"
-                        :routes_fortify="routes_fortify"></alert-email-verify>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <icon-card title="Tarefas Total" icon="bi bi-database" text="35" class="hover-yellow"></icon-card>
                 </div>
@@ -29,15 +23,11 @@
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
-import AlertEmailVerify from '../../components_static/AlertEmailVerify.vue';
 export default {
     data() {
         return {
 
         }
-    },
-    components: {
-        'alert-email-verify': AlertEmailVerify
     },
     computed: {
         monthNowFormat() {
@@ -48,8 +38,6 @@ export default {
         }
     },
     props: {
-        verified_email: Boolean,
-        email_time_expiration: Number,
         routes_fortify: Object
     },
     methods: {

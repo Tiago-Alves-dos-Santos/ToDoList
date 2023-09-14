@@ -32,8 +32,8 @@
                                 Lembrar-me
                             </label>
                         </div>
-                        <a href="#" class="link-danger" data-bs-toggle="modal" data-bs-target="#passwordRecovery">Esqueceu a
-                            senha?</a>
+                        <Link href="/forgot-password" class="link-danger">Esqueceu a
+                            senha?</Link>
                     </div>
                 </div>
 
@@ -104,17 +104,6 @@
         </simple-card>
     </layout-auth>
 
-    <modal title="Recuperar senha" id="passwordRecovery">
-        <form action="" method="post">
-            <label for="">Digite o email da sua conta</label>
-            <input type="email" class="form-control" />
-            <hr>
-            <div class="w-100 d-flex justify-content-end">
-                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" @click="alerts">Enviar email</button>
-            </div>
-        </form>
-    </modal>
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
@@ -127,7 +116,8 @@ export default {
             form_type_operation: TypeOperation.auth.login,
             loads: {
                 form_login: false,
-                form: false //form_create
+                form: false, //form_create
+                forgot_password: false
             },
             form_login: {
                 email: '',
@@ -139,7 +129,8 @@ export default {
                 email: '',
                 password: '',
                 password_confirmation: ''
-            }
+            },
+            forgot_password_email:''
         }
     },
     props: {
@@ -169,7 +160,6 @@ export default {
         },
         login() {
             let route_url = this.routes_fortify.login;
-            console.log('login')
             router.post(route_url, this.form_login, {
                 onStart: () => {
                     this.loads.form_login = true;
@@ -189,14 +179,6 @@ export default {
                 }
             });
         },
-        alerts() {
-            this.$alert.fire({
-                title: 'Error!',
-                text: 'Do you want to continue',
-                icon: 'error',
-                confirmButtonText: 'Cool'
-            })
-        }
     },
     mounted() {
         // console.log(this.errors);

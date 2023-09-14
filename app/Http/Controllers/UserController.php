@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function profile(): Response
+    public function viewProfile(): Response
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
@@ -18,5 +18,9 @@ class UserController extends Controller
             'verified_email' => $user->hasVerifiedEmail(),
             'email_time_expiration' => $email_time_expiration,
         ]);
+    }
+    public function viewUpdatePassword($token): Response
+    {
+        return Inertia::render('Auth/UpdatePassword');
     }
 }

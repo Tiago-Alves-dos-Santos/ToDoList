@@ -19,10 +19,10 @@
             <div class="offcanvas-body">
                 <ul>
                     <li>
-                        <Link href="/dashboard" class="active">
+                        <a href="" class="active">
                             <i class="bi bi-speedometer2"></i>
                             Dashboard
-                        </Link>
+                        </a>
                     </li>
                     <li>
                         <a href="">

@@ -16,9 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->afterResolving(EmailVerificationNotificationController::class, function ($controller) {
-            $controller->middleware('throttle:verification');
-        });
+        // $this->app->afterResolving(EmailVerificationNotificationController::class, function ($controller) {
+        //     $controller->middleware('throttle:verification');
+        // });
 
     }
 
