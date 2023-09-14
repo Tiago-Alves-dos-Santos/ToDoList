@@ -67,9 +67,12 @@ export default {
 
         }
     },
+    props:{
+        routes_fortify: Object,
+    },
     methods: {
         logout(){
-            router.post('/logout');
+            router.post(this.routes_fortify.logout);
         }
     }
 }

@@ -143,12 +143,12 @@ export default {
             let value = null;
             if(this.form_type_operation == this.dataTypeOperation.auth.login){
                 value = this.dataTypeOperation.auth.register;
-                router.visit('/register', {
+                router.visit(this.routes_fortify.register, {
                     preserveState:true
                 });
             }else{
                 value = this.dataTypeOperation.auth.login;
-                router.visit('/login', {
+                router.visit(this.routes_fortify.login, {
                     preserveState:true
                 });
             }
