@@ -19,10 +19,10 @@
             <div class="offcanvas-body">
                 <ul>
                     <li>
-                        <a href="" class="active">
+                        <Link :href="this.$route('dashboard')" class="active">
                             <i class="bi bi-speedometer2"></i>
                             Dashboard
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="">
@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li>
-                        <Link href="/user/">
+                        <Link :href="this.$route('user.viewProfile')">
                             <i class="bi bi-person-gear"></i>
                             Perfil
                         </Link>

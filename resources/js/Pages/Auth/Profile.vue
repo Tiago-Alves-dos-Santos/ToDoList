@@ -44,7 +44,6 @@
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
-import AlertEmailVerify from '../../components_static/AlertEmailVerify.vue';
 export default {
     data() {
         return {
@@ -52,9 +51,6 @@ export default {
                 form_profile: false
             }
         }
-    },
-    components: {
-        'alert-email-verify': AlertEmailVerify
     },
     computed: {
         user() {
