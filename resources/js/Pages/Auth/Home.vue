@@ -3,24 +3,8 @@
         <div id="auth-home" class="w-100">
             <div class="row">
                 <div class="col-md-12">
-                    <div v-if="!verified_email">
-                        <div class="alert alert-warning d-flex justify-content-center align-items-center" role="alert">
-                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="font-size: 30px;"
-                                role="img" aria-label="Warning:"></i>
-                            <div>
-                                <p>
-                                    Confirme seu email! Novo login não sera permitido caso email não confirmado! <br>
-                                    Você tera apenas {{ email_time_expiration }} minutos para confirmar seu email!<br>
-                                    Você tera uma tentativa a cada 3 minutos
-                                </p>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <p> Reenviar email: </p>
-                                    <a class="btn btn-primary d-inline-block" @click="sendMail">Reenviar email</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <send-email :verified_email="verified_email" :email_time_expiration="email_time_expiration"
+                        :routes_fortify="routes_fortify"></send-email>
                 </div>
             </div>
             <div class="row">
@@ -45,12 +29,15 @@
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
-
+import SendEmailAlert from '../../components_static/SendEmailAlert.vue';
 export default {
     data() {
         return {
 
         }
+    },
+    components: {
+        'send-email': SendEmailAlert
     },
     computed: {
         monthNowFormat() {
@@ -83,12 +70,6 @@ export default {
 
 
             });
-            console.log('envio ' + url)
-            // this.$alert.fire(
-            //     'Enviar email!',
-            //     'You clicked the button!',
-            //     'success'
-            // )
         }
     }
 }

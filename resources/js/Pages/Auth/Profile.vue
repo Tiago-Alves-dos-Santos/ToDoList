@@ -2,9 +2,15 @@
     <layout-dashboard>
         <div id="auth-profile">
             <div class="row">
+                <div class="col-md-12">
+                    <send-email :verified_email="verified_email"
+                        :email_time_expiration="email_time_expiration" :routes_fortify="routes_fortify"></send-email>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-12">
                     <simple-card title="Seu perfil" class="w-100">
-                        <form>
+                        <form @submit.prevent="update">
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <label for="">Nome</label>
@@ -15,7 +21,7 @@
                                 <div class="col-md-12">
                                     <label for="">
                                         Email -
-                                        <span :class="[user.email_verified_at ? 'text-success' : 'text-danger']">
+                                        <span :class="['fw-bold', user.email_verified_at ? 'text-success' : 'text-danger']">
                                             {{ user.email_verified_at ? 'Verificado' : 'Não verificado' }}
                                         </span>
                                     </label>
@@ -24,23 +30,62 @@
                             </div>
                             <div class="form-row mt-2">
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button-load text="Salvar" class="btn btn-success" type="submit"></button-load>
+                                    <button-load text="Salvar" :load="loads.form_profile" class="btn btn-success"
+                                        type="submit"></button-load>
                                 </div>
                             </div>
                         </form>
                     </simple-card>
                 </div>
             </div>
-
         </div>
     </layout-dashboard>
 </template>
 <script>
+import { router } from '@inertiajs/vue3';
+import SendEmailAlert from '../../components_static/SendEmailAlert.vue';
 export default {
+    data() {
+        return {
+            loads: {
+                form_profile: false
+            }
+        }
+    },
+    components: {
+        'send-email':SendEmailAlert
+    },
     computed: {
-        user(){
+        user() {
             return this.$page.props.auth.user
         },
+    },
+    props: {
+        routes_fortify: Object,
+        verified_email: Boolean,
+        email_time_expiration: Number,
+    },
+    methods: {
+        update() {
+            router.put(this.routes_fortify.profile_information, {
+                name: this.user.name,
+                email: this.user.email
+            }, {
+                onStart: () => {
+                    this.loads.form_profile = true;
+                },
+                onSuccess: () => {
+                    this.$alert.fire(
+                        'Sucesso!',
+                        'Usuario atualizado!',
+                        'success'
+                    );
+                },
+                onFinish: () => {
+                    this.loads.form_profile = false;
+                }
+            });
+        }
     }
 }
 </script>
