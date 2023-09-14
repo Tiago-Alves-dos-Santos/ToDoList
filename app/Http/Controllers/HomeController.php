@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\FortifyViewFacade;
+use Inertia\Inertia;
+use Inertia\Response;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Fortify;
+
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        return FortifyViewFacade::homeView();
+        $this->homeUser($request);
+    }
 
+    private function homeUser(Request $request,array $data = []): Response
+    {
+        return Inertia::render('Auth/Home', $data);
     }
 
 }

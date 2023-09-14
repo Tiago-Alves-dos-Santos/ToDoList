@@ -38,12 +38,6 @@ final class FortifyView
     {
         return Inertia::render('Auth/ResetPassword');
     }
-
-    public function homeView(array $data = [])
-    {
-        return $this->homeUser($data);
-    }
-
     public function authenticateUsing(Request $request): mixed
     {
         return $this->loginUser($request);
@@ -68,9 +62,5 @@ final class FortifyView
                 return $user;
             }
         }
-    }
-    private function homeUser($data): Response
-    {
-        return Inertia::render('Auth/Home', $data);
     }
 }
