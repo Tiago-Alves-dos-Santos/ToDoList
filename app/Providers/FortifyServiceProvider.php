@@ -51,7 +51,7 @@ class FortifyServiceProvider extends ServiceProvider
             return FortifyViewFacade::forgotPasswordView();
         });
         Fortify::resetPasswordView(function (Request $request) {
-            return FortifyViewFacade::resetPasswordView();
+            return FortifyViewFacade::resetPasswordView($request);
         });
 
         RateLimiter::for('login', function (Request $request) {

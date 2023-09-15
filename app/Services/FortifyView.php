@@ -35,16 +35,21 @@ final class FortifyView
     {
         return Inertia::render('Auth/ForgotPassword');
     }
-    public function resetPasswordView(): Response
+    public function resetPasswordView(Request $request): Response
     {
-        return Inertia::render('Auth/ResetPassword');
+        $token = $request->token;
+        $email = $request->email;
+        return Inertia::render('Auth/ResetPassword', compact(
+            'token',
+            'email'
+        ));
     }
-    public function authenticateUsing(Request $request, Model $model): mixed
+    public function authenticateUsing(Request $request, Model $model)
     {
         return $this->genericLogin($request, $model);
     }
 
-    private function genericLogin(Request $request, Model $model): mixed
+    private function genericLogin(Request $request, Model $model)
     {
         $user = $model::where('email', $request->email)->first();
         $remember_me = (bool)$request->remember_me;

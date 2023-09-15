@@ -12,6 +12,7 @@ if (!function_exists('routesFortify')) {
         $prefix = prefixAuth();
         return [
             'register' => $prefix.'register',
+            'reset_password' => $prefix.'reset-password',
             'forgot_password' => $prefix.'forgot-password',
             'login' => $prefix.'login',
             'logout' => $prefix.'logout',
