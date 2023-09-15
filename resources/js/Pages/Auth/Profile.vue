@@ -55,9 +55,9 @@
                             </div>
                         </form>
                     </simple-card>
-                    <simple-card title="Ações" class="w-100 mt-3 bg-white">
+                    <simple-card title="Autenticação dois fatores" class="w-100 mt-3 bg-white">
                         <div class="actions-users">
-                            <div class="two-factor-authenticate disable">
+                            <div class="two-factor-authenticate disable" @click="console.log('2FA')">
                                 2FA
                             </div>
                         </div>
