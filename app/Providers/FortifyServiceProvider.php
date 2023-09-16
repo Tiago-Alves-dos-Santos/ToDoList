@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Providers;
+use App\Models\User;
+use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
+use App\Facades\FortifyViewFacade;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -11,8 +14,6 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use App\Actions\Fortify\UpdateUserProfileInformation;
-use App\Facades\FortifyViewFacade;
-use App\Models\User;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -34,10 +35,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
-        Fortify::authenticateUsing(function (Request $request) {
-            return FortifyViewFacade::authenticateUsing($request, app(User::class));
-        });
-
         Fortify::loginView(function (Request $request) {
             return FortifyViewFacade::loginView();
         });
@@ -52,6 +49,9 @@ class FortifyServiceProvider extends ServiceProvider
         });
         Fortify::resetPasswordView(function (Request $request) {
             return FortifyViewFacade::resetPasswordView($request);
+        });
+        Fortify::twoFactorChallengeView(function (Request $request) {
+            return FortifyViewFacade::twoFactorChallengeView($request);
         });
 
         RateLimiter::for('login', function (Request $request) {

@@ -35,14 +35,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Senha atual</label>
-                                    <input type="password" class="form-control" name="" v-model="form_update_password.current_password">
-                                    <div class="text-danger" v-if="errors.updatePassword && errors.updatePassword.current_password">
+                                    <input type="password" class="form-control" name=""
+                                        v-model="form_update_password.current_password">
+                                    <div class="text-danger"
+                                        v-if="errors.updatePassword && errors.updatePassword.current_password">
                                         {{ errors.updatePassword.current_password }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="">Nova Senha</label>
-                                    <input type="password" class="form-control" name="" v-model="form_update_password.password">
+                                    <input type="password" class="form-control" name=""
+                                        v-model="form_update_password.password">
                                     <div class="text-danger" v-if="errors.updatePassword && errors.updatePassword.password">
                                         {{ errors.updatePassword.password }}
                                     </div>
@@ -50,16 +53,17 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button-load text="Atualizar" :load="loads.form_update_password" class="btn btn-primary" type="submit"></button-load>
+                                    <button-load text="Atualizar" :load="loads.form_update_password" class="btn btn-primary"
+                                        type="submit"></button-load>
                                 </div>
                             </div>
                         </form>
                     </simple-card>
                     <simple-card title="Autenticação dois fatores" class="w-100 mt-3 bg-white">
-                        <div class="actions-users">
-                            <div class="two-factor-authenticate disable" @click="console.log('2FA')">
-                                2FA
-                            </div>
+                        <div class="w-100 d-flex justify-content-center">
+                            <button-load text="Dois fatores" class="btn btn-primary" @click="enable2FA"></button-load>
+                            <div v-html="svg"></div>
+                            <code v-html="codes"></code>
                         </div>
                     </simple-card>
                 </div>
@@ -72,14 +76,16 @@ import { router } from '@inertiajs/vue3';
 export default {
     data() {
         return {
+            svg: '',
+            codes: '',
             loads: {
                 form_profile: false,
-                form_update_password:false
+                form_update_password: false
             },
-            form_update_password:{
-                current_password:'',
-                password:'',
-                confirm_password:''
+            form_update_password: {
+                current_password: '',
+                password: '',
+                confirm_password: ''
             }
         }
     },
@@ -113,7 +119,7 @@ export default {
                 }
             });
         },
-        updatePassword(){
+        updatePassword() {
             router.put(this.routes_fortify.password, this.form_update_password, {
                 onStart: () => {
                     this.loads.form_update_password = true;
@@ -127,6 +133,39 @@ export default {
                 },
                 onFinish: () => {
                     this.loads.form_update_password = false;
+                }
+            });
+        },
+        getSvg(svg) {
+            axios.get(this.routes_fortify.two_factor_qr_code)
+                .then(function (response) {
+                    console.log(response.data.svg);
+                    svg = response.data.svg;
+
+                });
+        },
+        enable2FA() {
+            router.post(this.routes_fortify.two_factor_authentication, {}, {
+                onSuccess: () => {
+                    //coloca assim para não confudir this do vue com escopo do axios
+                    const self = this;
+                    this.$alert.fire(
+                        'Sucesso!',
+                        'Autenticação dois fatores habilitada!',
+                        'success'
+                    );
+                    axios.get(this.routes_fortify.two_factor_qr_code)
+                        .then(function (response) {
+                            //svg variavel no data do vue
+                            self.svg = response.data.svg;
+
+                        });
+                    axios.get(this.routes_fortify.two_factor_recovery_codes)
+                        .then(function (response) {
+                            console.log(response.data);
+                            self.codes = response.data;
+                        });
+
                 }
             });
         }

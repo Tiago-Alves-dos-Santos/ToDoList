@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 final class FortifyView
 {
@@ -44,33 +45,9 @@ final class FortifyView
             'email'
         ));
     }
-    public function authenticateUsing(Request $request, Model $model)
+    public function twoFactorChallengeView(Request $request): Response
     {
-        return $this->genericLogin($request, $model);
-    }
-
-    private function genericLogin(Request $request, Model $model)
-    {
-        $user = $model::where('email', $request->email)->first();
-        $remember_me = (bool)$request->remember_me;
-
-        if ($user && Hash::check($request->password, $user->password)) {
-            if (!$user->hasVerifiedEmail()) {
-                throw ValidationException::withMessages([
-                    'email_verify' => 'Seu email não foi verificado! Sua conta será excluída após o prazo do email.',
-                ]);
-            } else {
-                $user = Auth::guard('web')->login($user, $remember_me);
-
-                if (Auth::viaRemember()) {
-                    // Colocar cookies aqui
-                } else {
-                    // Remover cookies aqui
-                }
-
-                return $user;
-            }
-        }
+        return Inertia::render('Auth/TwoFactorChallenge');
     }
 
 }

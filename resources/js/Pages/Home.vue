@@ -27,7 +27,7 @@
                     <div class="col-12 d-flex justify-content-between">
                         <div class="form-check">
                             <input class="form-check-input pointer" type="checkbox" value="" id="flexCheckDefault"
-                                v-model="form_login.remember_me">
+                                v-model="form_login.remember">
                             <label class="form-check-label pointer" for="flexCheckDefault">
                                 Lembrar-me
                             </label>
@@ -122,7 +122,7 @@ export default {
             form_login: {
                 email: '',
                 password: '',
-                remember_me: false
+                remember: false
             },
             form: {
                 name: '',
@@ -174,6 +174,9 @@ export default {
             router.post(route_url, this.form_login, {
                 onStart: () => {
                     this.loads.form_login = true;
+                },
+                onSuccess: (response) => {
+                    console.log(response);
                 },
                 onError: (errors) => {
                     if (errors.email_verify) {
