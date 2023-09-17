@@ -60,10 +60,20 @@
                         </form>
                     </simple-card>
                     <simple-card title="Autenticação dois fatores" class="w-100 mt-3 bg-white">
-                        <div class="w-100 d-flex justify-content-center">
-                            <button-load text="Dois fatores" class="btn btn-primary" @click="enable2FA"></button-load>
+                        <button-load text="Ativar" :load="loads.TFA" class="btn btn-success"
+                            @click="enable2FA"></button-load>
+                        <button-load text="Desativar" :load="loads.TFAD" class="btn btn-danger"
+                            @click="disable2FA"></button-load>
+                    </simple-card>
+                    <simple-card title="QrCode" class="bg-white w-100 mt-2" v-if="!two_factor_isEnable">
+                        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                             <div v-html="svg"></div>
-                            <code v-html="codes"></code>
+                            <div class="copy-recoveryCode">
+                                <code v-html="codes"></code>
+                                <button class="btn btn-light" @click="copy">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                            </div>
                         </div>
                     </simple-card>
                 </div>
@@ -72,6 +82,7 @@
     </layout-dashboard>
 </template>
 <script>
+
 import { router } from '@inertiajs/vue3';
 export default {
     data() {
@@ -80,7 +91,9 @@ export default {
             codes: '',
             loads: {
                 form_profile: false,
-                form_update_password: false
+                form_update_password: false,
+                TFA: false,
+                TFAD: false,
             },
             form_update_password: {
                 current_password: '',
@@ -96,7 +109,8 @@ export default {
     },
     props: {
         routes_fortify: Object,
-        errors: Object
+        errors: Object,
+        two_factor_isEnable: Boolean
     },
     methods: {
         update() {
@@ -144,8 +158,29 @@ export default {
 
                 });
         },
+        disable2FA() {
+            router.delete(this.routes_fortify.two_factor_authentication, {
+                onStart: () => {
+                    this.loads.TFAD = true;
+                },
+                onSuccess: () => {
+                    this.$alert.fire(
+                        'Sucesso!',
+                        'Autenticação dois fatores desahabilitada!',
+                        'success'
+                    );
+
+                },
+                onFinish: () => {
+                    this.loads.TFAD = false;
+                }
+            });
+        },
         enable2FA() {
             router.post(this.routes_fortify.two_factor_authentication, {}, {
+                onStart: () => {
+                    this.loads.TFA = true;
+                },
                 onSuccess: () => {
                     //coloca assim para não confudir this do vue com escopo do axios
                     const self = this;
@@ -165,10 +200,29 @@ export default {
                             console.log(response.data);
                             self.codes = response.data;
                         });
+                    axios.get(this.routes_fortify.confirmed_password_status).then(function (response) {
+                        console.log(response.data);
+                    });
 
+                },
+                onFinish: () => {
+                    this.loads.TFA = false;
                 }
             });
+        },
+        copy() {
+            navigator.clipboard.writeText(this.codes);
+            this.$alert.fire(
+                'Sucesso!',
+                'Código copiado!',
+                'success'
+            );
         }
+    },
+    mounted() {
+        axios.get(this.routes_fortify.confirmed_password_status).then(function (response) {
+            console.log(response.data);
+        });
     }
 }
 </script>

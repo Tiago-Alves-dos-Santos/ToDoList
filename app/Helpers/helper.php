@@ -18,7 +18,7 @@ if (!function_exists('routesFortify')) {
             'logout' => $prefix.'logout',
             'verificationSend' => $prefix.'email/verification-notification',
             'confirm_password' => $prefix.'user/confirm-password',
-            'confirmed_password-status' => $prefix.'user/confirmed-password-status',
+            'confirmed_password_status' => $prefix.'user/confirmed-password-status',
             'confirmed_two_factor_authentication' => $prefix.'user/confirmed-two-factor-authentication',
             'password' => $prefix.'user/password',
             'profile_information' => $prefix.'user/profile-information',

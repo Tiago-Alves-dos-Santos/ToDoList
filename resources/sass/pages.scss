@@ -1,2 +1,23 @@
 /******************************AUTH/PROFILE***********************************/
+div#auth-profile {
+    div.copy-recoveryCode {
+        position: relative;
+        max-width: 400px;
+        margin: 10px 0 0 0;
+        text-align: center;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        padding: 10px 15px;
 
+        button {
+            position: absolute;
+            top: 3px;
+            right: 4px;
+            visibility: hidden;
+        }
+
+        &:hover button {
+            visibility: visible;
+        }
+    }
+}

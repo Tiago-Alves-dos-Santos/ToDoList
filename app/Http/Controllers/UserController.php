@@ -13,9 +13,11 @@ class UserController extends Controller
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
+        dd($user->hasEnabledTwoFactorAuthentication());
         $email_time_expiration = config('auth.verification.expire');
         return Inertia::render('Auth/Profile', [
             'email_time_expiration' => $email_time_expiration,
+            // 'two_factor_isEnable' => $user->hasEnabledTwoFactorAuthentication()
         ]);
     }
     public function viewUpdatePassword($token): Response

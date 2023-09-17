@@ -45,6 +45,10 @@ final class FortifyView
             'email'
         ));
     }
+    public function confirmPasswordView(Request $request): Response
+    {
+        return Inertia::render('Auth/ConfirmPassword');
+    }
     public function twoFactorChallengeView(Request $request): Response
     {
         return Inertia::render('Auth/TwoFactorChallenge');
@@ -60,12 +64,6 @@ final class FortifyView
         ) {
             //guard web
             //Auth:login($admin);
-            session([
-                'login' => [
-                    'id' => $user->id,
-                    'remember' => false,
-                ]
-            ]);
             return $user;
         }
     }
