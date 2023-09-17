@@ -47,13 +47,5 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    // public function hasEnabledTwoFactorAuthentication()
-    // {
-    //     if (Fortify::confirmsTwoFactorAuthentication()) {
-    //         return !is_null($this->two_factor_secret);
-    //     }
-
-    //     return !is_null($this->two_factor_secret);
-    // }
 
 }

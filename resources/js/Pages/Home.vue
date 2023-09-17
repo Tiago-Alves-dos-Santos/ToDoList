@@ -175,9 +175,6 @@ export default {
                 onStart: () => {
                     this.loads.form_login = true;
                 },
-                onSuccess: (response) => {
-                    console.log(response);
-                },
                 onError: (errors) => {
                     if (errors.email_verify) {
                         this.$alert.fire({

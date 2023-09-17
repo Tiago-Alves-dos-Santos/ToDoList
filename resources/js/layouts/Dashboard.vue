@@ -70,7 +70,11 @@ export default {
 
     methods: {
         logout(){
-            router.post(this.$page.props.routes_fortify.logout);
+            router.post(this.$page.props.routes_fortify.logout,{}, {
+                onSuccess: () => {
+                    router.get(this.$page.props.routes_fortify.login);
+                }
+            });
         }
     }
 }
