@@ -25,10 +25,10 @@
                         </Link>
                     </li>
                     <li>
-                        <a href="">
+                        <Link :href="this.$route('task.index')">
                             <i class="bi bi-list-task"></i>
                             Tarefas
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="">

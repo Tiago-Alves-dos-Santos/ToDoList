@@ -14,6 +14,6 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('Index');
+        return Inertia::render('Task/Index');
     }
 }
