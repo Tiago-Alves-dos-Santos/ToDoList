@@ -1,51 +1,68 @@
 /******************************AUTH/PROFILE***********************************/
-@mixin action-user(){
-    margin: 5px 0 0 0;
-    padding: 5px 10px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 80px;
-    width: 200px;
-    height: 200px;
-    cursor: pointer;
-    transition: 1s all;
-    transition: .5s border-radius;
-    font-weight: bold;
-    font-size: 16px;
+div#auth-profile {
+    div.copy-recoveryCode {
+        position: relative;
+        max-width: 400px;
+        margin: 10px 0 0 0;
+        text-align: center;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        padding: 10px 15px;
+
+        button {
+            position: absolute;
+            top: 3px;
+            right: 4px;
+            visibility: hidden;
+        }
+
+        &:hover button {
+            visibility: visible;
+        }
+    }
 }
-@mixin action-user-hover(){
-    background-color: white;
-    border-radius: 100%;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
-    transition: 1.5s all;
-    transition: 1s border-radius;
-}
-div#auth-profile{
-    div.actions-users{
-        width: 100%;
+
+/******************************TASK/INDEX***********************************/
+div#task-index {
+    div.form form {
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        div.update-password, div.two-factor-authenticate{
-            @include action-user();
-            &:hover{
-                @include action-user-hover();
-            }
+        flex-wrap: nowrap;
+
+        input::placeholder {
+            color: $theme-primary;
+            font-style: italic;
+            font-size: 14px;
+            font-weight: bolder;
         }
-        div.two-factor-authenticate{
-            &.disable{
-                color: white;
-                background-color: #dc3545;
-            }
-            &.active{
-                color: white;
-                background-color: #198754;
+    }
+    div.task{
+        position: relative;
+        margin: 10px 0 0 0;
+        padding: 10px 5px 3px 10px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+        z-index: 0;
+        &:hover div.actions{
+            visibility: visible;
+        }
+
+        div.actions{
+            visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            align-items: center;
+            border-radius:inherit;
+            background-color: $theme-primary;
+            button{
+                margin-right: 10px;
             }
         }
     }

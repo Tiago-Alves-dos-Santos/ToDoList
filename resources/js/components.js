@@ -6,6 +6,7 @@ import SimpleCard from './components/SimpleCard.vue';
 import Modal from './components/Modal.vue';
 import IconCard from './components/IconCard.vue';
 import ButtonLoad from './components/ButtonLoad.vue';
+import Paginate from './components/Paginate.vue';
 
 
 export {
@@ -16,5 +17,6 @@ export {
     SimpleCard,
     Modal,
     IconCard,
-    ButtonLoad
+    ButtonLoad,
+    Paginate
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 final class FortifyView
 {
@@ -35,37 +36,32 @@ final class FortifyView
     {
         return Inertia::render('Auth/ForgotPassword');
     }
-    public function resetPasswordView(): Response
+    public function resetPasswordView(Request $request): Response
     {
-        return Inertia::render('Auth/ResetPassword');
+        $token = $request->token;
+        $email = $request->email;
+        return Inertia::render('Auth/ResetPassword', compact(
+            'token',
+            'email'
+        ));
     }
-    public function authenticateUsing(Request $request, Model $model): mixed
+    public function confirmPasswordView(Request $request): Response
     {
-        return $this->genericLogin($request, $model);
+        return Inertia::render('Auth/ConfirmPassword');
+    }
+    public function twoFactorChallengeView(Request $request): Response
+    {
+        return Inertia::render('Auth/TwoFactorChallenge');
     }
 
-    private function genericLogin(Request $request, Model $model): mixed
+    public function customloginView($request, $model)
     {
         $user = $model::where('email', $request->email)->first();
-        $remember_me = (bool)$request->remember_me;
-
+        // dd('aq');
         if ($user && Hash::check($request->password, $user->password)) {
-            if (!$user->hasVerifiedEmail()) {
-                throw ValidationException::withMessages([
-                    'email_verify' => 'Seu email não foi verificado! Sua conta será excluída após o prazo do email.',
-                ]);
-            } else {
-                $user = Auth::guard('web')->login($user, $remember_me);
-
-                if (Auth::viaRemember()) {
-                    // Colocar cookies aqui
-                } else {
-                    // Remover cookies aqui
-                }
-
-                return $user;
-            }
+            //guard web
+            //Auth:login($admin);
+            return $user;
         }
     }
-
 }

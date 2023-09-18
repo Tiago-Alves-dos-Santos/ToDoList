@@ -11,9 +11,9 @@ div{
 .pointer{
     cursor: pointer;
 }
-
-/**************REESCRITA BS***************/
-.dropdown-item:hover, .dropdown-item:focus {
-    color: white;
-    background-color: $theme-primary;
+input.readonly {
+    background-color: #d6d6d6;
+    &:focus{
+        background-color: #d6d6d6;
+    }
 }

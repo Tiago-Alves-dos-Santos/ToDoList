@@ -20,15 +20,15 @@
                 <ul>
                     <li>
                         <Link :href="this.$route('dashboard')" class="active">
-                            <i class="bi bi-speedometer2"></i>
-                            Dashboard
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
                         </Link>
                     </li>
                     <li>
-                        <a href="">
+                        <Link :href="this.$route('task.index')">
                             <i class="bi bi-list-task"></i>
                             Tarefas
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="">
@@ -38,8 +38,8 @@
                     </li>
                     <li>
                         <Link :href="this.$route('user.viewProfile')">
-                            <i class="bi bi-person-gear"></i>
-                            Perfil
+                        <i class="bi bi-person-gear"></i>
+                        Perfil
                         </Link>
                     </li>
                     <li>
@@ -67,9 +67,8 @@ export default {
 
         }
     },
-
     methods: {
-        logout(){
+        logout() {
             router.post(this.$page.props.routes_fortify.logout);
         }
     }

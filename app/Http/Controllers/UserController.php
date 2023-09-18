@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function viewProfile(): Response
+    public function viewProfile(Request $request): Response
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
         $email_time_expiration = config('auth.verification.expire');
         return Inertia::render('Auth/Profile', [
-            'verified_email' => $user->hasVerifiedEmail(),
             'email_time_expiration' => $email_time_expiration,
+            'two_factor_isEnable' => $user->hasEnabledTwoFactorAuthentication()
         ]);
     }
     public function viewUpdatePassword($token): Response

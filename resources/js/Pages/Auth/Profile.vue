@@ -35,14 +35,17 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="">Senha atual</label>
-                                    <input type="password" class="form-control" name="" v-model="form_update_password.current_password">
-                                    <div class="text-danger" v-if="errors.updatePassword && errors.updatePassword.current_password">
+                                    <input type="password" class="form-control" name=""
+                                        v-model="form_update_password.current_password">
+                                    <div class="text-danger"
+                                        v-if="errors.updatePassword && errors.updatePassword.current_password">
                                         {{ errors.updatePassword.current_password }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="">Nova Senha</label>
-                                    <input type="password" class="form-control" name="" v-model="form_update_password.password">
+                                    <input type="password" class="form-control" name=""
+                                        v-model="form_update_password.password">
                                     <div class="text-danger" v-if="errors.updatePassword && errors.updatePassword.password">
                                         {{ errors.updatePassword.password }}
                                     </div>
@@ -50,15 +53,30 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button-load text="Atualizar" :load="loads.form_update_password" class="btn btn-primary" type="submit"></button-load>
+                                    <button-load text="Atualizar" :load="loads.form_update_password" class="btn btn-primary"
+                                        type="submit"></button-load>
                                 </div>
                             </div>
                         </form>
                     </simple-card>
-                    <simple-card title="Ações" class="w-100 mt-3 bg-white">
-                        <div class="actions-users">
-                            <div class="two-factor-authenticate disable">
-                                2FA
+                    <simple-card title="Autenticação dois fatores" class="w-100 mt-3 bg-white">
+                        <button-load text="Ativar" :load="loads.TFA" class="btn btn-success" @click="enable2FA"
+                            v-if="!two_factor_isEnable"></button-load>
+                        <button-load text="Desativar" :load="loads.TFA" class="btn btn-danger" @click="disable2FA"
+                            v-else></button-load>
+
+                        <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes"
+                            class="btn btn-primary ms-2" @click="newRecoveryCodes"
+                            v-if="two_factor_isEnable"></button-load>
+                    </simple-card>
+                    <simple-card title="QrCode" class="bg-white w-100 mt-2">
+                        <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+                            <div v-html="svg"></div>
+                            <div class="copy-recoveryCode">
+                                <code v-html="recovery_codes"></code>
+                                <button class="btn btn-light" @click="copy">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
                             </div>
                         </div>
                     </simple-card>
@@ -68,18 +86,25 @@
     </layout-dashboard>
 </template>
 <script>
+
 import { router } from '@inertiajs/vue3';
+import axios from 'axios';
 export default {
     data() {
         return {
+            svg: '',
+            recovery_codes: '',
+            toggle_2fa: false,
             loads: {
                 form_profile: false,
-                form_update_password:false
+                form_update_password: false,
+                TFA: false,
+                new_recovery_codes: false
             },
-            form_update_password:{
-                current_password:'',
-                password:'',
-                confirm_password:''
+            form_update_password: {
+                current_password: '',
+                password: '',
+                confirm_password: ''
             }
         }
     },
@@ -90,7 +115,8 @@ export default {
     },
     props: {
         routes_fortify: Object,
-        errors: Object
+        errors: Object,
+        two_factor_isEnable: Boolean
     },
     methods: {
         update() {
@@ -113,7 +139,7 @@ export default {
                 }
             });
         },
-        updatePassword(){
+        updatePassword() {
             router.put(this.routes_fortify.password, this.form_update_password, {
                 onStart: () => {
                     this.loads.form_update_password = true;
@@ -129,7 +155,93 @@ export default {
                     this.loads.form_update_password = false;
                 }
             });
+        },
+        getSvg(svg) {
+            axios.get(this.routes_fortify.two_factor_qr_code)
+                .then(function (response) {
+                    console.log(response.data.svg);
+                    svg = response.data.svg;
+
+                });
+        },
+        disable2FA() {
+            router.delete(this.routes_fortify.two_factor_authentication, {
+                onStart: () => {
+                    this.loads.TFA = true;
+                },
+                onSuccess: () => {
+                    this.$alert.fire(
+                        'Sucesso!',
+                        'Autenticação dois fatores desahabilitada!',
+                        'success'
+                    );
+                    this.svg = '';
+                    this.recovery_codes = ''
+
+                },
+                onFinish: () => {
+                    this.loads.TFA = false;
+                }
+            });
+        },
+        enable2FA() {
+            router.post(this.routes_fortify.two_factor_authentication, {}, {
+                onStart: () => {
+                    this.loads.TFA = true;
+                },
+                onSuccess: () => {
+                    //coloca assim para não confudir this do vue com escopo do axios
+                    const self = this;
+                    axios.get(this.routes_fortify.two_factor_qr_code)
+                        .then(function (response) {
+                            //svg variavel no data do vue
+                            self.svg = response.data.svg;
+
+                        });
+                    axios.get(this.routes_fortify.two_factor_recovery_codes)
+                        .then(function (response) {
+                            self.recovery_codes = response.data;
+                            self.$alert.fire(
+                                'Sucesso!',
+                                'Autenticação dois fatores habilitada!',
+                                'success'
+                            );
+                        });
+
+                },
+                onFinish: () => {
+                    this.loads.TFA = false;
+                }
+            });
+        },
+        newRecoveryCodes() {
+            const self = this;
+            router.post(this.routes_fortify.two_factor_recovery_codes, {}, {
+                onStart: () => {
+                    this.loads.new_recovery_codes = true;
+                },
+                onSuccess: (response) => {
+                    axios.get(this.routes_fortify.two_factor_recovery_codes)
+                        .then(function (response) {
+                            self.recovery_codes = response.data;
+                        });
+                },
+                onFinish: () => {
+                    this.loads.new_recovery_codes = false;
+                },
+            })
+        },
+        copy() {
+            navigator.clipboard.writeText(this.recovery_codes);
+            this.$alert.fire(
+                'Sucesso!',
+                'Código copiado!',
+                'success'
+            );
         }
+    },
+    mounted() {
+
     }
 }
 </script>

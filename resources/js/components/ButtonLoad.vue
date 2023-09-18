@@ -4,7 +4,12 @@
         <div class="spinner-border text-light spinner-border-sm" role="status" v-if="load">
             <span class="visually-hidden">Loading...</span>
         </div>
-        <span v-text="text" v-if="!load"></span>
+        <div>
+            <span v-if="text && !load" v-text="text"></span>
+            <span v-if="icon && !load" class="fs-5">
+                <i :class="icon"></i>
+            </span>
+        </div>
     </button>
 </template>
 <script>
@@ -17,11 +22,15 @@ export default {
     props:{
         text:{
             type:String,
-            required:true
+            default:''
         },
         load:{
             type:Boolean,
             default: false
+        },
+        icon: {
+            type: String,
+            default: ''
         }
     }
 }

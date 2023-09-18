@@ -37,14 +37,15 @@ class AuthServiceProvider extends ServiceProvider
                     'user' => $notifiable
                 ]);
         });
-        // ResetPassword::toMailUsing(function (object $notifiable, string $url) {
-        //     return (new MailMessage)
-        //         ->subject('Confirmar Email') //titulo
-        //         ->view('email.verify_email', [
-        //             'url' => $url,
-        //             'user' => $notifiable
-        //         ]);
-        // });
+        ResetPassword::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->subject('Alterar senha') //titulo
+                ->view('email.reset_password', [
+                    'url' => route('password.reset', ['token' => $url, 'email' => $notifiable->email]),
+                    'time_expire' => config('auth.passwords.users.expire'),
+                    'user' => $notifiable
+                ]);
+        });
 
     }
 
