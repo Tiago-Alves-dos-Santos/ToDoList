@@ -61,15 +61,18 @@
                     </simple-card>
                     <simple-card title="Autenticação dois fatores" class="w-100 mt-3 bg-white">
                         <button-load text="Ativar" :load="loads.TFA" class="btn btn-success"
-                            @click="enable2FA"></button-load>
-                        <button-load text="Desativar" :load="loads.TFAD" class="btn btn-danger"
-                            @click="disable2FA"></button-load>
+                            @click="enable2FA" v-if="!two_factor_isEnable"></button-load>
+                        <button-load text="Desativar" :load="loads.TFA" class="btn btn-danger"
+                            @click="disable2FA" v-else></button-load>
+
+                        <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes" class="btn btn-primary ms-2"
+                            @click="newRecoveryCodes"></button-load>
                     </simple-card>
-                    <simple-card title="QrCode" class="bg-white w-100 mt-2" v-if="!two_factor_isEnable">
+                    <simple-card title="QrCode" class="bg-white w-100 mt-2">
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                             <div v-html="svg"></div>
                             <div class="copy-recoveryCode">
-                                <code v-html="codes"></code>
+                                <code v-html="recovery_codes"></code>
                                 <button class="btn btn-light" @click="copy">
                                     <i class="bi bi-clipboard"></i>
                                 </button>
@@ -84,16 +87,18 @@
 <script>
 
 import { router } from '@inertiajs/vue3';
+import axios from 'axios';
 export default {
     data() {
         return {
             svg: '',
-            codes: '',
+            recovery_codes: '',
+            toggle_2fa: false,
             loads: {
                 form_profile: false,
                 form_update_password: false,
                 TFA: false,
-                TFAD: false,
+                new_recovery_codes: false
             },
             form_update_password: {
                 current_password: '',
@@ -161,7 +166,7 @@ export default {
         disable2FA() {
             router.delete(this.routes_fortify.two_factor_authentication, {
                 onStart: () => {
-                    this.loads.TFAD = true;
+                    this.loads.TFA = true;
                 },
                 onSuccess: () => {
                     this.$alert.fire(
@@ -169,10 +174,12 @@ export default {
                         'Autenticação dois fatores desahabilitada!',
                         'success'
                     );
+                    this.svg = '';
+                    this.recovery_codes = ''
 
                 },
                 onFinish: () => {
-                    this.loads.TFAD = false;
+                    this.loads.TFA = false;
                 }
             });
         },
@@ -197,12 +204,8 @@ export default {
                         });
                     axios.get(this.routes_fortify.two_factor_recovery_codes)
                         .then(function (response) {
-                            console.log(response.data);
-                            self.codes = response.data;
+                            self.recovery_codes = response.data;
                         });
-                    axios.get(this.routes_fortify.confirmed_password_status).then(function (response) {
-                        console.log(response.data);
-                    });
 
                 },
                 onFinish: () => {
@@ -210,8 +213,25 @@ export default {
                 }
             });
         },
+        newRecoveryCodes(){
+            const self = this;
+            router.post(this.routes_fortify.two_factor_recovery_codes, {}, {
+                onStart: () => {
+                    this.loads.new_recovery_codes = true;
+                },
+                onSuccess: (response) => {
+                    axios.get(this.routes_fortify.two_factor_recovery_codes)
+                        .then(function (response) {
+                            self.recovery_codes = response.data;
+                        });
+                },
+                onFinish: () => {
+                    this.loads.new_recovery_codes = false;
+                },
+            })
+        },
         copy() {
-            navigator.clipboard.writeText(this.codes);
+            navigator.clipboard.writeText(this.recovery_codes);
             this.$alert.fire(
                 'Sucesso!',
                 'Código copiado!',
@@ -220,9 +240,7 @@ export default {
         }
     },
     mounted() {
-        axios.get(this.routes_fortify.confirmed_password_status).then(function (response) {
-            console.log(response.data);
-        });
+
     }
 }
 </script>

@@ -20,8 +20,8 @@
                 <ul>
                     <li>
                         <Link :href="this.$route('dashboard')" class="active">
-                            <i class="bi bi-speedometer2"></i>
-                            Dashboard
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
                         </Link>
                     </li>
                     <li>
@@ -38,8 +38,8 @@
                     </li>
                     <li>
                         <Link :href="this.$route('user.viewProfile')">
-                            <i class="bi bi-person-gear"></i>
-                            Perfil
+                        <i class="bi bi-person-gear"></i>
+                        Perfil
                         </Link>
                     </li>
                     <li>
@@ -67,14 +67,9 @@ export default {
 
         }
     },
-
     methods: {
-        logout(){
-            router.post(this.$page.props.routes_fortify.logout,{}, {
-                onSuccess: () => {
-                    router.get(this.$page.props.routes_fortify.login);
-                }
-            });
+        logout() {
+            router.post(this.$page.props.routes_fortify.logout);
         }
     }
 }

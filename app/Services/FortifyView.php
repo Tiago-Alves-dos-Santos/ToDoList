@@ -54,14 +54,11 @@ final class FortifyView
         return Inertia::render('Auth/TwoFactorChallenge');
     }
 
-    public function customloginView($request,$model)
+    public function customloginView($request, $model)
     {
         $user = $model::where('email', $request->email)->first();
         // dd('aq');
-        if (
-            $user &&
-            Hash::check($request->password, $user->password)
-        ) {
+        if ($user && Hash::check($request->password, $user->password)) {
             //guard web
             //Auth:login($admin);
             return $user;
