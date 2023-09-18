@@ -19,6 +19,9 @@
                             <button-load icon="bi bi-trash3-fill" title="Deletar" class="btn btn-sm btn-danger"></button-load>
                         </div>
                     </div>
+                    <div class="paginate w-100 mt-2 d-flex justify-content-end">
+                        <paginate></paginate>
+                    </div>
                 </simple-card>
             </div>
         </div>
