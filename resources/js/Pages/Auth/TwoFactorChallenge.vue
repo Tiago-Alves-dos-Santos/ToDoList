@@ -9,8 +9,16 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <label for="">Código</label>
                         <input type="text" class="form-control me-2" placeholder="" v-model="code">
+                        <div class="text-danger" v-if="errors.code">
+                            <span v-if="errors.code">{{ errors.code }}</span>
+                        </div>
+                        <label for="">Código de recuperação</label>
                         <input type="text" class="form-control me-2" placeholder="" v-model="recovery_code">
+                        <div class="text-danger" v-if="errors.recovery_code">
+                            <span v-if="errors.recovery_code">{{ errors.recovery_code }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

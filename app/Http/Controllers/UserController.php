@@ -11,9 +11,8 @@ class UserController extends Controller
 {
     public function viewProfile(Request $request): Response
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
-        ds($user->hasEnabledTwoFactorAuthentication());
         $email_time_expiration = config('auth.verification.expire');
         return Inertia::render('Auth/Profile', [
             'email_time_expiration' => $email_time_expiration,

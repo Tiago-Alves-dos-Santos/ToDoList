@@ -60,13 +60,14 @@
                         </form>
                     </simple-card>
                     <simple-card title="Autenticação dois fatores" class="w-100 mt-3 bg-white">
-                        <button-load text="Ativar" :load="loads.TFA" class="btn btn-success"
-                            @click="enable2FA" v-if="!two_factor_isEnable"></button-load>
-                        <button-load text="Desativar" :load="loads.TFA" class="btn btn-danger"
-                            @click="disable2FA" v-else></button-load>
+                        <button-load text="Ativar" :load="loads.TFA" class="btn btn-success" @click="enable2FA"
+                            v-if="!two_factor_isEnable"></button-load>
+                        <button-load text="Desativar" :load="loads.TFA" class="btn btn-danger" @click="disable2FA"
+                            v-else></button-load>
 
-                        <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes" class="btn btn-primary ms-2"
-                            @click="newRecoveryCodes"></button-load>
+                        <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes"
+                            class="btn btn-primary ms-2" @click="newRecoveryCodes"
+                            v-if="two_factor_isEnable"></button-load>
                     </simple-card>
                     <simple-card title="QrCode" class="bg-white w-100 mt-2">
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -191,11 +192,6 @@ export default {
                 onSuccess: () => {
                     //coloca assim para não confudir this do vue com escopo do axios
                     const self = this;
-                    this.$alert.fire(
-                        'Sucesso!',
-                        'Autenticação dois fatores habilitada!',
-                        'success'
-                    );
                     axios.get(this.routes_fortify.two_factor_qr_code)
                         .then(function (response) {
                             //svg variavel no data do vue
@@ -205,6 +201,11 @@ export default {
                     axios.get(this.routes_fortify.two_factor_recovery_codes)
                         .then(function (response) {
                             self.recovery_codes = response.data;
+                            self.$alert.fire(
+                                'Sucesso!',
+                                'Autenticação dois fatores habilitada!',
+                                'success'
+                            );
                         });
 
                 },
@@ -213,7 +214,7 @@ export default {
                 }
             });
         },
-        newRecoveryCodes(){
+        newRecoveryCodes() {
             const self = this;
             router.post(this.routes_fortify.two_factor_recovery_codes, {}, {
                 onStart: () => {
