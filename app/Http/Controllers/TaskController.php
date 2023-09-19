@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use App\Models\User;
 
 use Inertia\Inertia;
@@ -14,6 +15,17 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        return Inertia::render('Task/Index');
+        $tasks = Task::all();
+        return Inertia::render('Task/Index', [
+            'tasks' => $tasks
+        ]);
+    }
+
+    public function create(Request $request)
+    {
+        Task::create([
+            'user_id' => $request->user()->id,
+            'task' => $request->task
+        ]);
     }
 }

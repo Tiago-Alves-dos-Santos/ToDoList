@@ -3,7 +3,7 @@
         <div id="auth-home" class="w-100">
             <div class="row">
                 <div class="col-md-4">
-                    <icon-card title="Tarefas Total" icon="bi bi-database" text="35" class="hover-yellow"></icon-card>
+                    <icon-card title="Tarefas Não Concluidas" icon="bi bi-database" text="35" class="hover-yellow"></icon-card>
                 </div>
                 <div class="col-md-4">
                     <icon-card title="Tarefas Concluidas" icon="bi bi-database-check" text="35"
