@@ -15,9 +15,13 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        $tasks = Task::all();
+        $search = $request->task ?? '';
+        $tasks = Task::query()->orderBy('id','desc');
+        if (!empty($search)){
+            $tasks->where('task','like',"%$search%");
+        }
         return Inertia::render('Task/Index', [
-            'tasks' => $tasks
+            'tasks' => $tasks->paginate(15)
         ]);
     }
 
@@ -27,5 +31,13 @@ class TaskController extends Controller
             'user_id' => $request->user()->id,
             'task' => $request->task
         ]);
+    }
+    public function update(Request $request)
+    {
+        Task::where('id', $request->id)->update(['task' => $request->task]);
+    }
+    public function delete(Request $request)
+    {
+        Task::where('id', $request->id)->delete();
     }
 }
