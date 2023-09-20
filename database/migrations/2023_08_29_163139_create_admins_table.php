@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Admin;
-use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -15,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->nullable();
-            $table->foreignIdFor(Admin::class)->nullable();
-            $table->string('task', 100);
-            $table->enum('status', ['pending', 'completed'])->default('pending');
+            $table->foreignId('admin_creator_id')->nullable()->constrained('admins','id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->enum('type',['master','common'])->default('common');
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('admins');
     }
 };
