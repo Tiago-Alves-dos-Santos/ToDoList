@@ -17,8 +17,8 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->nullable();
-            $table->foreignIdFor(Admin::class)->nullable();
+            $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->foreignIdFor(Admin::class)->nullable()->constrained();
             $table->string('task', 100);
             $table->enum('status', ['pending', 'completed'])->default('pending');
             $table->timestamps();
