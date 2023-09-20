@@ -37,20 +37,25 @@ div#layout-auth {
         }
     }
 }
+
 /********************************************LAYOUT DASHBOARD*************************************************/
-div#layout-dashboard{
-    div.myNavbar{
+div#layout-dashboard {
+    div.myNavbar {
         width: 100%;
         background-color: $theme-primary;
         color: white;
-        div.container{
+
+        div.container {
             position: relative;
             padding: 5px 0 3px 0;
-            h3{
+
+            h3 {
                 line-height: 30px;
             }
         }
-        a{ //menu hamburger
+
+        a {
+            //menu hamburger
             position: absolute;
             left: 3px;
             top: 0px;
@@ -58,11 +63,13 @@ div#layout-dashboard{
             color: inherit;
         }
     }
-    div.offcanvas-body{
-        ul{
+
+    div.offcanvas-body {
+        ul {
             list-style-type: none;
             padding: 0;
-            a{
+
+            a {
                 display: block;
                 margin: 3px 0;
                 padding: 5px 10px;
@@ -71,15 +78,40 @@ div#layout-dashboard{
                 text-decoration: none;
                 font-size: 20px;
                 cursor: pointer;
-                &:hover, &.active{
+
+                &:hover,
+                &.active {
                     color: white;
                     background-color: $theme-primary;
                 }
             }
-            a.logout{
+
+            a.logout {
                 color: white;
                 background-color: red;
             }
+        }
+    }
+}
+
+/********************************************LAYOUT CENTER*************************************************/
+div#layout-center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(170deg, rgba(252,13,142,1) 8%, rgba(194,0,231,1) 90%);
+
+    div.content {
+        display: flex;
+        justify-content: center;
+        h1,h3{
+            text-align: center;
+            font-weight: bolder;
+            color: white;
         }
     }
 }
