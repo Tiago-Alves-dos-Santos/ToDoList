@@ -10,8 +10,8 @@ use App\Http\Controllers\UserController;
 // });
 
 Route::middleware(['auth:admin','verified'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'adminHome'])->name('admin.dashboard');
-    Route::get('/', [UserController::class, 'viewProfile'])->name('admin.viewProfile');
+    Route::get('/', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+    Route::get('/profile', [UserController::class, 'viewProfile'])->name('admin.viewProfile');
 });
 
 

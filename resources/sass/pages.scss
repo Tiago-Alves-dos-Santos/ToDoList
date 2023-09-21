@@ -2,7 +2,7 @@
 div#index {
     width: 50%;
     background: rgba( 255, 255, 255, 0.3 );
-    box-shadow: 0 8px 32px 0 rgba(252,13,142,.37);
+    box-shadow: 0 8px 32px 0 rgba(145,3,205,.3);
     backdrop-filter: blur( 12px );
     -webkit-backdrop-filter: blur( 12px );
     border-radius: 7px;
@@ -34,7 +34,7 @@ div#index {
             }
 
             &.purple {
-                background-color: #d45dfc;
+                background-color: rgb(129, 0, 181);
                 color: white;
             }
         }
@@ -46,7 +46,7 @@ div#index {
         text-align: justify;
         font-weight: 700;
         margin-top: 10px;
-        border-radius: inherit;
+        border-radius: 0 0 7px 7px;
     }
 
 
