@@ -19,13 +19,16 @@
                     <div class="row">
                         <div class="col-md-12 mt-1">
                             <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                                <input type="checkbox" class="btn-check" name="" id="btnradio1" autocomplete="off" checked>
+                                <input type="checkbox" class="btn-check" name="" id="btnradio1" autocomplete="off"
+                                    v-model="checkFiltersTask.pending" checked @change="filterStatusAndDeleted">
                                 <label class="btn btn-outline-theme-primary" for="btnradio1">Não concluidas</label>
 
-                                <input type="checkbox" class="btn-check" name="" id="btnradio2" autocomplete="off">
+                                <input type="checkbox" class="btn-check" name="" id="btnradio2" autocomplete="off"
+                                    v-model="checkFiltersTask.completed" @change="filterStatusAndDeleted">
                                 <label class="btn btn-outline-success" for="btnradio2">Concluidas</label>
 
-                                <input type="checkbox" class="btn-check" name="" id="btnradio3" autocomplete="off">
+                                <input type="checkbox" class="btn-check" name="" id="btnradio3" autocomplete="off"
+                                    v-model="checkFiltersTask.deleted" @change="filterStatusAndDeleted">
                                 <label class="btn btn-outline-danger" for="btnradio3">Excluidas</label>
                             </div>
                         </div>
@@ -36,8 +39,8 @@
                         }">{{ task.task }}</h3>
                         <div class="actions">
                             <button-load
-                                :icon="[task.status == dataTaskStatus.pending ? 'bi bi-check-lg' : 'bi bi-arrow-clockwise']"
-                                :title="[task.status == dataTaskStatus.pending ? 'Concluir' : 'Pendente']"
+                                :icon="task.status == dataTaskStatus.pending ? 'bi bi-check-lg' : 'bi bi-arrow-clockwise'"
+                                :title="task.status == dataTaskStatus.pending ? 'Concluir' : 'Pendente'"
                                 class="btn btn-sm btn-success" @click="toggleStatus(task)"
                                 :load="loads.concluded"></button-load>
                             <button-load icon="bi bi-pencil-fill" title="Editar" class="btn btn-sm btn-warning"
@@ -68,6 +71,11 @@ export default {
             },
             form: {
                 task: ''
+            },
+            checkFiltersTask: {
+                pending: true,
+                completed: false,
+                deleted: false
             },
             dataTaskStatus: TaskStatus
         }
@@ -151,15 +159,21 @@ export default {
                 onFinish: () => this.loads.search = false,
             });
         },
+        filterStatusAndDeleted() {
+            router.visit(this.$inertia.page.url, {
+                data: {
+                    options: this.checkFiltersTask
+                },
+                preserveState: true,
+                onStart: () => this.loads.search = true,
+                onFinish: () => this.loads.search = false,
+            });
+        },
         clearSearch() {
             let url = this.$route('task.index');
             router.get(url, {}, {
                 onStart: () => {
                     this.loads.clear = true;
-                },
-                onSuccess: () => {
-                    this.form.task = '';
-                    this.$refs.task_input.focus();
                 },
                 onFinish: () => {
                     this.loads.clear = false;

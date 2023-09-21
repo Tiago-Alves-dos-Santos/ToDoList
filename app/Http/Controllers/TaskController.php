@@ -13,15 +13,31 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+    public function convertObjectPropertiesToBoolean($obj) {
+        // dd($obj);
+        foreach ($obj as $key => $value) {
+            $obj[$key] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        }
+        return $obj;
+    }
     public function index(Request $request)
     {
+        ds()->clear();
         $search = $request->task ?? '';
+        $options = ($request->options ?? null);
         $tasks = Task::query()->orderBy('id','desc');
         $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
         $tasks->where($column_id,$request->user()->id);
         if (!empty($search)){
             $tasks->where('task','like',"%$search%");
         }
+        if(!empty($options)){
+            $options = (object) $this->convertObjectPropertiesToBoolean($options);
+            $tasks->filterStatusAndDelete($options);
+        }else{
+            $tasks->where('status','pending');
+        }
+        ds($tasks->toSql());
         return Inertia::render('Task/Index', [
             'tasks' => $tasks->paginate(15)
         ]);
