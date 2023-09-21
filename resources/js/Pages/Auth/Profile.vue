@@ -220,7 +220,7 @@ export default {
                 onStart: () => {
                     this.loads.new_recovery_codes = true;
                 },
-                onSuccess: (response) => {
+                onSuccess: () => {
                     axios.get(this.routes_fortify.two_factor_recovery_codes)
                         .then(function (response) {
                             self.recovery_codes = response.data;

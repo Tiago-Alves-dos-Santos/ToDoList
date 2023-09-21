@@ -14,9 +14,10 @@
                             <button-load class="btn btn-danger" type="button" icon="bi bi-x" title="Limpar Filtro"
                                 :load="loads.clear" @click="clearSearch"></button-load>
                         </form>
+                        <div class="alert alert-danger mt-2" role="alert" v-if="errors.task" v-text="errors.task"></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-12 mt-1">
                             <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
                                 <input type="checkbox" class="btn-check" name="" id="btnradio1" autocomplete="off" checked>
                                 <label class="btn btn-outline-theme-primary" for="btnradio1">Não concluidas</label>
@@ -36,8 +37,8 @@
                                 class="btn btn-sm btn-success"></button-load>
                             <button-load icon="bi bi-pencil-fill" title="Editar" class="btn btn-sm btn-warning"
                                 @click="updateAlert(task)"></button-load>
-                            <button-load icon="bi bi-trash3-fill" title="Deletar"
-                                class="btn btn-sm btn-danger" @click="deleteAlert(task)"></button-load>
+                            <button-load icon="bi bi-trash3-fill" title="Deletar" class="btn btn-sm btn-danger"
+                                @click="deleteAlert(task)"></button-load>
                         </div>
                     </div>
                     <div class="paginate w-100 mt-2 d-flex justify-content-end">
@@ -107,7 +108,7 @@ export default {
         },
         deleteAlert(task) {
             this.$alert.fire({
-                title: 'Deseja deletar a tarefa: '+task.task+' ?',
+                title: 'Deseja deletar a tarefa: ' + task.task + ' ?',
                 text: "A deleção não possui restauração!",
                 showCancelButton: true,
                 confirmButtonText: 'Cancelar',

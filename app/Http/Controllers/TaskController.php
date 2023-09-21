@@ -17,6 +17,8 @@ class TaskController extends Controller
     {
         $search = $request->task ?? '';
         $tasks = Task::query()->orderBy('id','desc');
+        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $tasks->where($column_id,$request->user()->id);
         if (!empty($search)){
             $tasks->where('task','like',"%$search%");
         }
@@ -27,8 +29,14 @@ class TaskController extends Controller
 
     public function create(Request $request)
     {
+        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $request->validate([
+            'task' => ['required','string','max:100'],
+        ],[],[
+            'task' => "'Sua tarefa'"
+        ]);
         Task::create([
-            'user_id' => $request->user()->id,
+            $column_id => $request->user()->id,
             'task' => $request->task
         ]);
     }
