@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Admin\CreateNewAdmin;
 use App\Actions\Fortify\CreateNewUser;
+use App\Actions\Admin\ResetAdminPassword;
 use App\Actions\Admin\UpdateAdminPassword;
+use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Admin\UpdateAdminProfileInformation;
 use App\Actions\Fortify\UpdateUserProfileInformation;
@@ -80,7 +82,8 @@ final class FortifyCustom
         return [
             'createUser' => $admin ?  CreateNewAdmin::class : CreateNewUser::class,
             'updatePassword' => $admin ?  UpdateAdminPassword::class : UpdateUserPassword::class,
-            'updateProfileInformation' => $admin ? UpdateAdminProfileInformation::class : UpdateUserProfileInformation::class
+            'updateProfileInformation' => $admin ? UpdateAdminProfileInformation::class : UpdateUserProfileInformation::class,
+            'resetPassword' => $admin ? ResetAdminPassword::class : ResetUserPassword::class,
         ];
     }
 }

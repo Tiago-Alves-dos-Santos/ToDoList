@@ -32,8 +32,8 @@
                                 Lembrar-me
                             </label>
                         </div>
-                        <Link href="/forgot-password" class="link-danger">Esqueceu a
-                            senha?</Link>
+                        <a @click="forgotPassword" class="link-danger pointer">Esqueceu a
+                            senha?</a>
                     </div>
                 </div>
 
@@ -138,6 +138,9 @@ export default {
         routes_fortify: Object
     },
     methods: {
+        forgotPassword(){
+            router.get(this.routes_fortify.forgot_password_get);
+        },
         toggleForm() {
             let middle_time = (0.75 / 2) * 1000;//(time-toggle-direction(animations.scss) / 2)*1000
             let value = null;

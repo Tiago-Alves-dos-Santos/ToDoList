@@ -11,11 +11,7 @@ use App\Facades\FortifyFacade;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-
 use Illuminate\Support\Facades\RateLimiter;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -40,7 +36,7 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing($actions['updateProfileInformation']);
         Fortify::updateUserPasswordsUsing($actions['updatePassword']);
-        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+        Fortify::resetUserPasswordsUsing($actions['resetPassword']);
 
         Fortify::authenticateUsing(function (Request $request) {
             $model = request()->isAdmin() ? app(Admin::class) : app(User::class);
