@@ -165,7 +165,7 @@ export default {
                 });
         },
         disable2FA() {
-            router.delete(this.routes_fortify.two_factor_authentication, {
+            router.delete(this.routes_fortify.two_factor_authentication_disable, {
                 onStart: () => {
                     this.loads.TFA = true;
                 },

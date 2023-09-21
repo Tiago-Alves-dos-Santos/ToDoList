@@ -20,7 +20,6 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Verificar se a URL contém a palavra "admin"
         if (request()->isAdmin()) {
             config(['fortify.guard' => 'admin']);
             config(['fortify.prefix' => 'admin']);

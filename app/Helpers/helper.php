@@ -20,14 +20,14 @@ if (!function_exists('routesFortify')) {
             'verificationSend' => route('verification.send'),//,
             'confirm_password' => route('password.confirm'),
             'confirmed_password_status' => $prefix.'user/confirmed-password-status',
-            'confirmed_two_factor_authentication' => $prefix.'user/confirmed-two-factor-authentication',
+            'confirmed_two_factor_authentication' => route('two-factor.confirm'),
             'password' => route('user-password.update'),
             'profile_information' => route('user-profile-information.update'),
             'two_factor_challenge' => route('two-factor.login'),//POST - DELETE
-            'two_factor_authentication' => $prefix.'user/two-factor-authentication',//POST - DELETE
-            'two_factor_qr_code' => $prefix.'user/two-factor-qr-code',
-            'two_factor_recovery_codes' => $prefix.'user/two-factor-recovery-codes',
-            'two_factor_recovery_codes' => $prefix.'user/two-factor-recovery-codes',
+            'two_factor_authentication' => route('two-factor.enable'),//POST
+            'two_factor_authentication_disable' => route('two-factor.disable'),// DELETE
+            'two_factor_qr_code' => route('two-factor.qr-code'), //GET
+            'two_factor_recovery_codes' => route('two-factor.recovery-codes'), //POST - GET
             'two_factor_secret_key' => $prefix.'user/two-factor-secret-key',
         ];
     }
