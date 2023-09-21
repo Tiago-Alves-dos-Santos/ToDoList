@@ -31,10 +31,15 @@
                         </div>
                     </div>
                     <div class="task" v-for="task in tasks.data">
-                        <h3>{{ task.task }}</h3>
+                        <h3 :class="{
+                            'text-decoration-line-through': (task.status == dataTaskStatus.pending ? false : true)
+                        }">{{ task.task }}</h3>
                         <div class="actions">
-                            <button-load icon="bi bi-check-lg" title="Concluir"
-                                class="btn btn-sm btn-success"></button-load>
+                            <button-load
+                                :icon="[task.status == dataTaskStatus.pending ? 'bi bi-check-lg' : 'bi bi-arrow-clockwise']"
+                                :title="[task.status == dataTaskStatus.pending ? 'Concluir' : 'Pendente']"
+                                class="btn btn-sm btn-success" @click="toggleStatus(task)"
+                                :load="loads.concluded"></button-load>
                             <button-load icon="bi bi-pencil-fill" title="Editar" class="btn btn-sm btn-warning"
                                 @click="updateAlert(task)"></button-load>
                             <button-load icon="bi bi-trash3-fill" title="Deletar" class="btn btn-sm btn-danger"
@@ -51,7 +56,7 @@
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
-
+import TaskStatus from '../../enums/TaskStatus';
 export default {
     data() {
         return {
@@ -59,11 +64,12 @@ export default {
                 create: false,
                 clear: false,
                 search: false,
+                concluded: false
             },
             form: {
                 task: ''
             },
-            numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            dataTaskStatus: TaskStatus
         }
     },
     props: {
@@ -122,6 +128,20 @@ export default {
                     router.delete(url);
                 }
             })
+        },
+        toggleStatus(task) {
+            let statusUpdate = TaskStatus.completed;
+            if (task.status == TaskStatus.completed) {
+                statusUpdate = TaskStatus.pending;
+            }
+            let url = this.$route('task.toggleStatus');
+            router.put(url, {
+                'id': task.id,
+                'status': statusUpdate
+            }, {
+                onStart: () => this.loads.concluded = true,
+                onFinish: () => this.loads.concluded = false,
+            });
         },
         search() {
             router.visit(this.$inertia.page.url, {

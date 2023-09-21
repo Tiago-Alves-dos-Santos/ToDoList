@@ -44,6 +44,9 @@ class TaskController extends Controller
     {
         Task::where('id', $request->id)->update(['task' => $request->task]);
     }
+    public function toggleStatus(Request $request){
+        Task::where('id', $request->id)->update(['status' => $request->status]);
+    }
     public function delete(Request $request)
     {
         Task::where('id', $request->id)->delete();
