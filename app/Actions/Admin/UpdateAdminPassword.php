@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Actions\Admin;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Actions\Fortify\PasswordValidationRules;
 use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 
-class UpdateUserPassword implements UpdatesUserPasswords
+class UpdateAdminPassword implements UpdatesUserPasswords
 {
     use PasswordValidationRules;
 
@@ -17,17 +17,17 @@ class UpdateUserPassword implements UpdatesUserPasswords
      *
      * @param  array<string, string>  $input
      */
-    public function update(User $user, array $input): void
+    public function update(Admin $admin, array $input): void
     {
 
         Validator::make($input, [
-            'current_password' => ['required', 'string', 'current_password:web'],
+            'current_password' => ['required', 'string', 'current_password:admin'],
             'password' => $this->passwordRules(),
         ], [
             'current_password.current_password' => __('The provided password does not match your current password.'),
         ])->validateWithBag('updatePassword');
 
-        $user->forceFill([
+        $admin->forceFill([
             'password' => Hash::make($input['password']),
         ])->save();
     }

@@ -1,3 +1,57 @@
+/******************************INDEX***********************************/
+div#index {
+    width: 50%;
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 8px 32px 0 rgba(145,3,205,.3);
+    backdrop-filter: blur( 12px );
+    -webkit-backdrop-filter: blur( 12px );
+    border-radius: 7px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    padding-top: 4px;
+    div.conatiner-title-action {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        div.body {
+            width: 400px;
+        }
+    }
+
+    div.action {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        button {
+            border: none;
+            padding: 15px 20px;
+            background-color: white;
+            font-size: 20px;
+            border-radius: 7px;
+
+            &.pink {
+                background-color: #f70090;
+                color: white;
+            }
+
+            &.purple {
+                background-color: rgb(129, 0, 181);
+                color: white;
+            }
+        }
+    }
+
+    div.text {
+        background-color: rgba(255,255,255, .85);
+        padding: 10px 5px;
+        text-align: justify;
+        font-weight: 700;
+        margin-top: 10px;
+        border-radius: 0 0 7px 7px;
+    }
+
+
+}
+
 /******************************AUTH/PROFILE***********************************/
 div#auth-profile {
     div.copy-recoveryCode {
@@ -36,18 +90,20 @@ div#task-index {
             font-weight: bolder;
         }
     }
-    div.task{
+
+    div.task {
         position: relative;
         margin: 10px 0 0 0;
         padding: 10px 5px 3px 10px;
         border-radius: 10px;
         box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
         z-index: 0;
-        &:hover div.actions{
+
+        &:hover div.actions {
             visibility: visible;
         }
 
-        div.actions{
+        div.actions {
             visibility: hidden;
             position: absolute;
             width: 100%;
@@ -59,9 +115,10 @@ div#task-index {
             justify-content: center;
             flex-direction: row;
             align-items: center;
-            border-radius:inherit;
+            border-radius: inherit;
             background-color: $theme-primary;
-            button{
+
+            button {
                 margin-right: 10px;
             }
         }

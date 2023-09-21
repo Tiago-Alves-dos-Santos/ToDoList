@@ -2,17 +2,21 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Actions\Admin\CreateNewAdmin;
+use App\Actions\Fortify\CreateNewUser;
+use App\Actions\Admin\ResetAdminPassword;
+use App\Actions\Admin\UpdateAdminPassword;
+use App\Actions\Fortify\ResetUserPassword;
+use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Admin\UpdateAdminProfileInformation;
+use App\Actions\Fortify\UpdateUserProfileInformation;
 
-final class FortifyView
+final class FortifyCustom
 {
     public function loginView(): Response
     {
@@ -20,7 +24,11 @@ final class FortifyView
     }
     public function registerView(): Response
     {
-        return Inertia::render('Home');
+        if(request()->isAdmin()){
+
+        }else{
+            return Inertia::render('Home');
+        }
     }
     public function verifyEmailView(): Response
     {
@@ -54,7 +62,7 @@ final class FortifyView
         return Inertia::render('Auth/TwoFactorChallenge');
     }
 
-    public function customloginView($request, $model)
+    public function customLogin($request, $model)
     {
         $user = $model::where('email', $request->email)->first();
         // dd('aq');
@@ -63,5 +71,19 @@ final class FortifyView
             //Auth:login($admin);
             return $user;
         }
+    }
+    /**
+     * Retorna classe de ações com base se é user ou admin
+     *
+     * @param boolean $admin - Informe se o usuario é admin
+     * @return array
+     */
+    public function getActionsForAdmin(bool $admin): array{
+        return [
+            'createUser' => $admin ?  CreateNewAdmin::class : CreateNewUser::class,
+            'updatePassword' => $admin ?  UpdateAdminPassword::class : UpdateUserPassword::class,
+            'updateProfileInformation' => $admin ? UpdateAdminProfileInformation::class : UpdateUserProfileInformation::class,
+            'resetPassword' => $admin ? ResetAdminPassword::class : ResetUserPassword::class,
+        ];
     }
 }

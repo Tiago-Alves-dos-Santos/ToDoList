@@ -1,7 +1,7 @@
 <template>
     <layout-auth ref="layout_auth">
         <div class="img-logo">
-            <img src="img/favicon/list_100.png" alt="">
+            <img src="/img/favicon/list_100.png" alt="">
         </div>
         <simple-card title="Formulário" sub_title="Login" v-if="form_type_operation == dataTypeOperation.auth.login">
             <form @submit.prevent="login">
@@ -32,14 +32,14 @@
                                 Lembrar-me
                             </label>
                         </div>
-                        <Link href="/forgot-password" class="link-danger">Esqueceu a
-                            senha?</Link>
+                        <a @click="forgotPassword" class="link-danger pointer">Esqueceu a
+                            senha?</a>
                     </div>
                 </div>
 
                 <div class="form-row mt-2">
-                    <div class="col-12" style="display: flex; justify-content: space-between;">
-                        <a class="icon-link" href="#" @click="toggleForm">
+                    <div :class="['col-12','d-flex', isRouteAdmin ? 'justify-content-end':'justify-content-between']">
+                        <a class="icon-link" href="#" @click="toggleForm" v-if="!isRouteAdmin">
                             <i class="bi bi-arrow-left"></i>
                             Cadastrar
                         </a>
@@ -135,9 +135,13 @@ export default {
     },
     props: {
         errors: Object,
-        routes_fortify: Object
+        routes_fortify: Object,
+        isRouteAdmin: Boolean,
     },
     methods: {
+        forgotPassword(){
+            router.get(this.routes_fortify.forgot_password_get);
+        },
         toggleForm() {
             let middle_time = (0.75 / 2) * 1000;//(time-toggle-direction(animations.scss) / 2)*1000
             let value = null;
