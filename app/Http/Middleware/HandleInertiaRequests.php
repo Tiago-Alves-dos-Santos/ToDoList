@@ -39,6 +39,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'routes_fortify' => routesFortify(),
+            'guard' => $request->guard(),
             'auth' => [
                 'user' => $request->user()
                     ? $request->user()->only(

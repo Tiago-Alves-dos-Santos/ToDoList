@@ -1,7 +1,7 @@
 <template>
     <layout-auth ref="layout_auth">
         <div class="img-logo">
-            <img src="img/favicon/list_100.png" alt="">
+            <img src="/img/favicon/list_100.png" alt="">
         </div>
         <simple-card title="Formulário" sub_title="Login" v-if="form_type_operation == dataTypeOperation.auth.login">
             <form @submit.prevent="login">

@@ -69,7 +69,8 @@ export default {
     },
     methods: {
         logout() {
-            router.post(this.$page.props.routes_fortify.logout);
+            router.post('/logout');
+            // router.post('/admin/logout');
         }
     }
 }

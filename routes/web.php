@@ -1,10 +1,10 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 /*
@@ -17,15 +17,14 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth_fortify
 Route::get('/', function(){
-   return Inertia::render('Index');
+    return Inertia::render('Index');
 })->name('index');
-Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth','verified'])->name('dashboard');
-Route::prefix("/user")->group(function(){
-    Route::get('/', [UserController::class, 'viewProfile'])->middleware(['auth','verified'])->name('user.viewProfile');
-});
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+Route::prefix("/user")->middleware(['auth','verified'])->group(function(){
+    Route::get('/', [UserController::class, 'viewProfile'])->name('user.viewProfile');
+});
 
 Route::prefix('task')->middleware(['auth','verified'])->group(function () {
     Route::get('/', [TaskController::class, 'index'])->name('task.index');
@@ -33,5 +32,10 @@ Route::prefix('task')->middleware(['auth','verified'])->group(function () {
     Route::put('/update/{id}', [TaskController::class, 'update'])->name('task.update');
     Route::delete('/delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
 });
+
+
+
+
+
 
 

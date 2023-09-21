@@ -3,17 +3,17 @@
 namespace App\Providers;
 
 use App\Models\User;
-use Inertia\Inertia;
+use App\Models\Admin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
 use App\Facades\FortifyViewFacade;
-use Illuminate\Support\Facades\Hash;
 use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
+
 use Illuminate\Support\Facades\RateLimiter;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 
@@ -24,7 +24,13 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $url = request()->path();
+        // Verificar se a URL contém a palavra "admin"
+        if (str_starts_with($url, 'admin')) {
+            config(['fortify.guard' => 'admin']);
+            config(['fortify.prefix' => 'admin']);
+        }
+
     }
 
     /**
@@ -38,7 +44,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         Fortify::authenticateUsing(function (Request $request) {
-            return FortifyViewFacade::customloginView($request, app(User::class));
+            if(request()->isAdmin()) {
+                return FortifyViewFacade::customloginView($request, app(Admin::class));
+            }else{
+                return FortifyViewFacade::customloginView($request, app(User::class));
+            }
         });
 
         Fortify::loginView(function (Request $request) {
