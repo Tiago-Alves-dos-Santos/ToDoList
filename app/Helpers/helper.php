@@ -11,7 +11,7 @@ if (!function_exists('routesFortify')) {
     {
         $prefix = prefixAuth();
         return [
-            'register' => $prefix.'register',
+            'register' => route('register'),//POST
             'reset_password' => route('password.update'),//POST
             'forgot_password_get' => route('password.request'),
             'forgot_password' => route('password.email'),
@@ -19,8 +19,8 @@ if (!function_exists('routesFortify')) {
             'logout' => route('logout'), //POST
             'verificationSend' => route('verification.send'),//,
             'confirm_password' => route('password.confirm'),
-            'confirmed_password_status' => $prefix.'user/confirmed-password-status',
-            'confirmed_two_factor_authentication' => route('two-factor.confirm'),
+            'confirmed_password_status' => route('password.confirmation'), //GET
+            'confirmed_two_factor_authentication' => route('two-factor.confirm'), //POST
             'password' => route('user-password.update'),
             'profile_information' => route('user-profile-information.update'),
             'two_factor_challenge' => route('two-factor.login'),//POST - DELETE
@@ -28,7 +28,7 @@ if (!function_exists('routesFortify')) {
             'two_factor_authentication_disable' => route('two-factor.disable'),// DELETE
             'two_factor_qr_code' => route('two-factor.qr-code'), //GET
             'two_factor_recovery_codes' => route('two-factor.recovery-codes'), //POST - GET
-            'two_factor_secret_key' => $prefix.'user/two-factor-secret-key',
+            'two_factor_secret_key' => route('two-factor.secret-key'),
         ];
     }
 }
