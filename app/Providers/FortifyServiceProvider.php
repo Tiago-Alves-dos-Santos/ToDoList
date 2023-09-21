@@ -24,6 +24,7 @@ class FortifyServiceProvider extends ServiceProvider
         if (request()->isAdmin()) {
             config(['fortify.guard' => 'admin']);
             config(['fortify.prefix' => 'admin']);
+            config(['fortify.passwords' => 'admins']);
         }
     }
 

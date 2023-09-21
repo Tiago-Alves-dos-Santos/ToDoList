@@ -38,8 +38,8 @@
                 </div>
 
                 <div class="form-row mt-2">
-                    <div class="col-12" style="display: flex; justify-content: space-between;">
-                        <a class="icon-link" href="#" @click="toggleForm">
+                    <div :class="['col-12','d-flex', isRouteAdmin ? 'justify-content-end':'justify-content-between']">
+                        <a class="icon-link" href="#" @click="toggleForm" v-if="!isRouteAdmin">
                             <i class="bi bi-arrow-left"></i>
                             Cadastrar
                         </a>
@@ -135,7 +135,8 @@ export default {
     },
     props: {
         errors: Object,
-        routes_fortify: Object
+        routes_fortify: Object,
+        isRouteAdmin: Boolean,
     },
     methods: {
         forgotPassword(){
