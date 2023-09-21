@@ -17,25 +17,33 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
+
+Route::get('/', function () {
     return Inertia::render('Index');
 })->name('index');
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-Route::prefix("/user")->middleware(['auth','verified'])->group(function(){
+Route::prefix("/user")->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [UserController::class, 'viewProfile'])->name('user.viewProfile');
 });
 
-Route::prefix('task')->middleware(['auth','verified'])->group(function () {
-    Route::get('/', [TaskController::class, 'index'])->name('task.index');
-    Route::match(['get','post'],'/create', [TaskController::class, 'create'])->name('task.create');
-    Route::put('/update/{id}', [TaskController::class, 'update'])->name('task.update');
-    Route::delete('/delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
+function taskRoutes()
+{
+    Route::prefix('task')->middleware(['verified'])->group(function () {
+        Route::get('/', [TaskController::class, 'index'])->name('task.index');
+        Route::match(['get', 'post'], '/create', [TaskController::class, 'create'])->name('task.create');
+        Route::put('/update/{id}', [TaskController::class, 'update'])->name('task.update');
+        Route::delete('/delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
+    });
+}
+
+taskRoutes();
+
+
+Route::prefix('/admin')->middleware(['auth:admin', 'verified'])->group(function () {
+    Route::get('/', [HomeController::class, 'adminHome'])->name('admin.dashboard');
+    Route::get('/profile', [UserController::class, 'viewProfile'])->name('admin.viewProfile');
+    taskRoutes();
 });
 
-
-
-
-
-
-
+// require 'admin.php';

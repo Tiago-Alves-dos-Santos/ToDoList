@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Actions\Admin;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
-class UpdateUserProfileInformation implements UpdatesUserProfileInformation
+class UpdateAdminProfileInformation implements UpdatesUserProfileInformation
 {
     /**
      * Validate and update the given user's profile information.
      *
      * @param  array<string, string>  $input
      */
-    public function update(User $user, array $input): void
+    public function update(Admin $admin, array $input): void
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -25,15 +25,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'string',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($user->id),
+                Rule::unique('admins')->ignore($admin->id),
             ],
         ])->validateWithBag('updateProfileInformation');
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
+        if ($input['email'] !== $admin->email &&
+            $admin instanceof MustVerifyEmail) {
+            $this->updateVerifiedAdmin($admin, $input);
         } else {
-            $user->forceFill([
+            $admin->forceFill([
                 'name' => $input['name'],
                 'email' => $input['email'],
             ])->save();
@@ -41,18 +41,19 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     }
 
     /**
-     * Update the given verified user's profile information.
+     * Update the given verified Admin's profile information.
      *
      * @param  array<string, string>  $input
      */
-    protected function updateVerifiedUser(User $user, array $input): void
+    protected function updateVerifiedAdmin(Admin $admin, array $input): void
     {
-        $user->forceFill([
+        $admin->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
             'email_verified_at' => null,
         ])->save();
 
-        $user->sendEmailVerificationNotification();
+        $admin->sendEmailVerificationNotification();
     }
 }
+

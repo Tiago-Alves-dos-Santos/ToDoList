@@ -1,13 +1,13 @@
 <?php
 namespace App\Facades;
 
-use App\Services\FortifyView;
+use App\Services\FortifyCustom;
 use Illuminate\Support\Facades\Facade;
 
-final class FortifyViewFacade extends Facade
+final class FortifyFacade extends Facade
 {
     protected static function getFacadeAccessor(){
-        return FortifyView::class;
+        return FortifyCustom::class;
     }
 
 }

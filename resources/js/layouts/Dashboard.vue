@@ -37,10 +37,10 @@
                         </a>
                     </li>
                     <li>
-                        <Link :href="this.$route('user.viewProfile')">
+                        <a @click="toProfile">
                         <i class="bi bi-person-gear"></i>
                         Perfil
-                        </Link>
+                        </a>
                     </li>
                     <li>
                         <a @click="logout" class="logout">
@@ -68,6 +68,10 @@ export default {
         }
     },
     methods: {
+        toProfile(){
+            let url =  (this.$page.props.guard == 'admin') ? this.$route('admin.viewProfile') : this.$route('user.viewProfile');
+            router.get(url);
+        },
         logout() {
             router.post('/logout');
             // router.post('/admin/logout');
