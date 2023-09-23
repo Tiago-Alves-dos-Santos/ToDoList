@@ -24,7 +24,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 Route::prefix("/user")->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [UserController::class, 'viewProfile'])->name('user.viewProfile');
+    Route::get('/', [HomeController::class, 'homeUser'])->name('user.dashboard');
+    Route::get('/profile', [UserController::class, 'viewProfile'])->name('user.viewProfile');
 });
 
 function taskRoutes()

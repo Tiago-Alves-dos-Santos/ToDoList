@@ -15,7 +15,7 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Admin\UpdateAdminProfileInformation;
 use App\Actions\Fortify\UpdateUserProfileInformation;
-
+/** USE A FACADE: FortifyFacade */
 final class FortifyCustom
 {
     public function loginView(): Response
@@ -24,9 +24,8 @@ final class FortifyCustom
     }
     public function registerView(): Response
     {
-        if(request()->isAdmin()){
-
-        }else{
+        if (request()->isAdmin()) {
+        } else {
             return Inertia::render('Home');
         }
     }
@@ -78,7 +77,8 @@ final class FortifyCustom
      * @param boolean $admin - Informe se o usuario é admin
      * @return array
      */
-    public function getActionsForAdmin(bool $admin): array{
+    public function getActionsForAdmin(bool $admin): array
+    {
         return [
             'createUser' => $admin ?  CreateNewAdmin::class : CreateNewUser::class,
             'updatePassword' => $admin ?  UpdateAdminPassword::class : UpdateUserPassword::class,

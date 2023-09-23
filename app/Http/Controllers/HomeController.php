@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Inertia\Response;
-use App\Services\Sidebar;
+use App\Services\PageFront;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +22,7 @@ class HomeController extends Controller
             if (!empty($user)) {
                 switch ($guardName) {
                     case 'web':
-                        return $this->homeUser($request);
+                        return redirect()->route('user.dashboard');
                         break;
                     case 'admin':
                         return redirect()->route('admin.dashboard');
@@ -36,18 +36,19 @@ class HomeController extends Controller
         }
     }
 
-    private function homeUser(Request $request, array $data = []): Response
+    public function homeUser(Request $request, array $data = []): Response
     {
         return Inertia::render('Auth/Home', $data);
     }
     public function adminHome(Request $request): Response
     {
-        $sidebar = new Sidebar($request->guard());
-
-        ds()->table((object)$sidebar->getLinks(),'MyTable');
+        $pageFront = new PageFront($request->guard());
+        ds()->clear();
+        ds()->table((object)$pageFront->getLinks(),'MyTable');
 
         return Inertia::render('Auth/Home', [
-            'sidebarLinks' => $sidebar->getLinks()
+            'menuLinks' => $pageFront->getLinks(),
+            'title' => $pageFront->getTitlePage()
         ]);
     }
 }
