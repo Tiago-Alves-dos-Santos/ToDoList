@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Services\Sidebar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 
 class HomeController extends Controller
@@ -38,8 +40,14 @@ class HomeController extends Controller
     {
         return Inertia::render('Auth/Home', $data);
     }
-    public function adminHome(Request $request, array $data = []): Response
+    public function adminHome(Request $request): Response
     {
-        return Inertia::render('Auth/Home', $data);
+        $sidebar = new Sidebar($request->guard());
+
+        ds()->table((object)$sidebar->getLinks(),'MyTable');
+
+        return Inertia::render('Auth/Home', [
+            'sidebarLinks' => $sidebar->getLinks()
+        ]);
     }
 }

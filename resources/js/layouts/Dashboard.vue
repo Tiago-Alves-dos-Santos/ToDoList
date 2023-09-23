@@ -18,30 +18,13 @@
             </div>
             <div class="offcanvas-body">
                 <ul>
-                    <li>
-                        <Link :href="this.$route('dashboard')" class="active">
-                        <i class="bi bi-speedometer2"></i>
-                        Dashboard
+                    <li v-for="(value, index) in $page.props.sidebarLinks" :key="index">
+                        <Link :href="value.url" class="active">
+                        <i :class="value.icon"></i>
+                        {{ value.label }}
                         </Link>
                     </li>
-                    <li>
-                        <Link :href="this.$route('task.index')">
-                            <i class="bi bi-list-task"></i>
-                            Tarefas
-                        </Link>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="bi bi-filetype-pdf"></i>
-                            Relatorio
-                        </a>
-                    </li>
-                    <li>
-                        <a @click="toProfile">
-                        <i class="bi bi-person-gear"></i>
-                        Perfil
-                        </a>
-                    </li>
+
                     <li>
                         <a @click="logout" class="logout">
                             <i class="bi bi-box-arrow-left"></i>
@@ -68,8 +51,8 @@ export default {
         }
     },
     methods: {
-        toProfile(){
-            let url =  (this.$page.props.guard == 'admin') ? this.$route('admin.viewProfile') : this.$route('user.viewProfile');
+        toProfile() {
+            let url = (this.$page.props.guard == 'admin') ? this.$route('admin.viewProfile') : this.$route('user.viewProfile');
             router.get(url);
         },
         logout() {

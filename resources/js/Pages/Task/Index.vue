@@ -35,9 +35,10 @@
                     </div>
                     <div class="task" v-for="task in tasks.data">
                         <h3 :class="{
-                            'text-decoration-line-through': (task.status == dataTaskStatus.pending ? false : true)
+                            'text-decoration-line-through': (task.status == dataTaskStatus.pending ? false : true),
+                            'text-danger': (task.deleted_at ? true : false)
                         }">{{ task.task }}</h3>
-                        <div class="actions">
+                        <div class="actions" v-if="!task.deleted_at">
                             <button-load
                                 :icon="task.status == dataTaskStatus.pending ? 'bi bi-check-lg' : 'bi bi-arrow-clockwise'"
                                 :title="task.status == dataTaskStatus.pending ? 'Concluir' : 'Pendente'"

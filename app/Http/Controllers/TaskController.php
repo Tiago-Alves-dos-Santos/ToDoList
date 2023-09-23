@@ -22,9 +22,8 @@ class TaskController extends Controller
     }
     public function index(Request $request)
     {
-        ds()->clear();
         $search = $request->task ?? '';
-        $options = ($request->options ?? null);
+        $options = $request->options ?? null;
         $tasks = Task::query()->orderBy('id','desc');
         $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
         $tasks->where($column_id,$request->user()->id);
@@ -37,7 +36,6 @@ class TaskController extends Controller
         }else{
             $tasks->where('status','pending');
         }
-        ds($tasks->toSql());
         return Inertia::render('Task/Index', [
             'tasks' => $tasks->paginate(15)
         ]);
