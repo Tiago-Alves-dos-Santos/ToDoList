@@ -44,11 +44,14 @@ class HomeController extends Controller
     {
         $pageFront = new PageFront($request->guard());
         ds()->clear();
-        ds()->table((object)$pageFront->getLinks(),'MyTable');
+        ds()->table((object)$pageFront->getLinks(), 'MyTable');
 
         return Inertia::render('Auth/Home', [
-            'menuLinks' => $pageFront->getLinks(),
-            'title' => $pageFront->getTitlePage()
+            'page_front' => [
+                'menuLinks' => $pageFront->getLinks(),
+                'title' => $pageFront->getInfoPageAtual()['title'],
+                'route_current' => $pageFront->getInfoPageAtual()['route'],
+            ]
         ]);
     }
 }

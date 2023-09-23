@@ -6,7 +6,7 @@
                 <a href="#sideMenu" data-bs-toggle="offcanvas">
                     <i class="bi bi-list"></i>
                 </a>
-                <h3 class="text-center">{{$page.props.title}}</h3>
+                <h3 class="text-center">{{$page.props.page_front.title}}</h3>
             </div>
         </div>
         <!-- Fim Navbar -->
@@ -18,8 +18,8 @@
             </div>
             <div class="offcanvas-body">
                 <ul>
-                    <li v-for="(value, index) in $page.props.menuLinks" :key="index">
-                        <Link :href="value.url" class="active">
+                    <li v-for="(value, index) in $page.props.page_front.menuLinks" :key="index">
+                        <Link :href="value.url" :class="[($page.props.page_front.route_current == value.route) ? 'active':'']">
                         <i :class="value.icon"></i>
                         {{ value.label }}
                         </Link>

@@ -30,41 +30,50 @@ final class PageFront
 
         ];
     }
-    public function getTitlePage(): string
+    /**
+     * Retorna rota atual e titulo da pagina de la tabla de datos
+     *
+     * @return array
+     */
+    public function getInfoPageAtual(): array
     {
-        $routeName = Route::currentRouteName();
+        $route_name = Route::currentRouteName();
         $title = '';
-        if(array_key_exists($routeName, $this->routes['comon'])){
-            $title = $this->routes['comon'][$routeName]['title'];
-        }else if(array_key_exists($routeName, $this->routes[$this->guard])){
-            $title = $this->routes[$this->guard][$routeName]['title'];
+        if(array_key_exists($route_name, $this->routes['comon'])){
+            $title = $this->routes['comon'][$route_name]['title'];
+        }else if(array_key_exists($route_name, $this->routes[$this->guard])){
+            $title = $this->routes[$this->guard][$route_name]['title'];
         }else{
             $title = 'Não econtrado';
         }
 
-        return $title;
+        return [
+            'title' => $title,
+            'route' => $route_name
+        ];
     }
     public function getLinks(): array
     {
         $comon = [
-            ['label' => 'Dashboard', 'icon' => 'bi bi-speedometer2', 'url' => route('dashboard')],
-            ['label' => 'Tarefas', 'icon' => 'bi bi-list-task', 'url' => route('task.index')],
-            ['label' => 'Relatorio', 'icon' => 'bi bi-filetype-pdf', 'url' => '/'],
+            ['label' => 'Tarefas', 'icon' => 'bi bi-list-task', 'url' => route('task.index'), 'route' => 'task.index'],
+            ['label' => 'Relatorio', 'icon' => 'bi bi-filetype-pdf', 'url' => '/', 'route' => ''],
         ];
         switch ($this->guard) {
             case 'web':
                 return [
+                    ['label' => 'Dashboard', 'icon' => 'bi bi-speedometer2', 'url' => route('dashboard'), 'route' => 'user.dashboard'],
+                    ['label' => 'Perfil', 'icon' => 'bi bi-person-gear', 'url' => route('user.viewProfile'), 'route' => 'user.viewProfile'],
                     ...$comon,
-                    ['label' => 'Perfil', 'icon' => 'bi bi-person-gear', 'url' => route('user.viewProfile')],
                 ];
                 break;
             case 'admin':
                 return [
+                    ['label' => 'Dashboard', 'icon' => 'bi bi-speedometer2', 'url' => route('dashboard'), 'route' => 'admin.dashboard'],
+                    ['label' => 'Perfil', 'icon' => 'bi bi-person-gear', 'url' => route('admin.viewProfile'), 'route' => 'admin.viewProfile'],
+                    ['label' => 'Novo admin', 'icon' => 'bi bi-person-gear', 'url' => '/', 'route' => ''],
+                    ['label' => 'Usuarios', 'icon' => 'bi bi-person-gear', 'url' => '/', 'route' => ''],
+                    ['label' => 'Admins', 'icon' => 'bi bi-person-gear', 'url' => '/', 'route' => ''],
                     ...$comon,
-                    ['label' => 'Perfil', 'icon' => 'bi bi-person-gear', 'url' => route('admin.viewProfile')],
-                    ['label' => 'Novo admin', 'icon' => 'bi bi-person-gear', 'url' => '/'],
-                    ['label' => 'Usuarios', 'icon' => 'bi bi-person-gear', 'url' => '/'],
-                    ['label' => 'Admins', 'icon' => 'bi bi-person-gear', 'url' => '/'],
                 ];
                 break;
 
