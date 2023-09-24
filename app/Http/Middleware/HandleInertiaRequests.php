@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
+use Illuminate\Http\Request;
+use App\Facades\PageFrontFacade;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -41,6 +41,11 @@ class HandleInertiaRequests extends Middleware
             'routes_fortify' => routesFortify(),
             'guard' => $request->guard(),
             'isRouteAdmin' => $request->isAdmin(),
+            'page_front' => [
+                'menuLinks' => PageFrontFacade::getLinks(),
+                'title' => PageFrontFacade::getInfoPageAtual()['title'],
+                'route_current' => PageFrontFacade::getInfoPageAtual()['route'],
+            ],
             'auth' => [
                 'user' => $request->user()
                     ? $request->user()->only(

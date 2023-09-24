@@ -25,7 +25,7 @@ final class PageFront
             ],
             'admin' => [
                 'admin.dashboard' => ['title' => 'Dashboard'],
-                'user.viewProfile' => ['title' => 'Perfil']
+                'admin.viewProfile' => ['title' => 'Perfil']
             ]
 
         ];
