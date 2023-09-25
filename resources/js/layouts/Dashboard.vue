@@ -56,7 +56,11 @@ export default {
             router.get(url);
         },
         logout() {
-            router.post('/logout');
+            router.post('/logout', {}, {
+                onSuccess: () => {
+                    router.get('/');
+                }
+            });
             // router.post('/admin/logout');
         }
     }

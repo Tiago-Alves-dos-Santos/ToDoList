@@ -12,12 +12,13 @@ final class PageFront
     ) {
         $this->startArrayRoutes();
     }
-    private function startArrayRoutes():void{
+    private function startArrayRoutes(): void
+    {
         $this->routes = [
             'comon' => [
                 'task.index' => ['title' => 'Tarefas'],
                 'relatorio' => ['title' => 'Relatorio'],
-                'password.confirm' => ['Confirmar senha']
+                'password.confirm' => ['title' => 'Confirmar senha']
             ],
             'web' => [
                 'user.dashboard' => ['title' => 'Dashboard'],
@@ -35,22 +36,24 @@ final class PageFront
      *
      * @return array
      */
-    public function getInfoPageAtual(): array
+    public function getInfoPageActual(): array
     {
-        $route_name = Route::currentRouteName();
-        $title = '';
-        if(array_key_exists($route_name, $this->routes['comon'])){
-            $title = $this->routes['comon'][$route_name]['title'];
-        }else if(array_key_exists($route_name, $this->routes[$this->guard])){
-            $title = $this->routes[$this->guard][$route_name]['title'];
-        }else{
-            $title = 'Não econtrado';
-        }
+        if (!empty($this->guard)) {
+            $route_name = Route::currentRouteName();
+            $title = '';
+            if (array_key_exists($route_name, $this->routes['comon'])) {
+                $title = $this->routes['comon'][$route_name]['title'];
+            } else if (array_key_exists($route_name, $this->routes[$this->guard])) {
+                $title = $this->routes[$this->guard][$route_name]['title'];
+            } else {
+                $title = 'Não econtrado';
+            }
 
-        return [
-            'title' => $title,
-            'route' => $route_name
-        ];
+            return [
+                'title' => $title,
+                'route' => $route_name
+            ];
+        }
     }
     public function getLinks(): array
     {
@@ -77,8 +80,8 @@ final class PageFront
                 ];
                 break;
 
-            default:
-                return throw new \Exception("Guard: '{$this->guard}' não é um argumento válido");
+            default: //null
+                return [];
                 break;
         }
     }

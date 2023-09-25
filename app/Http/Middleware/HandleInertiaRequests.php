@@ -37,15 +37,20 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $page_front = '';
+        if(!empty($request->guard())){
+            $page_info = PageFrontFacade::getInfoPageActual();
+            $page_front = [
+                'menuLinks' => PageFrontFacade::getLinks(),
+                'title' => $page_info['title'],
+                'route_current' => $page_info['route'],
+            ];
+        }
         return array_merge(parent::share($request), [
             'routes_fortify' => routesFortify(),
             'guard' => $request->guard(),
             'isRouteAdmin' => $request->isAdmin(),
-            'page_front' => [
-                'menuLinks' => PageFrontFacade::getLinks(),
-                'title' => PageFrontFacade::getInfoPageAtual()['title'],
-                'route_current' => PageFrontFacade::getInfoPageAtual()['route'],
-            ],
+            'page_front' => $page_front,
             'auth' => [
                 'user' => $request->user()
                     ? $request->user()->only(
