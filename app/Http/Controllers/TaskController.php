@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TaskStatus;
 use App\Models\Task;
 use App\Models\User;
 
@@ -34,10 +35,10 @@ class TaskController extends Controller
             $options = (object) $this->convertObjectPropertiesToBoolean($options);
             $tasks->filterStatusAndDelete($options);
         }else{
-            $tasks->where('status','pending');
+            $tasks->where('status',TaskStatus::PENDING);
         }
         return Inertia::render('Task/Index', [
-            'tasks' => $tasks->paginate(15)
+            'tasks' => $tasks->paginate(5)
         ]);
     }
 

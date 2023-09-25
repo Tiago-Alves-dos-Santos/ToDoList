@@ -32,16 +32,6 @@ class AppServiceProvider extends ServiceProvider
                 return false;
             }
         });
-        Request::macro('myUser', function () {
-            $guards = config('auth.guards');
-            unset($guards['sanctum']);
-            foreach ($guards as $guardName => $guardConfig) {
-                $user = Auth::guard($guardName)->user();
-                if (!empty($user)) {
-                    return $user;
-                }
-            }
-        });
         Request::macro('guard', function () {
             $guards = config('auth.guards');
             unset($guards['sanctum']);
