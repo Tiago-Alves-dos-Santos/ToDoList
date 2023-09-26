@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\PageFront;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
         });
+
     }
 
     /**
@@ -51,6 +53,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Arr::macro('allValuesToBoolean', function ($array) {
+            foreach ($array as $key => $value) {
+                $array[$key] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+            }
+            return $array;
+        });
         //FACADE
         $this->app->bind('PageFront', fn() => new PageFront(request()->guard()));
         //RATE LIMITE

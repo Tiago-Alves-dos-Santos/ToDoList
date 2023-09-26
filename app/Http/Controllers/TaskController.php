@@ -2,25 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\TaskStatus;
 use App\Models\Task;
-use App\Models\User;
-
 use Inertia\Inertia;
-use Inertia\Response;
+use App\Enums\TaskStatus;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 
 class TaskController extends Controller
 {
-    public function convertObjectPropertiesToBoolean($obj) {
-        // dd($obj);
-        foreach ($obj as $key => $value) {
-            $obj[$key] = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-        }
-        return $obj;
-    }
+
     public function index(Request $request)
     {
         $search = $request->task ?? '';
@@ -32,7 +23,7 @@ class TaskController extends Controller
             $tasks->where('task','like',"%$search%");
         }
         if(!empty($options)){
-            $options = (object) $this->convertObjectPropertiesToBoolean($options);
+            $options = (object) Arr::allValuesToBoolean($options);
             $tasks->filterStatusAndDelete($options);
         }else{
             $tasks->where('status',TaskStatus::PENDING);
