@@ -19,8 +19,8 @@
                     <div class="row">
                         <div class="col-md-12 mt-1">
                             <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
-                                <input type="checkbox" class="btn-check" name="" id="btnradio1" autocomplete="off"
-                                    v-model="checkFiltersTask.pending" checked @change="filterStatusAndDeleted">
+                                <input type="checkbox" class="btn-check" checked name="" id="btnradio1" autocomplete="off"
+                                    v-model="checkFiltersTask.pending" @change="filterStatusAndDeleted">
                                 <label class="btn btn-outline-theme-primary" for="btnradio1">Não concluidas</label>
 
                                 <input type="checkbox" class="btn-check" name="" id="btnradio2" autocomplete="off"
@@ -83,9 +83,20 @@ export default {
     },
     props: {
         tasks: [Array, Object],
+        filter: Object,
         errors: Object
     },
     methods: {
+        setFilter() {
+            if (this.filter.options) {
+                this.checkFiltersTask.pending = this.filter.options.pending;
+                this.checkFiltersTask.completed = this.filter.options.completed;
+                this.checkFiltersTask.deleted = this.filter.options.deleted;
+            }
+            if(this.filter.search){
+                this.form.task = this.filter.search;
+            }
+        },
         create() {
             let route = this.$route('task.create');
             router.post(route, this.form, {
@@ -191,6 +202,9 @@ export default {
                 onFinish: () => this.$refs.paginate_task.setLoad(false)
             });
         },
+    },
+    mounted() {
+        this.setFilter();
     }
 }
 </script>

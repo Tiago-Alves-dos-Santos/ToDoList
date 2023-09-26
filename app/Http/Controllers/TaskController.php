@@ -29,7 +29,8 @@ class TaskController extends Controller
             $tasks->where('status',TaskStatus::PENDING);
         }
         return Inertia::render('Task/Index', [
-            'tasks' => $tasks->paginate(5)
+            'tasks' => $tasks->paginate(5),
+            'filter' => ['options' => $options, 'search' => $search]
         ]);
     }
 

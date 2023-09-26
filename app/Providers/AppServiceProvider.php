@@ -25,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
         });
         //************MACRO REQUEST*************/
         Request::macro('isAdmin', function () {
-            $url = request()->path(); //path
-            //Verificar se a URL contém a palavra "admin"
+            $url = request()->path();
+            //Verificar se a URL começa a palavra "admin"
             if (str_starts_with($url, 'admin')) {
                 return true;
             } else {
