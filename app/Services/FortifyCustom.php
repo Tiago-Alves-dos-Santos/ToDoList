@@ -25,6 +25,8 @@ final class FortifyCustom
     public function registerView(): Response
     {
         if (request()->isAdmin()) {
+            //admin não pode ser cadastrado publicamente - regra do sistema
+            return redirect()->route('login');
         } else {
             return Inertia::render('Home');
         }
