@@ -13,5 +13,6 @@ class AdminController extends Controller
     }
     public function create(Request $request)
     {
+        //classe do fortify
     }
 }
