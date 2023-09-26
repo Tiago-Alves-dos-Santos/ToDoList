@@ -29,5 +29,3 @@ Route::prefix("/user")->middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [UserController::class, 'viewProfile'])->name('user.viewProfile');
     RoutesHelper::tasks();
 });
-
-require 'admin.php';

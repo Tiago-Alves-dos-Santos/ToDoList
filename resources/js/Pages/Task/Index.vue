@@ -93,7 +93,7 @@ export default {
                 this.checkFiltersTask.completed = this.filter.options.completed;
                 this.checkFiltersTask.deleted = this.filter.options.deleted;
             }
-            if(this.filter.search){
+            if (this.filter.search) {
                 this.form.task = this.filter.search;
             }
         },
