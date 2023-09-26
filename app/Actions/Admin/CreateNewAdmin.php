@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Actions\Admin;
 
+use Carbon\Carbon;
 use App\Models\Admin;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +36,7 @@ class CreateNewAdmin implements CreatesNewUsers
         return Admin::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'email_verified_at' => Carbon::now(),
             'password' => Hash::make($input['password']),
         ]);
     }

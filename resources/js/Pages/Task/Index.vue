@@ -111,6 +111,7 @@ export default {
                     this.loads.create = false;
                 }
             });
+
         },
         updateAlert(task) {
             this.$alert.fire({

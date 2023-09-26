@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
             'guard' => $request->guard(),
             'isRouteAdmin' => $request->isAdmin(),
             'page_front' => $page_front,
+            'fn_data' => session('data') ?? null,
             'auth' => [
                 'user' => $request->user()
                     ? $request->user()->only(
