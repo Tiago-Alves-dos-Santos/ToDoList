@@ -14,9 +14,12 @@ class AdminController extends Controller
     }
     public function create(Request $request)
     {
-
         $new_admin = new CreateNewAdmin();
-        $name = $new_admin->create($request->all())->name;
+        $data = [
+            ...$request->all(),
+            'admin_creator_id' => $request->user()->id,
+        ];
+        $name = $new_admin->create($data)->name;
         return redirect()->back()->with(['data' => [
             'name' => $name
         ]]);
