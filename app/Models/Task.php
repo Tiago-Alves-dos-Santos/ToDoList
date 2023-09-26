@@ -10,4 +10,18 @@ class Task extends Model
 {
     use HasFactory, SoftDeletes;
     protected $guarded = [];
+
+    public function scopeFilterStatusAndDelete($query, Object $options)
+    {
+        if($options->deleted){
+            $query->withTrashed();
+        }
+        $status = [
+            $options->pending ? 'pending' : null,
+            $options->completed ? 'completed' : null,
+       ];
+        $query->whereIn('status', $status);
+        return $query;
+    }
+
 }

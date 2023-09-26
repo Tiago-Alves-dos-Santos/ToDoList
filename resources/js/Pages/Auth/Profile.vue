@@ -67,7 +67,7 @@
 
                         <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes"
                             class="btn btn-primary ms-2" @click="newRecoveryCodes"
-                            v-if="two_factor_isEnable"></button-load>
+                            v-if="!two_factor_isEnable"></button-load>
                     </simple-card>
                     <simple-card title="QrCode" class="bg-white w-100 mt-2">
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
@@ -220,7 +220,7 @@ export default {
                 onStart: () => {
                     this.loads.new_recovery_codes = true;
                 },
-                onSuccess: (response) => {
+                onSuccess: () => {
                     axios.get(this.routes_fortify.two_factor_recovery_codes)
                         .then(function (response) {
                             self.recovery_codes = response.data;

@@ -7,7 +7,6 @@ use Inertia\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class HomeController extends Controller
 {
     public function index(Request $request)
@@ -20,7 +19,7 @@ class HomeController extends Controller
             if (!empty($user)) {
                 switch ($guardName) {
                     case 'web':
-                        return $this->homeUser($request);
+                        return redirect()->route('user.dashboard');
                         break;
                     case 'admin':
                         return redirect()->route('admin.dashboard');
@@ -34,12 +33,12 @@ class HomeController extends Controller
         }
     }
 
-    private function homeUser(Request $request, array $data = []): Response
+    public function homeUser(Request $request, array $data = []): Response
     {
         return Inertia::render('Auth/Home', $data);
     }
-    public function adminHome(Request $request, array $data = []): Response
+    public function adminHome(Request $request): Response
     {
-        return Inertia::render('Auth/Home', $data);
+        return Inertia::render('Auth/Home');
     }
 }

@@ -1,11 +1,12 @@
 <?php
 
 
+use Inertia\Inertia;
+use App\Helpers\RoutesHelper;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,26 +25,9 @@ Route::get('/', function () {
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 Route::prefix("/user")->middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [UserController::class, 'viewProfile'])->name('user.viewProfile');
+    Route::get('/', [HomeController::class, 'homeUser'])->name('user.dashboard');
+    Route::get('/profile', [UserController::class, 'viewProfile'])->name('user.viewProfile');
+    RoutesHelper::tasks();
 });
 
-function taskRoutes()
-{
-    Route::prefix('task')->middleware(['verified'])->group(function () {
-        Route::get('/', [TaskController::class, 'index'])->name('task.index');
-        Route::match(['get', 'post'], '/create', [TaskController::class, 'create'])->name('task.create');
-        Route::put('/update/{id}', [TaskController::class, 'update'])->name('task.update');
-        Route::delete('/delete/{id}', [TaskController::class, 'delete'])->name('task.delete');
-    });
-}
-
-taskRoutes();
-
-
-Route::prefix('/admin')->middleware(['auth:admin', 'verified'])->group(function () {
-    Route::get('/', [HomeController::class, 'adminHome'])->name('admin.dashboard');
-    Route::get('/profile', [UserController::class, 'viewProfile'])->name('admin.viewProfile');
-    taskRoutes();
-});
-
-// require 'admin.php';
+require 'admin.php';
