@@ -12,6 +12,10 @@ class AdminController extends Controller
     {
         return Inertia::render('Admin/Register');
     }
+    public function viewListUsers()
+    {
+        return Inertia::render('Admin/Users');
+    }
     public function create(Request $request)
     {
         $new_admin = new CreateNewAdmin();
