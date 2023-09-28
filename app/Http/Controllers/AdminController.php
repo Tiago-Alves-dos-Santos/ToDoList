@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Admin\CreateNewAdmin;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+use App\Actions\Admin\CreateNewAdmin;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,10 @@ class AdminController extends Controller
     }
     public function viewListUsers()
     {
-        return Inertia::render('Admin/Users');
+        $users = User::cursor();
+        return Inertia::render('Admin/Users', [
+            'users' => $users,
+        ]);
     }
     public function create(Request $request)
     {
