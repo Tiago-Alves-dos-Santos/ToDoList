@@ -1,60 +1,71 @@
 <template>
     <layout-dashboard>
         <simple-card title="Usuarios" class="w-100">
-            <table class="table table-striped">
-                <thead>
+            <v-table>
+                <template v-slot:thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Ativo</th>
-                        <th>2FA</th>
+                        <th>
+                            Nome
+                            <input type="text" name="" id="" class="form-control">
+                        </th>
+                        <th>
+                            E-mail
+                            <input type="text" name="" id="" class="form-control">
+                        </th>
+                        <th>
+                            Ativo
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1">Todos</option>
+                                <option value="2">Ativos</option>
+                                <option value="3">Inativos</option>
+                            </select>
+                        </th>
+                        <th>
+                            2FA
+                            <select class="form-select" aria-label="Default select example">
+                                <option value="1">Todos</option>
+                                <option value="2">Ativos</option>
+                                <option value="3">Inativos</option>
+                            </select>
+                        </th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>User 1</td>
-                        <td>email@email.com</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input custom-danger pointer" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                                    checked>
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
-                            </div>
-                        </td>
-                        <td>
-                            <button-load text="Desativado" class="btn btn-sm btn-outline-danger" :disable="true"></button-load>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>User 1</td>
-                        <td>email@email.com</td>
-                        <td>
-                            <div class="form-check form-switch">
-                                <input class="form-check-input custom-danger pointer" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                                    >
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
-                            </div>
-                        </td>
-                        <td>
-                            <button-load text="Desativar" class="btn btn-sm btn-dark"></button-load>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="w-100 d-flex justify-content-end">
-                <!-- <paginate></paginate> -->
-
-            </div>
+                </template>
+                <tr>
+                    <td>User 1</td>
+                    <td>email@email.com</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input custom-danger pointer" type="checkbox" role="switch"
+                                id="flexSwitchCheckChecked" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
+                        </div>
+                    </td>
+                    <td>
+                        <button-load text="Desativado" class="btn btn-sm btn-outline-danger" :disable="true"></button-load>
+                    </td>
+                </tr>
+                <tr>
+                    <td>User 1</td>
+                    <td>email@email.com</td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input custom-danger pointer" type="checkbox" role="switch"
+                                id="flexSwitchCheckChecked">
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
+                        </div>
+                    </td>
+                    <td>
+                        <button-load text="Desativar" class="btn btn-sm btn-dark"></button-load>
+                    </td>
+                </tr>
+            </v-table>
         </simple-card>
     </layout-dashboard>
 </template>
 <script>
-import { Paginate } from '../../components';
-
 export default {
     data() {
         return {};
     },
-    components: { Paginate }
 }
 </script>

@@ -7,16 +7,12 @@ import Modal from './components/Modal.vue';
 import IconCard from './components/IconCard.vue';
 import ButtonLoad from './components/ButtonLoad.vue';
 import Paginate from './components/Paginate.vue';
+import Vtable from './components/Vtable.vue';
 
 
 export {
     //laouts
-    AuthLayout,
-    DashboardLayout,
+    AuthLayout,DashboardLayout,
     //components
-    SimpleCard,
-    Modal,
-    IconCard,
-    ButtonLoad,
-    Paginate
+    SimpleCard,Modal,IconCard,ButtonLoad,Paginate,Vtable
 }
