@@ -15,7 +15,7 @@ class AdminController extends Controller
     }
     public function viewListUsers()
     {
-        $users = User::cursor();
+        $users = User::orderBy('id', 'desc')->cursor();
         return Inertia::render('Admin/Users', [
             'users' => $users,
         ]);
