@@ -16,6 +16,7 @@ Route::middleware(['auth:admin', 'verified'])->group(function () {
     Route::prefix('users')->group(function() {
         Route::get('/', [AdminController::class,'viewListUsers'])->name('admin.viewListUsers');
         Route::patch('/disable/2fa/{id}', [AdminUserController::class,'disable2FAUser'])->name('admin.disable2FAUser');
+        Route::patch('/toggleActive/{id}', [AdminUserController::class,'toggleActive'])->name('admin.toggleActive');
     });
     if(request()->isAdmin()){
         RoutesHelper::tasks();

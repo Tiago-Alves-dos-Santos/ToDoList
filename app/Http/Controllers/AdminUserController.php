@@ -19,4 +19,10 @@ class AdminUserController extends Controller
         }
         User::find($id)->update($values);
     }
+    public function toggleActive($id) : void
+    {
+        $user = User::find($id);
+        $user->active = !$user->active;
+        $user->save();
+    }
 }

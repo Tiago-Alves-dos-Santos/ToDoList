@@ -36,8 +36,8 @@
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input custom-danger pointer" type="checkbox" role="switch"
-                                id="flexSwitchCheckChecked">
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Ativo</label>
+                                id="flexSwitchCheckChecked" v-model="value.active" @change="toggleActive(value)">
+                            <label class="form-check-label" ref="label_load" for="flexSwitchCheckChecked"></label>
                         </div>
                     </td>
                     <td>
@@ -64,7 +64,7 @@ export default {
                 startIndex: 0,
                 endIndex: 0,
             },
-            loads:{
+            loads: {
                 disable2FA: false,
             }
         };
@@ -94,10 +94,10 @@ export default {
             this.table.endIndex = endIndex;
         },
         disable2FA(user) {
-            let url = this.$route('admin.disable2FAUser', {id: user.id});
+            let url = this.$route('admin.disable2FAUser', { id: user.id });
             this.$alert.fire({
                 title: 'Deseja prosseguir com desativação dois fatores ?',
-                text: 'Usuário: '+user.name,
+                text: 'Usuário: ' + user.name,
                 showCancelButton: true,
                 confirmButtonText: 'Cancelar',
                 cancelButtonText: 'Desativar',
@@ -113,6 +113,18 @@ export default {
                     });
                 }
             })
+        },
+        toggleActive(user) {
+            let url = this.$route('admin.toggleActive', { id: user.id });
+            router.patch(url, {}, {
+                onSuccess: () => {
+                    this.$alert.fire(
+                        'Usuário '+ user.active ? 'ativado' : 'desativado',
+                        'Usuário afetado:'+ user.name,
+                        'success'
+                    );
+                },
+            });
         }
     },
     mounted() {
