@@ -15,11 +15,7 @@ class AdminController extends Controller
     }
     public function viewListUsers()
     {
-        $users = User::get();
-        foreach ($users as $value) {
-            ds($value);
-            break;
-        }
+        $users = User::cursor();
         return Inertia::render('Admin/Users', [
             'users' => $users,
         ]);

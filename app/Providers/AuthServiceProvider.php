@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->gates();
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
@@ -46,8 +47,9 @@ class AuthServiceProvider extends ServiceProvider
                     'user' => $notifiable
                 ]);
         });
-
     }
 
-
+    private function gates()
+    {
+    }
 }

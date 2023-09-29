@@ -1,7 +1,7 @@
 <template>
     <layout-dashboard>
         <simple-card title="Usuarios" class="w-100">
-            <v-table :pagination="filterdUsers" :itemsPerPage="5"  @currentPages="currentPage">
+            <v-table :pagination="filterdUsers" :itemsPerPage="5" @currentPages="currentPage">
                 <template v-slot:thead>
                     <tr>
                         <th>
@@ -32,7 +32,7 @@
                 </template>
                 <tr v-for="value in filterdUsers.slice(this.table.startIndex, this.table.endIndex)" :key="value.id">
                     <td>{{ value.name }}</td>
-                    <td>{{ value.two_factor_is_active }}</td>
+                    <td>{{ value.email }}</td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input custom-danger pointer" type="checkbox" role="switch"
@@ -42,8 +42,9 @@
                     </td>
                     <td>
                         <button-load text="Desativado" class="btn btn-sm btn-outline-danger" :disable="true"
-                            v-if="value.two_factor_is_active"></button-load>
-                        <button-load text="Desativar" class="btn btn-sm btn-dark" v-else></button-load>
+                            v-if="!value.two_factor_is_active"></button-load>
+                        <button-load text="Desativar" :load="loads.disable2FA" class="btn btn-sm btn-dark" v-else
+                            @click="disable2FA(value)"></button-load>
                     </td>
                 </tr>
             </v-table>
@@ -51,6 +52,7 @@
     </layout-dashboard>
 </template>
 <script>
+import { router } from '@inertiajs/vue3';
 export default {
     data() {
         return {
@@ -62,6 +64,9 @@ export default {
                 startIndex: 0,
                 endIndex: 0,
             },
+            loads:{
+                disable2FA: false,
+            }
         };
     },
     props: {
@@ -88,6 +93,27 @@ export default {
             this.table.startIndex = startIndex;
             this.table.endIndex = endIndex;
         },
+        disable2FA(user) {
+            let url = this.$route('admin.disable2FAUser', {id: user.id});
+            this.$alert.fire({
+                title: 'Deseja prosseguir com desativação dois fatores ?',
+                text: 'Usuário: '+user.name,
+                showCancelButton: true,
+                confirmButtonText: 'Cancelar',
+                cancelButtonText: 'Desativar',
+            }).then((result) => {
+                if (result.isDismissed) { //desativar
+                    router.patch(url, {}, {
+                        onStart: () => {
+                            this.loads.disable2FA = true;
+                        },
+                        onFinish: () => {
+                            this.loads.disable2FA = false;
+                        },
+                    });
+                }
+            })
+        }
     },
     mounted() {
     }
