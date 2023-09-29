@@ -78,7 +78,11 @@ export default {
                 return (
                     (user.name === '' || user.name.toLowerCase().includes(this.table.name.toLowerCase())) &&
                     (user.email === '' || user.email.toLowerCase().includes(this.table.email.toLowerCase())) &&
-                    // (user.active === 1 || user.active == this.table.active) &&
+                    (
+                        this.table.active == 1 ||
+                        (this.table.active == 2 && user.active) ||
+                        (this.table.active == 3 && !user.active)
+                    ) &&
                     (
                         this.table.twoFA == 1 ||
                         (this.table.twoFA == 2 && user.twoFA) ||
