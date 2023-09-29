@@ -32,7 +32,7 @@
                 </template>
                 <tr v-for="value in filterdUsers.slice(this.table.startIndex, this.table.endIndex)" :key="value.id">
                     <td>{{ value.name }}</td>
-                    <td>{{ value.email }}</td>
+                    <td>{{ value.two_factor_is_active }}</td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input custom-danger pointer" type="checkbox" role="switch"
@@ -42,7 +42,7 @@
                     </td>
                     <td>
                         <button-load text="Desativado" class="btn btn-sm btn-outline-danger" :disable="true"
-                            v-if="value.tow_factor_secret"></button-load>
+                            v-if="value.two_factor_is_active"></button-load>
                         <button-load text="Desativar" class="btn btn-sm btn-dark" v-else></button-load>
                     </td>
                 </tr>
@@ -61,7 +61,7 @@ export default {
                 twoFA: 1,
                 startIndex: 0,
                 endIndex: 0,
-            }
+            },
         };
     },
     props: {

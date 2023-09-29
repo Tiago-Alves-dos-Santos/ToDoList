@@ -33,12 +33,14 @@ class CreateNewAdmin implements CreatesNewUsers
             'password' => $this->passwordRules('confirmed'),
         ])->validate();
 
-        return Admin::create([
+        $admin =  Admin::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'admin_creator_id' => $input['admin_creator_id'],
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make($input['password']),
         ]);
+        // $admin->sendEmailVerificationNotification();
+        return $admin;
     }
 }
