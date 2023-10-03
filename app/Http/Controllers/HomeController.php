@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Carbon\Carbon;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
@@ -45,15 +46,32 @@ class HomeController extends Controller
                 $foreing_task_column = 'user_id';
                 break;
         }
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
         return [
             'info_card' => [
-                'pending' => Task::where($foreing_task_column, Auth::id())->pending()->count(),
-                'completed' => Task::where($foreing_task_column, Auth::id())->completed()->count(),
-                'deleted' => Task::where($foreing_task_column, Auth::id())->onlyTrashed()->count(),
+                'pending' => [
+                    'name' => 'Pendentes',
+                    'value' => Task::where($foreing_task_column, Auth::id())
+                    ->whereMonth('created_at', $month)
+                    ->whereYear('created_at', $year)
+                    ->pending()->count()
+                ],
+                'completed' => [
+                    'name' => 'Completadas',
+                    'value' => Task::where($foreing_task_column, Auth::id())
+                    ->whereMonth('created_at', $month)
+                    ->whereYear('created_at', $year)
+                    ->completed()->count(),
+                ],
+                'deleted' => [
+                    'name' => 'Deletadas',
+                    'value' => Task::where($foreing_task_column, Auth::id())
+                    ->whereMonth('created_at', $month)
+                    ->whereYear('created_at', $year)
+                    ->onlyTrashed()->count()
+                ],
             ],
-            'chart' => [
-
-            ]
         ];
     }
 
