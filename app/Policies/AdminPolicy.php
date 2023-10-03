@@ -21,10 +21,6 @@ class AdminPolicy
         $this->admin = Auth::guard('admin')->user();
     }
 
-    public function listAllAdmins(Admin $admin)
-    {
-        return $this->admin->type == TypeAdmin::MASTER->value ? true : false;
-    }
 
     public function deleteThe(Admin $admin)
     {
