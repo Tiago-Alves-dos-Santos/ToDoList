@@ -6,23 +6,20 @@ use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Actions\Admin\CreateNewAdmin;
+use App\Models\Admin;
 use Inertia\Response;
 
 class AdminController extends Controller
 {
     public function viewAdmins() : Response {
-        return Inertia::render('Admin/Admins');
+        $admins = Admin::orderBy('id','desc')->cursor();
+        return Inertia::render('Admin/Admins', [
+            'admins' => $admins
+        ]);
     }
     public function viewRegister()
     {
         return Inertia::render('Admin/Register');
-    }
-    public function viewListUsers()
-    {
-        $users = User::orderBy('id', 'desc')->cursor();
-        return Inertia::render('Admin/Users', [
-            'users' => $users,
-        ]);
     }
     public function create(Request $request)
     {
