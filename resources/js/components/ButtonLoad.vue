@@ -1,6 +1,6 @@
 
 <template>
-    <button :disabled="load">
+    <button :disabled="load || disable">
         <div class="spinner-border text-light spinner-border-sm" role="status" v-if="load">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -26,6 +26,10 @@ export default {
         },
         load:{
             type:Boolean,
+            default: false
+        },
+        disable: {
+            type: Boolean,
             default: false
         },
         icon: {

@@ -27,7 +27,8 @@ final class PageFront
             'admin' => [
                 'admin.dashboard' => ['title' => 'Dashboard'],
                 'admin.viewProfile' => ['title' => 'Perfil'],
-                'admin.viewRegister' => ['title' => 'Novo Admin']
+                'admin.viewRegister' => ['title' => 'Novo Admin'],
+                'admin.viewListUsers' => ['title' => 'Lista de usuários'],
             ]
 
         ];
@@ -74,9 +75,9 @@ final class PageFront
                 return [
                     ['label' => 'Dashboard', 'icon' => 'bi bi-speedometer2', 'url' => route('dashboard'), 'route' => 'admin.dashboard'],
                     ['label' => 'Perfil', 'icon' => 'bi bi-person-gear', 'url' => route('admin.viewProfile'), 'route' => 'admin.viewProfile'],
-                    ['label' => 'Novo admin', 'icon' => 'bi bi-person-gear', 'url' => route('admin.viewRegister'),  'route' => 'admin.viewRegister'],
-                    ['label' => 'Usuarios', 'icon' => 'bi bi-person-gear', 'url' => '/', 'route' => ''],
-                    ['label' => 'Admins', 'icon' => 'bi bi-person-gear', 'url' => '/', 'route' => ''],
+                    ['label' => 'Novo admin', 'icon' => 'bi bi-person-plus-fill', 'url' => route('admin.viewRegister'),  'route' => 'admin.viewRegister'],
+                    ['label' => 'Usuarios', 'icon' => 'bi bi-person-lines-fill', 'url' => route('admin.viewListUsers'), 'route' => 'admin.viewListUsers'],
+                    ['label' => 'Admins', 'icon' => 'bi bi-person-lines-fill', 'url' => '/', 'route' => ''],
                     ...$comon,
                 ];
                 break;

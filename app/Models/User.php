@@ -5,26 +5,18 @@ namespace App\Models;
 use Laravel\Fortify\Fortify;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $appends = ['two_factor_is_active'];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -34,8 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
-        // 'two_factor_secret',
-        // 'two_factor_recovery_codes',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
         // 'two_factor_confirmed_at'
     ];
 
@@ -47,6 +39,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /***********************MUTATOR*************************/
+    public function twoFactorIsActive(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->hasEnabledTwoFactorAuthentication()
+        );
+    }
 
 
 }
