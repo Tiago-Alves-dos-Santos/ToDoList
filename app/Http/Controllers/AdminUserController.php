@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Features;
 
 class AdminUserController extends Controller
 {
+    public function viewListUsers()
+    {
+        $users = User::orderBy('id', 'desc')->cursor();
+        return Inertia::render('Admin/Users', [
+            'users' => $users,
+        ]);
+    }
+
     public function disable2FAUser($id) : void
     {
         $values = [
