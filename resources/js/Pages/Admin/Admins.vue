@@ -21,7 +21,7 @@
                     <td>{{value.name}}</td>
                     <td>{{value.email}}</td>
                     <td>
-                        <button-load text="Deletar" class="btn btn-sm btn-danger"></button-load>
+                        <button-load text="Deletar" :load="loads.delete" class="btn btn-sm btn-danger" @click="exclude(value)"></button-load>
                     </td>
                 </tr>
             </v-table>
@@ -29,6 +29,7 @@
     </layout-dashboard>
 </template>
 <script>
+import { router } from '@inertiajs/vue3';
 export default {
     data() {
         return {
@@ -37,6 +38,9 @@ export default {
                 email:'',
                 startIndex:'',
                 endIndex:'',
+            },
+            loads:{
+                delete: false,
             }
         }
     },
@@ -57,6 +61,27 @@ export default {
         currentPage(startIndex, endIndex) {
             this.table.startIndex = startIndex;
             this.table.endIndex = endIndex;
+        },
+        exclude(admin) {
+            let url = this.$route('admin.delete', { id: admin.id });
+            this.$alert.fire({
+                title: 'Deseja prosseguir com deleção?',
+                text: 'Administrador: ' + admin.name,
+                showCancelButton: true,
+                confirmButtonText: 'Cancelar',
+                cancelButtonText: 'Deletar',
+            }).then((result) => {
+                if (result.isDismissed) { //desativar
+                    router.delete(url, {}, {
+                        onStart: () => {
+                            this.loads.delete = true;
+                        },
+                        onFinish: () => {
+                            this.loads.delete = false;
+                        },
+                    });
+                }
+            })
         },
     }
 }
