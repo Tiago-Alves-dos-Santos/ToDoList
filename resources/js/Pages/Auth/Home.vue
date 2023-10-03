@@ -3,14 +3,14 @@
         <div id="auth-home" class="w-100">
             <div class="row">
                 <div class="col-md-4">
-                    <icon-card title="Tarefas Não Concluidas" icon="bi bi-database" text="35" class="hover-yellow"></icon-card>
+                    <icon-card title="Tarefas Não Concluidas" icon="bi bi-database" :text="info_card.pending" class="hover-yellow"></icon-card>
                 </div>
                 <div class="col-md-4">
-                    <icon-card title="Tarefas Concluidas" icon="bi bi-database-check" text="35"
+                    <icon-card title="Tarefas Concluidas" icon="bi bi-database-check" :text="info_card.completed"
                         class="hover-green"></icon-card>
                 </div>
                 <div class="col-md-4">
-                    <icon-card title="Tarefas Excluidas" icon="bi bi-database-dash" text="35" class="hover-red"></icon-card>
+                    <icon-card title="Tarefas Excluidas" icon="bi bi-database-dash" :text="info_card.deleted" class="hover-red"></icon-card>
                 </div>
             </div>
             <div class="row mt-2">
@@ -38,7 +38,8 @@ export default {
         }
     },
     props: {
-        routes_fortify: Object
+        routes_fortify: Object,
+        info_card: Object,
     },
     methods: {
 

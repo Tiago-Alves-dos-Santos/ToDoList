@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
@@ -32,13 +33,38 @@ class HomeController extends Controller
             }
         }
     }
-
-    public function homeUser(Request $request, array $data = []): Response
+    private function infoDashboard(Request $request): array
     {
+        $guard = $request->guard();
+        $foreing_task_column = null;
+        switch ($guard) {
+            case 'admin':
+                $foreing_task_column = 'admin_id';
+                break;
+            case 'web':
+                $foreing_task_column = 'user_id';
+                break;
+        }
+        return [
+            'info_card' => [
+                'pending' => Task::where($foreing_task_column, Auth::id())->pending()->count(),
+                'completed' => Task::where($foreing_task_column, Auth::id())->completed()->count(),
+                'deleted' => Task::where($foreing_task_column, Auth::id())->onlyTrashed()->count(),
+            ],
+            'chart' => [
+
+            ]
+        ];
+    }
+
+    public function homeUser(Request $request): Response
+    {
+        $data = $this->infoDashboard($request);
         return Inertia::render('Auth/Home', $data);
     }
     public function adminHome(Request $request): Response
     {
-        return Inertia::render('Auth/Home');
+        $data = $this->infoDashboard($request);
+        return Inertia::render('Auth/Home', $data);
     }
 }
