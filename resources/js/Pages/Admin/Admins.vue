@@ -1,7 +1,7 @@
 <template>
     <layout-dashboard>
         <simple-card title="Admins" class="w-100">
-            <v-table>
+            <v-table :pagination="filteredAdmins" :itemsPerPage="5" @currentPages="currentPage">
                 <template v-slot:thead>
                     <tr>
                         <th>
@@ -17,7 +17,7 @@
                         </th>
                     </tr>
                 </template>
-                <tr v-for="value in filteredAdmins" :key="value.id">
+                <tr v-for="value in filteredAdmins.slice(this.table.startIndex, this.table.endIndex)" :key="value.id">
                     <td>{{value.name}}</td>
                     <td>{{value.email}}</td>
                     <td>
@@ -34,7 +34,9 @@ export default {
         return {
             table:{
                 name:'',
-                email:''
+                email:'',
+                startIndex:'',
+                endIndex:'',
             }
         }
     },
@@ -51,5 +53,11 @@ export default {
             });
         }
     },
+    methods: {
+        currentPage(startIndex, endIndex) {
+            this.table.startIndex = startIndex;
+            this.table.endIndex = endIndex;
+        },
+    }
 }
 </script>

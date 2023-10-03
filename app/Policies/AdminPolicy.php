@@ -22,7 +22,6 @@ class AdminPolicy
     }
 
     public function listAllAdmins(Admin $admin){
-        // ds($this->admin->type == TypeAdmin::MASTER->value );
         return $this->admin->type == TypeAdmin::MASTER->value ? true:false;
     }
 }
