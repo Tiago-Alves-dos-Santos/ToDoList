@@ -6,9 +6,13 @@ use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Actions\Admin\CreateNewAdmin;
+use Inertia\Response;
 
 class AdminController extends Controller
 {
+    public function viewAdmins() : Response {
+        return Inertia::render('Admin/Admins');
+    }
     public function viewRegister()
     {
         return Inertia::render('Admin/Register');
