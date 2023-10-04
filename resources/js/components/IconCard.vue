@@ -28,7 +28,7 @@ export default {
             default: 'bi bi-database'
         },
         text:{
-            type: String,
+            type: [String, Number],
             default: '0'
         }
     }

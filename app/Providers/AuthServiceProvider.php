@@ -4,9 +4,12 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Admin;
+use App\Enums\TypeAdmin;
 use App\Policies\AdminPolicy;
-use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -53,5 +56,9 @@ class AuthServiceProvider extends ServiceProvider
 
     private function gates()
     {
+        Gate::define('listAllAdmins', function (Admin $admin) {
+            return $admin->type == TypeAdmin::MASTER->value;
+        });
+
     }
 }

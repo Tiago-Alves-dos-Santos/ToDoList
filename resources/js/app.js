@@ -5,7 +5,7 @@ import { createInertiaApp } from '@inertiajs/vue3'
 import { Link } from '@inertiajs/vue3'
 //pacotes terceiros
 import Swal from 'sweetalert2'
-
+import VueApexCharts from "vue3-apexcharts";
 //components
 import * as components from './components';
 createInertiaApp({
@@ -25,6 +25,7 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
+      .use(VueApexCharts)
       //layouts
       .component('layout-auth', components.AuthLayout)
       .component('layout-dashboard', components.DashboardLayout)
