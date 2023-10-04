@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/vue3'
 import Swal from 'sweetalert2'
 import VueApexCharts from "vue3-apexcharts";
 import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
+// import '@vuepic/vue-datepicker/dist/main.css'
 //components
 import * as components from './components';
 createInertiaApp({
