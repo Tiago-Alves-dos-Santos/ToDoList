@@ -30,6 +30,7 @@ final class PageFront
                 'admin.viewRegister' => ['title' => 'Novo Admin'],
                 'admin.viewListUsers' => ['title' => 'Lista de usuários'],
                 'admin.viewAdmins' => ['title' => 'Lista de administradores'],
+                'task.viewReport' => ['title' => 'PDF'],
             ]
 
         ];
@@ -62,7 +63,7 @@ final class PageFront
     {
         $comon = [
             ['label' => 'Tarefas', 'icon' => 'bi bi-list-task', 'url' => route('task.index'), 'route' => 'task.index'],
-            ['label' => 'Relatorio', 'icon' => 'bi bi-filetype-pdf', 'url' => '/', 'route' => ''],
+            ['label' => 'Relatorio', 'icon' => 'bi bi-filetype-pdf', 'url' => route('task.viewReport'), 'route' => 'task.viewReport'],
         ];
         switch ($this->guard) {
             case 'web':
