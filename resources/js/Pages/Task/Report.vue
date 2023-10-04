@@ -1,20 +1,20 @@
 <template>
     <layout-dashboard>
-        <simple-card title="Imprimir PDF" sub_title="Selecione a data" class="w-100">
-            <form>
+        <simple-card title="Imprimir PDF" sub_title="Selecione a data" class="w-100 bg-white">
+            <form @submit.prevent="print">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Data inicio</label>
-                        <input type="date" class="form-control">
+                        <VueDatePicker v-model="date" locale="pt-BR" :format="formatDate(date)"></VueDatePicker>
                     </div>
                     <div class="col-md-6">
                         <label for="">Data Fim</label>
-                        <input type="date" class="form-control">
+                        <VueDatePicker v-model="dateEnd" locale="pt-BR" :format="formatDate(dateEnd)"></VueDatePicker>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12 d-flex justify-content-end">
-                        <button-load icon="bi bi-filetype-pdf" class="btn btn-danger" title="Imprimir"></button-load>
+                        <button-load icon="bi bi-filetype-pdf" class="btn btn-danger" title="Imprimir" type="submit" @click="dateSet"></button-load>
                     </div>
                 </div>
             </form>
@@ -25,6 +25,27 @@
 export default {
     data() {
         return {
+            date: new Date(),
+            dateEnd: new Date(),
+        }
+    },
+    computed: {
+
+    },
+    methods: {
+        formatDate(date) {
+            // let date = new Date();
+            const day = date.getDate() < 10 ? '0'+ date.getDate() : date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            return `${day}/${month}/${year}`;
+        },
+        dateSet(){
+            console.log('teste');
+            console.log(this.date.getDate());
+        },
+        print(){
 
         }
     },
