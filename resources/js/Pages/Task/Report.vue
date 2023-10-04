@@ -1,7 +1,7 @@
 <template>
     <layout-dashboard>
         <simple-card title="Imprimir PDF" sub_title="Selecione a data" class="w-100 bg-white">
-            <form @submit.prevent="print">
+            <form @submit.prevent="printPDF">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Data inicio</label>
@@ -22,6 +22,8 @@
     </layout-dashboard>
 </template>
 <script>
+import { router } from '@inertiajs/vue3';
+
 export default {
     data() {
         return {
@@ -31,6 +33,9 @@ export default {
     },
     computed: {
 
+    },
+    props: {
+        routePrintPDF: String,
     },
     methods: {
         formatDate(date) {
@@ -45,9 +50,11 @@ export default {
             console.log('teste');
             console.log(this.date.getDate());
         },
-        print(){
 
+        printPDF(){
+            router.post(this.routePrintPDF);
         }
+
     },
 }
 </script>

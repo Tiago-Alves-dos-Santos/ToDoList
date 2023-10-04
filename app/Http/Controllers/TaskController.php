@@ -34,9 +34,13 @@ class TaskController extends Controller
         ]);
     }
 
-    public function viewReport(): Response
+    public function viewReport(Request $request): Response
     {
-        return Inertia::render('Task/Report');
+        $route = ($request->guard() == 'admin') ? route('task.printPDF') : null;
+        return Inertia::render('Task/Report', [
+            'routePrintPDF' => $route,
+            'csrf' => csrf_token()
+        ]);
     }
 
     public function create(Request $request)
@@ -63,5 +67,10 @@ class TaskController extends Controller
     public function delete(Request $request)
     {
         Task::where('id', $request->id)->delete();
+    }
+
+    public function printPDF(Request $request)
+    {
+        dd('aq');
     }
 }

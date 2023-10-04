@@ -11,6 +11,7 @@ final class RoutesHelper
         Route::prefix('/task')->group(function () {
             Route::get('/', [TaskController::class, 'index'])->name('task.index');
             Route::get('/report', [TaskController::class, 'viewReport'])->name('task.viewReport');
+            Route::post('/printPDF', [TaskController::class, 'printPDF'])->name('task.printPDF');
             Route::match(['get', 'post'], '/create', [TaskController::class, 'create'])->name('task.create');
             Route::put('/update/{id}', [TaskController::class, 'update'])->name('task.update');
             Route::put('/toggleStatus', [TaskController::class, 'toggleStatus'])->name('task.toggleStatus');
