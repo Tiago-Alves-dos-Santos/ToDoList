@@ -45,6 +45,11 @@ div#layout-auth {
             width: 100%;
         }
     }
+    @media (max-width: 409px) {
+        div.card{
+            width: 260px;
+        }
+    }
 
 }
 
