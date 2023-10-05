@@ -7,16 +7,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Data inicio</label>
-                        <VueDatePicker v-model="date" locale="pt-BR" :format="formatDate(date)"></VueDatePicker>
+                        <VueDatePicker v-model="date" locale="pt-BR" :format="formatDate(date)" :minDate="min_date" :maxDate="new Date()"></VueDatePicker>
                     </div>
                     <div class="col-md-6">
                         <label for="">Data Fim</label>
-                        <VueDatePicker v-model="dateEnd" locale="pt-BR" :format="formatDate(dateEnd)"></VueDatePicker>
+                        <VueDatePicker v-model="dateEnd" locale="pt-BR" :format="formatDate(dateEnd)" :minDate="min_date" :maxDate="new Date()"></VueDatePicker>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-12 d-flex justify-content-end">
-                        <button-load icon="bi bi-filetype-pdf" class="btn btn-danger" title="Imprimir" type="submit"></button-load>
+                        <button-load icon="bi bi-filetype-pdf" class="btn btn-danger" title="Imprimir"
+                            type="submit"></button-load>
                     </div>
                 </div>
             </form>
@@ -29,18 +30,19 @@ import { router } from '@inertiajs/vue3';
 export default {
     data() {
         return {
-            date: new Date(),
+            date: new Date(this.min_date),
             dateEnd: new Date(),
-            allData:[]
+            allData: []
         }
     },
     computed: {
-        csrf(){
+        csrf() {
             return this.$page.props.csrf_token;
-        }
+        },
     },
     props: {
         routePrintPDF: String,
+        min_date: String,
     },
     methods: {
         formatDate(date) {
@@ -54,8 +56,8 @@ export default {
 
         printPDF() {
             const json = JSON.stringify({
-                dataInicio : this.date,
-                dataFim : this.dateEnd,
+                dataInicio: this.date,
+                dataFim: this.dateEnd,
             });
 
             this.allData.push(json);
@@ -67,5 +69,7 @@ export default {
         },
 
     },
+    mounted(){
+    }
 }
 </script>

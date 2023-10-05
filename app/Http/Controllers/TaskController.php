@@ -10,6 +10,8 @@ use App\Enums\TaskStatus;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -39,9 +41,13 @@ class TaskController extends Controller
     public function viewReport(Request $request): Response
     {
         $route = ($request->guard() == 'admin') ? route('task.printPDF') : null;
+        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $min_date = Task::where($column_id, Auth::id())->min('created_at');
+        $min_date = Carbon::parse($min_date)->format('Y-m-d');
         return Inertia::render('Task/Report', [
             'routePrintPDF' => $route,
-            'csrf' => csrf_token()
+            'csrf' => csrf_token(),
+            'min_date' => $min_date
         ]);
     }
 
@@ -73,11 +79,11 @@ class TaskController extends Controller
 
     public function printPDF(Request $request)
     {
+        $data = json_decode($request->allData);
         $pdf = PDF::loadView('pdf.reportTask',[
             'name' => 'Tiago'
         ]);
-        $data = json_decode($request->allData);
-        dd($request->all(),$data);
+
         return $pdf->stream('nome.pdf');
     }
 }
