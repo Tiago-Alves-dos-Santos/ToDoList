@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-row mt-2">
-                    <div :class="['col-12','d-flex', isRouteAdmin ? 'justify-content-end':'justify-content-between']">
+                    <div :class="['col-12', 'd-flex', isRouteAdmin ? 'justify-content-end' : 'justify-content-between']">
                         <a class="icon-link" href="#" @click="toggleForm" v-if="!isRouteAdmin">
                             <i class="bi bi-arrow-left"></i>
                             Cadastrar
@@ -103,7 +103,6 @@
             </form>
         </simple-card>
     </layout-auth>
-
 </template>
 <script>
 import { router } from '@inertiajs/vue3';
@@ -130,7 +129,7 @@ export default {
                 password: '',
                 password_confirmation: ''
             },
-            forgot_password_email:''
+            forgot_password_email: ''
         }
     },
     props: {
@@ -139,28 +138,34 @@ export default {
         isRouteAdmin: Boolean,
     },
     methods: {
-        forgotPassword(){
+        forgotPassword() {
             router.get(this.routes_fortify.forgot_password_get);
         },
         toggleForm() {
             let middle_time = (0.75 / 2) * 1000;//(time-toggle-direction(animations.scss) / 2)*1000
             let value = null;
-            if(this.form_type_operation == this.dataTypeOperation.auth.login){
+            if (this.form_type_operation == this.dataTypeOperation.auth.login) {
                 value = this.dataTypeOperation.auth.register;
                 router.visit(this.routes_fortify.register, {
-                    preserveState:true
+                    preserveState: true
                 });
-            }else{
+            } else {
                 value = this.dataTypeOperation.auth.login;
                 router.visit(this.routes_fortify.login, {
-                    preserveState:true
+                    preserveState: true
                 });
             }
-            this.$refs.layout_auth.loadAnimationToggleDirection(value);
-            setTimeout(() => {
+
+            if (window.innerWidth <= 839) {
                 this.$page.props.errors = {};
                 this.form_type_operation = value;
-            }, middle_time);
+            } else {
+                this.$refs.layout_auth.loadAnimationToggleDirection(value);
+                setTimeout(() => {
+                    this.$page.props.errors = {};
+                    this.form_type_operation = value;
+                }, middle_time);
+            }
         },
         create() {
             let route_url = this.routes_fortify.register;
