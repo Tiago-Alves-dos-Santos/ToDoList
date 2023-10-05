@@ -1,55 +1,24 @@
 /******************************INDEX***********************************/
 div#index {
-    width: 50%;
-    background: rgba( 255, 255, 255, 0.3 );
-    box-shadow: 0 8px 32px 0 rgba(145,3,205,.3);
-    backdrop-filter: blur( 12px );
-    -webkit-backdrop-filter: blur( 12px );
-    border-radius: 7px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    padding-top: 4px;
-    div.conatiner-title-action {
-        width: 100%;
+    width: 100%;
+    background-color: white;
+    border: 5px solid black;
+    padding: 10px;
+    div.action{
         display: flex;
         justify-content: center;
-        div.body {
-            width: 400px;
-        }
-    }
-
-    div.action {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        button {
-            border: none;
-            padding: 15px 20px;
+        button{
+            margin-right: 10px;
+            border: 3px solid back;
             background-color: white;
-            font-size: 20px;
-            border-radius: 7px;
-
-            &.pink {
-                background-color: #f70090;
+            padding: 10px;
+            &:hover{
+                background-color: black;
                 color: white;
-            }
-
-            &.purple {
-                background-color: rgb(129, 0, 181);
-                color: white;
+                border: none;
             }
         }
     }
-
-    div.text {
-        background-color: rgba(255,255,255, .85);
-        padding: 10px 5px;
-        text-align: justify;
-        font-weight: 700;
-        margin-top: 10px;
-        border-radius: 0 0 7px 7px;
-    }
-
-
 }
 
 /******************************AUTH/PROFILE***********************************/
