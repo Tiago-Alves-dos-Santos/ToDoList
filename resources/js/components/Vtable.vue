@@ -1,18 +1,21 @@
 <template>
     <div class="w-100">
-        <table class="table table-striped">
-            <thead>
-                <slot name="thead"></slot>
-            </thead>
-            <tbody>
-                <slot></slot>
-            </tbody>
-        </table>
+        <div class="table-responsive-sm">
+            <table class="table table-striped">
+                <thead>
+                    <slot name="thead"></slot>
+                </thead>
+                <tbody>
+                    <slot></slot>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="w-100 d-flex justify-content-end">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li :class="{'page-item': true, 'disabled': currentPage === 1}" @click="goToPage('prev')" :disabled="currentPage === 1">
+                <li :class="{ 'page-item': true, 'disabled': currentPage === 1 }" @click="goToPage('prev')"
+                    :disabled="currentPage === 1">
                     <a class="page-link" href="#">
                         <i class="bi bi-arrow-left"></i>
                     </a>
@@ -21,7 +24,8 @@
                     :class="{ 'active': currentPage == page, 'page-item': true }">
                     <a class="page-link" href="#">{{ page }}</a>
                 </li>
-                <li :class="{'page-item': true, 'disabled': currentPage === totalPages}" @click="goToPage('next')" :disabled="currentPage === totalPages">
+                <li :class="{ 'page-item': true, 'disabled': currentPage === totalPages }" @click="goToPage('next')"
+                    :disabled="currentPage === totalPages">
                     <a class="page-link" href="#">
                         <i class="bi bi-arrow-right"></i>
                     </a>
