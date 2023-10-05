@@ -88,8 +88,9 @@ class TaskController extends Controller
         $pdf = PDF::loadView('pdf.reportTask',[
             'tasks' => $tasks->cursor(),
             'all_count_tasks' => $tasks->count(),
+            'user' => Auth::user(),
         ]);
 
-        return $pdf->stream('nome.pdf');
+        return $pdf->stream('tasks_'.date('Y_m_d_H_i_s').'.pdf');
     }
 }

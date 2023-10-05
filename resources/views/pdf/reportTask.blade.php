@@ -6,10 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MEU PDF</title>
+    <link rel="icon" href="/img/favicon/list.ico">
+    <title>Tarefas PDF</title>
     <style>
         .w-100 {
             width: 100%;
+        }
+        div.header{
+            border: 1px solid black;
+        }
+        .bold{
+            font-weight: bold;
         }
         .table{
             width: 100%;
@@ -33,6 +40,17 @@
 
 <body>
     <div class="w-100">
+        <div class="header">
+            <h3>
+                <span class="bold">Nome:</span> {{ $user->name }}
+            </h3>
+            <h4>
+                <span class="bold">Impressão(Data):</span> {{ date('d/m/y H:i') }}
+            </h4>
+            <h6>
+                <span class="bold">OBS:</span> PDF gerado pelo sistema {{ config('app.name') }}
+            </h6>
+        </div>
         <table class="table">
             <thead>
                 <tr>
