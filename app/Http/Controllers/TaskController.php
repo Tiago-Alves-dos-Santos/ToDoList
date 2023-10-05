@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Inertia\Inertia;
+use Inertia\Response;
+use PharIo\Manifest\Url;
 use App\Enums\TaskStatus;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Inertia\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TaskController extends Controller
 {
@@ -71,6 +73,11 @@ class TaskController extends Controller
 
     public function printPDF(Request $request)
     {
-        dd('aq');
+        $pdf = PDF::loadView('pdf.reportTask',[
+            'name' => 'Tiago'
+        ]);
+        $data = json_decode($request->allData);
+        dd($request->all(),$data);
+        return $pdf->stream('nome.pdf');
     }
 }
