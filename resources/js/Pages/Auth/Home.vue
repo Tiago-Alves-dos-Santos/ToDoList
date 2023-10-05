@@ -2,15 +2,15 @@
     <layout-dashboard>
         <div id="auth-home" class="w-100">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <icon-card title="Tarefas Não Concluidas" icon="bi bi-database" :text="info_card.pending.value"
                         class="hover-yellow"></icon-card>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <icon-card title="Tarefas Concluidas" icon="bi bi-database-check" :text="info_card.completed.value"
                         class="hover-green"></icon-card>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <icon-card title="Tarefas Excluidas" icon="bi bi-database-dash" :text="info_card.deleted.value"
                         class="hover-red"></icon-card>
                 </div>
