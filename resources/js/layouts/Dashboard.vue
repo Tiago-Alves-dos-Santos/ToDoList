@@ -6,7 +6,7 @@
                 <a href="#sideMenu" data-bs-toggle="offcanvas">
                     <i class="bi bi-list"></i>
                 </a>
-                <h3 class="text-center">{{$page.props.page_front.title}}</h3>
+                <h3 class="text-center">{{ $page.props.page_front.title }}</h3>
             </div>
         </div>
         <!-- Fim Navbar -->
@@ -19,7 +19,8 @@
             <div class="offcanvas-body">
                 <ul>
                     <li v-for="(value, index) in $page.props.page_front.menuLinks" :key="index">
-                        <Link :href="value.url" :class="[($page.props.page_front.route_current == value.route) ? 'active':'']">
+                        <Link :href="value.url"
+                            :class="[($page.props.page_front.route_current == value.route) ? 'active' : '']">
                         <i :class="value.icon"></i>
                         {{ value.label }}
                         </Link>
@@ -51,7 +52,7 @@ export default {
         }
     },
     computed: {
-        user(){
+        user() {
             return this.$page.props.auth.user;
         },
     },
@@ -68,6 +69,11 @@ export default {
             });
             // router.post('/admin/logout');
         }
+    },
+    mounted() {
+        router.on('success', (event) => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+        })
     }
 }
 </script>
