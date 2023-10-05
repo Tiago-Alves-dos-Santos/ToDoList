@@ -81,12 +81,13 @@ class TaskController extends Controller
     {
         $data = json_decode($request->allData);
         $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
-        $tasks = Task::withTrashed()->where($column_id, Auth::id())
+        $tasks = Task::query();
+        $tasks->withTrashed()->where($column_id, Auth::id())
         ->whereDate('created_at', '>=', $data->dateStart)
-        ->whereDate('created_at', '<=',$data->dateEnd)
-        ->cursor();
+        ->whereDate('created_at', '<=',$data->dateEnd);
         $pdf = PDF::loadView('pdf.reportTask',[
-            'tasks' => $tasks
+            'tasks' => $tasks->cursor(),
+            'all_count_tasks' => $tasks->count(),
         ]);
 
         return $pdf->stream('nome.pdf');

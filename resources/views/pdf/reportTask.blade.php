@@ -53,10 +53,17 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="3" class="text-center">N/A</td>
+                        <td colspan="3" style="text-align: center">N/A</td>
                     </tr>
                 @endforelse
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" style="text-align:end">
+                        Total de tarefas: {{ $all_count_tasks }}
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </body>
