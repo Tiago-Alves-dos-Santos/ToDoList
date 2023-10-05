@@ -7,11 +7,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Data inicio</label>
-                        <VueDatePicker v-model="date" locale="pt-BR" :format="formatDate(date)" :minDate="min_date" :maxDate="new Date()"></VueDatePicker>
+                        <VueDatePicker v-model="date" locale="pt-BR" :format="formatDate(date)" :minDate="min_date"
+                            :maxDate="new Date()"></VueDatePicker>
                     </div>
                     <div class="col-md-6">
                         <label for="">Data Fim</label>
-                        <VueDatePicker v-model="dateEnd" locale="pt-BR" :format="formatDate(dateEnd)" :minDate="min_date" :maxDate="new Date()"></VueDatePicker>
+                        <VueDatePicker v-model="dateEnd" locale="pt-BR" :format="formatDate(dateEnd)" :minDate="min_date"
+                            :maxDate="new Date()"></VueDatePicker>
                     </div>
                 </div>
                 <div class="row mt-2">
@@ -56,8 +58,8 @@ export default {
 
         printPDF() {
             const json = JSON.stringify({
-                dataInicio: this.date,
-                dataFim: this.dateEnd,
+                dateStart: this.date,
+                dateEnd: this.dateEnd,
             });
 
             this.allData.push(json);
@@ -69,7 +71,7 @@ export default {
         },
 
     },
-    mounted(){
+    mounted() {
     }
 }
 </script>

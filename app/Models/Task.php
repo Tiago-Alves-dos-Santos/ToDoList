@@ -12,6 +12,7 @@ class Task extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
 
+    /*****************************ESCOPOS********************************/
     public function scopeFilterStatusAndDelete($query, Object $options)
     {
         if($options->deleted){
@@ -33,5 +34,18 @@ class Task extends Model
         return $query->where('status', TaskStatus::COMPLETED->value);
     }
 
+    /*****************************METODOS********************************/
+    public function getStatusYourLanguage() : string {
+        //default ptbr, substirtuir por '__('idioma_json')' caso necessario mais de um idioma
+        $language = [
+            TaskStatus::COMPLETED->value => 'concluída',
+            TaskStatus::PENDING->value => 'pendente'
+        ];
+
+        return $language[$this->status];
+    }
+    public function isCompleted() : bool {
+        return $this->status == TaskStatus::COMPLETED->value ? true : false;
+    }
 
 }

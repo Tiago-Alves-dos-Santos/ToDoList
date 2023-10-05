@@ -80,8 +80,13 @@ class TaskController extends Controller
     public function printPDF(Request $request)
     {
         $data = json_decode($request->allData);
+        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $tasks = Task::withTrashed()->where($column_id, Auth::id())
+        ->whereDate('created_at', '>=', $data->dateStart)
+        ->whereDate('created_at', '<=',$data->dateEnd)
+        ->cursor();
         $pdf = PDF::loadView('pdf.reportTask',[
-            'name' => 'Tiago'
+            'tasks' => $tasks
         ]);
 
         return $pdf->stream('nome.pdf');
