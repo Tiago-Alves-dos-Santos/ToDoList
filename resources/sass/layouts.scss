@@ -9,8 +9,8 @@ div#layout-auth {
         z-index: 2;
         width: 50%;
         height: 100%;
-        background-color: RGB(102, 57, 110);
-        background-image: url('../../public/img/list.svg');
+        background-color: $theme-primary;
+        background-image: url('../../public/img/list-black.svg');
         background-size: 50%;
         background-repeat: no-repeat;
         background-position: center;
@@ -103,7 +103,6 @@ div#layout-center {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(170deg, rgba(200,108,246,1) 8%, rgba(145,3,205,1) 90%);
 
     div.content {
         display: flex;
@@ -111,7 +110,7 @@ div#layout-center {
         h1,h3{
             text-align: center;
             font-weight: bolder;
-            color: white;
+            color: black;
         }
     }
 }

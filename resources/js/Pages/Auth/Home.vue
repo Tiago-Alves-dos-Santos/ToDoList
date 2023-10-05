@@ -36,7 +36,7 @@ export default {
                     type: 'bar',
                 },
                 fill: {
-                    colors: ['#9C27B0']
+                    colors: ['#2a2a2a']
                 },
                 plotOptions: {
                     bar: {

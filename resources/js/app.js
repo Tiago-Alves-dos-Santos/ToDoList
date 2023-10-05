@@ -6,6 +6,8 @@ import { Link } from '@inertiajs/vue3'
 //pacotes terceiros
 import Swal from 'sweetalert2'
 import VueApexCharts from "vue3-apexcharts";
+import VueDatePicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
 //components
 import * as components from './components';
 createInertiaApp({
@@ -37,6 +39,7 @@ createInertiaApp({
       .component('modal', components.Modal)
       .component('paginate', components.Paginate)
       .component('v-table', components.Vtable)
+      .component('VueDatePicker', VueDatePicker);
       app.config.globalProperties.$alert = Swal;
       app.config.globalProperties.$route = route;
       app.mount(el)
