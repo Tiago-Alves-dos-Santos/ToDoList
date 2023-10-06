@@ -54,6 +54,7 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 - [x] Controle de administradores
 - [x] Impressão PDF de tarefas
 - [x] Dashboard(básico)
+- [x] Dados fakes
     
 <p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
@@ -95,11 +96,15 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
     ~~~shell
     npm install && npm run dev
     ~~~ 
-7. Execute 
+7. Gerar chave aplicação 
    ~~~ shell
     php artisan key:generate 
    ~~~ 
-8. Execute 
+8. Rodar as migrations
+   ~~~ shell
+    php artisan migrate --seed
+   ~~~ 
+9. Execute servidor
     ~~~shell
     php artisan serve
     ~~~
