@@ -16,6 +16,6 @@ final class AuthService
     }
     public function getColumnIdName():string
     {
-        return $this->guards[strtoupper($this->guard)]->value;
+        return $this->guards[strtoupper($this->guard)]->value.'_id';
     }
 }

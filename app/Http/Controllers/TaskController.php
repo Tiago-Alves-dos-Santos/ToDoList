@@ -23,7 +23,6 @@ class TaskController extends Controller
         $options = $request->options ?? null;
         $tasks = Task::query()->orderBy('id', 'desc');
         $column_id = AuthServiceFacade::getColumnIdName();
-        dd($column_id);
 
         $tasks->where($column_id, $request->user()->id);
         if (!empty($search)) {
