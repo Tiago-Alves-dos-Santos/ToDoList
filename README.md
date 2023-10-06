@@ -1,66 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<a name="readme-top"></a>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<!-- PROJETO LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/Tiago-Alves-dos-Santos/Covid19">
+    <img src="public/img/favicon/list_100.png" alt="Logo" width="80" height="80">
+  </a>
 
-## About Laravel
+  <h3 align="center">MyList</h3>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+  <p align="center">
+    ToDoList. Sistema de criar lista de tarefas
+  </p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+  [![portfolio][portfolio-shield]][portfolio-url]
+  [![linkedin][linkedin-shield]][linkedin-url]
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<!-- MENU -->
+<details>
+  <summary>MENU</summary>
+  <ol>
+    <li>
+      <a href="#sobre">Sobre</a>
+    </li>
+    <li><a href="#funcionalidades">Funcionalidades</a></li>
+    <li><a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a></li>
+    <li><a href="#instalação">Instalação</a></li>
+    <li><a href="#versão-atual">Versão atual</a></li>
+    <li><a href="#licença">Licença</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <!-- <li><a href="#agradecimentos">Agradecimentos</a></li> -->
+    <li><a href="#observação">Observação</a></li>
+  </ol>
+</details>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<!-- ABOUT THE PROJECT -->
+## Sobre
+O sistema como finalidade demonstrar o uso de autenticação de dois fatores com multiguards usando o 'packpage fortify' do laravel 
 
-### Premium Partners
+<p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+<!-- FUNCIONALIDADES -->
+## Funcionalidades
 
-## Contributing
+- [x] CRUD de tarefas
+- [x] Controle de usuários
+- [x] Controle de administradores
+- [x] Impressão PDF de tarefas
+- [x] Dashboard(básico)
+    
+<p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Tecnologias Utilizadas
+1. FRONT-END
+    * HTML 5
+    * CSS 3
+    * BOOTSTRAP ^5.2.3
+    * BLADE (separado do vue)
+    * VUE 3
+    * NODE 18.17.1 (LTS)
+    * NPM 9.6.7
+2. BACK-END
+    * PHP 8.1.9
+    * LARAVEL 9
+    * INERTIA ^0.6.9
+3. DATABASE
+    * PGSQL
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+<p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<!-- GETTING STARTED -->
+## Instalação
 
-## License
+1. Certifique-se de ter instalado na sua máquina o php e node(npm) correto, se usa docker verficar a imagem
+2. Faça o 
+    ~~~shell
+    git clone <repo_url> -b <b_name or tag_name>
+    ~~~
+3. Duplique o arquivo `.env.example` e retire o `.example`
+4. Configure as variaveis de conexao com o banco de dados
+5. Execute 
+    ~~~shell
+    composer install 
+    ~~~
+6. Caso queira fazer mudanças vite
+    ~~~shell
+    npm install && npm run dev
+    ~~~ 
+7. Execute 
+   ~~~ shell
+    php artisan key:generate 
+   ~~~ 
+8. Execute 
+    ~~~shell
+    php artisan serve
+    ~~~
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+<p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
+
+
+
+
+## Versão atual
+:heavy_check_mark:  v1.1.0
+
+
+<!-- LICENÇA -->
+## Licença
+Distribuído sob a licença MIT.
+
+<p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contato
+Tiago Alves dos Santos
+
+Formas de contato: 
+<br>
+
+[![Whatsapp][whatsapp-shield]][whatsapp-url]
+[![Telegram][telegram-shield]][telegram-url]
+
+<p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
+
+<!-- MARKDOWN -->
+[whatsapp-shield]: https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white
+[whatsapp-url]: https://wa.link/h5vlzo
+[telegram-shield]: https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white
+[telegram-url]: https://t.me/TiagoAlves2001
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white
+[linkedin-url]: https://www.linkedin.com/in/tiago-alves-96699a189/
+[portfolio-shield]: https://img.shields.io/badge/PORTFOLIO-%20CLIQUE%20AQUI%20-%20BLACK
+[portfolio-url]: https://wa.link/h5vlzo
+
