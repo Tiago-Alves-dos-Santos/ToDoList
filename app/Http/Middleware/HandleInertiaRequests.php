@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $page_front = '';
+        //links de menu e titulos de pagina
         if(!empty($request->guard())){
             $page_info = PageFrontFacade::getInfoPageActual();
             $page_front = [
@@ -51,7 +52,7 @@ class HandleInertiaRequests extends Middleware
             'guard' => $request->guard(),
             'isRouteAdmin' => $request->isAdmin(),
             'page_front' => $page_front,
-            'fn_data' => session('data') ?? null,
+            'fn_data' => session('data') ?? null, //variavel para retorno de dados, oque no axios seria "json"
             'csrf_token' => csrf_token(),
             'auth' => [
                 'user' => $request->user()
