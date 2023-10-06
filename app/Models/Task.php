@@ -15,13 +15,13 @@ class Task extends Model
     /*****************************ESCOPOS********************************/
     public function scopeFilterStatusAndDelete($query, Object $options)
     {
-        if($options->deleted){
+        if ($options->deleted) {
             $query->withTrashed();
         }
         $status = [
             $options->pending ? 'pending' : null,
             $options->completed ? 'completed' : null,
-       ];
+        ];
         $query->whereIn('status', $status);
         return $query;
     }
@@ -35,7 +35,8 @@ class Task extends Model
     }
 
     /*****************************METODOS********************************/
-    public function getStatusYourLanguage() : string {
+    public function getStatusYourLanguage(): string
+    {
         //default ptbr, substirtuir por '__('idioma_json')' caso necessario mais de um idioma
         $language = [
             TaskStatus::COMPLETED->value => 'concluída',
@@ -44,8 +45,8 @@ class Task extends Model
 
         return $language[$this->status];
     }
-    public function isCompleted() : bool {
+    public function isCompleted(): bool
+    {
         return $this->status == TaskStatus::COMPLETED->value ? true : false;
     }
-
 }
