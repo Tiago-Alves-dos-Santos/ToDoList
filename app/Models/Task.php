@@ -35,6 +35,11 @@ class Task extends Model
     }
 
     /*****************************METODOS********************************/
+    /**
+     * Metodo que retorna status da tarefa, ainda não possui suporte a outros idiomas
+     *
+     * @return string
+     */
     public function getStatusYourLanguage(): string
     {
         //default ptbr, substirtuir por '__('idioma_json')' caso necessario mais de um idioma
@@ -45,6 +50,11 @@ class Task extends Model
 
         return $language[$this->status];
     }
+    /**
+     * Verifica se a tarefa esta completa
+     *
+     * @return boolean
+     */
     public function isCompleted(): bool
     {
         return $this->status == TaskStatus::COMPLETED->value ? true : false;
