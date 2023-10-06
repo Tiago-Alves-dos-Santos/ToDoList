@@ -21,8 +21,13 @@ class AdminPolicy
         $this->admin = Auth::guard('admin')->user();
     }
 
-
-    public function deleteThe(Admin $admin)
+    /**
+     * Caso admin igual a master ou admin cadastrou usuario a ser deletado ele pode deletar
+     *
+     * @param Admin $admin
+     * @return boolean
+     */
+    public function deleteThe(Admin $admin):bool
     {
         if($this->admin->type == TypeAdmin::MASTER->value || $this->admin->id = $admin->admin_creator_id){
             return true;

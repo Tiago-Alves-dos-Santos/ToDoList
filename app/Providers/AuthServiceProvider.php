@@ -56,6 +56,9 @@ class AuthServiceProvider extends ServiceProvider
 
     private function gates()
     {
+        /**
+         * Caso Admin igual a master ele pode listar todos os admins
+         */
         Gate::define('listAllAdmins', function (Admin $admin) {
             return $admin->type == TypeAdmin::MASTER->value;
         });
