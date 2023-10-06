@@ -32,7 +32,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $actions = FortifyFacade::getActionsForAdmin(request()->isAdmin());
+        $actions = FortifyFacade::getActionsAdminOrUser(request()->isAdmin());
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing($actions['updateProfileInformation']);
         Fortify::updateUserPasswordsUsing($actions['updatePassword']);
