@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\AuthService;
 use App\Services\PageFront;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
@@ -61,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
         });
         //FACADE
         $this->app->bind('PageFront', fn() => new PageFront(request()->guard()));
+        $this->app->bind('AuthService', fn() => new AuthService(request()->guard()));
         //RATE LIMITE
         RateLimiter::for('verification', function (Request $request) {
             return Limit::perMinutes(3, 1)->response(function () {

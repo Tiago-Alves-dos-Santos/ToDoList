@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Task;
 use Inertia\Inertia;
 use Inertia\Response;
 use PharIo\Manifest\Url;
 use App\Enums\TaskStatus;
+use App\Facades\AuthServiceFacade;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -21,7 +22,8 @@ class TaskController extends Controller
         $search = $request->task ?? '';
         $options = $request->options ?? null;
         $tasks = Task::query()->orderBy('id', 'desc');
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
+
         $tasks->where($column_id, $request->user()->id);
         if (!empty($search)) {
             $tasks->where('task', 'like', "%$search%");
@@ -41,7 +43,7 @@ class TaskController extends Controller
     public function viewReport(Request $request): Response
     {
         $route = ($request->guard() == 'admin') ? route('task.printPDF') : null;
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
         $min_date = Task::where($column_id, Auth::id())->min('created_at');
         $min_date = Carbon::parse($min_date)->format('Y-m-d');
         return Inertia::render('Task/Report', [
@@ -53,7 +55,7 @@ class TaskController extends Controller
 
     public function create(Request $request)
     {
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
         $request->validate([
             'task' => ['required', 'string', 'max:100'],
         ], [], [
@@ -80,7 +82,7 @@ class TaskController extends Controller
     public function printPDF(Request $request)
     {
         $data = json_decode($request->allData);
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
         $tasks = Task::query();
         $tasks->withTrashed()->where($column_id, Auth::id())
         ->whereDate('created_at', '>=', $data->dateStart)
