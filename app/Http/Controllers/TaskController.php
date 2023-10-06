@@ -43,7 +43,7 @@ class TaskController extends Controller
     public function viewReport(Request $request): Response
     {
         $route = ($request->guard() == 'admin') ? route('task.printPDF') : null;
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
         $min_date = Task::where($column_id, Auth::id())->min('created_at');
         $min_date = Carbon::parse($min_date)->format('Y-m-d');
         return Inertia::render('Task/Report', [
@@ -55,7 +55,7 @@ class TaskController extends Controller
 
     public function create(Request $request)
     {
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
         $request->validate([
             'task' => ['required', 'string', 'max:100'],
         ], [], [
@@ -82,7 +82,7 @@ class TaskController extends Controller
     public function printPDF(Request $request)
     {
         $data = json_decode($request->allData);
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+        $column_id = AuthServiceFacade::getColumnIdName();
         $tasks = Task::query();
         $tasks->withTrashed()->where($column_id, Auth::id())
         ->whereDate('created_at', '>=', $data->dateStart)
