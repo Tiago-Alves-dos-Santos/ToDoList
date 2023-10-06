@@ -1,15 +1,7 @@
 <?php
-if (!function_exists('prefixAuth')) {
-    function prefixAuth(): string
-    {
-        $prefix = config('fortify.prefix');
-        return empty($prefix) ? '/' : $prefix.'/';
-    }
-}
 if (!function_exists('routesFortify')) {
     function routesFortify(): array
     {
-        $prefix = prefixAuth();
         return [
             'register' => route('register'),//POST
             'reset_password' => route('password.update'),//POST
