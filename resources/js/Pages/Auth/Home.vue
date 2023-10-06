@@ -55,7 +55,7 @@ export default {
         },
         series() {
             let array = [];
-            Object.values(this.info_card).forEach(value => {
+            Object.values(this.chart).forEach(value => {
                 array.push({
                     x: value.name,
                     y: value.value
@@ -73,6 +73,7 @@ export default {
     props: {
         routes_fortify: Object,
         info_card: Object,
+        chart: Object
     },
     methods: {
 
