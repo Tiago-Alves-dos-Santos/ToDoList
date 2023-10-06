@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //setando rateLimit na verficação de email
         $this->app->afterResolving(EmailVerificationNotificationController::class, function ($controller) {
             $controller->middleware('throttle:verification');
         });
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
                 return false;
             }
         });
+        //retorna o guard atual
         Request::macro('guard', function () {
             $guards = config('auth.guards');
             unset($guards['sanctum']);

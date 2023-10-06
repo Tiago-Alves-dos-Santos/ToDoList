@@ -123,7 +123,7 @@ export default {
             router.patch(url, {}, {
                 onSuccess: () => {
                     this.$alert.fire(
-                        'Usuário '+ user.active ? 'ativado' : 'desativado',
+                        'Usuário '+ (user.active ? 'ativado' : 'desativado'),
                         'Usuário afetado:'+ user.name,
                         'success'
                     );

@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         $this->gates();
-
+        //emails de verficação customizados
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
                 ->subject('Confirmar Email') //titulo
@@ -56,6 +56,9 @@ class AuthServiceProvider extends ServiceProvider
 
     private function gates()
     {
+        /**
+         * Caso Admin igual a master ele pode listar todos os admins
+         */
         Gate::define('listAllAdmins', function (Admin $admin) {
             return $admin->type == TypeAdmin::MASTER->value;
         });

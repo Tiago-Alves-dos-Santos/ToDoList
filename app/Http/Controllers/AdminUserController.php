@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
+use Inertia\Response;
 use Laravel\Fortify\Features;
 
 class AdminUserController extends Controller
 {
-    public function viewListUsers()
+    /**
+     * Lista de usuarios
+     *
+     * @return Response
+     */
+    public function viewListUsers():Response
     {
         $users = User::orderBy('id', 'desc')->cursor();
         return Inertia::render('Admin/Users', [
@@ -17,6 +22,12 @@ class AdminUserController extends Controller
         ]);
     }
 
+    /**
+     * Desabilitar 2FA de usuario
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function disable2FAUser($id) : void
     {
         $values = [
@@ -28,6 +39,12 @@ class AdminUserController extends Controller
         }
         User::find($id)->update($values);
     }
+    /**
+     * Ativar e desativar usuario
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function toggleActive($id) : void
     {
         $user = User::find($id);

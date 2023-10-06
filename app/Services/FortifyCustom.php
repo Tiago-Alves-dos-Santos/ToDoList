@@ -68,7 +68,6 @@ final class FortifyCustom
         $user = $model::where('email', $request->email)->first();
         $guard = request()->isAdmin() ? 'admin' : 'web';
         if ($user && Hash::check($request->password, $user->password)) {
-            //guard web
             Auth::guard($guard)->login($user, $request->remember);
             return $user;
         }
@@ -79,7 +78,7 @@ final class FortifyCustom
      * @param boolean $admin - Informe se o usuario é admin
      * @return array
      */
-    public function getActionsForAdmin(bool $admin): array
+    public function getActionsAdminOrUser(bool $admin): array
     {
         return [
             'createUser' => $admin ?  CreateNewAdmin::class : CreateNewUser::class,
