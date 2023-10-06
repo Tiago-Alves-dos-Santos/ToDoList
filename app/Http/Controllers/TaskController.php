@@ -8,7 +8,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use PharIo\Manifest\Url;
 use App\Enums\TaskStatus;
-use App\Helpers\AuthHelper;
+use App\Facades\AuthServiceFacade;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -22,11 +22,7 @@ class TaskController extends Controller
         $search = $request->task ?? '';
         $options = $request->options ?? null;
         $tasks = Task::query()->orderBy('id', 'desc');
-
-
-        // $authHelper = new AuthHelper($request->guard());
-        // $column_id = $authHelper->getColumnIdName();
-        $column_id = '';
+        $column_id = AuthServiceFacade::getColumnIdName();
         dd($column_id);
 
         $tasks->where($column_id, $request->user()->id);
