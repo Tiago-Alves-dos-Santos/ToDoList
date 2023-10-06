@@ -66,10 +66,10 @@ final class FortifyCustom
     public function customLogin($request, $model)
     {
         $user = $model::where('email', $request->email)->first();
-        // dd('aq');
+        $guard = request()->isAdmin() ? 'admin' : 'web';
         if ($user && Hash::check($request->password, $user->password)) {
             //guard web
-            //Auth:login($admin);
+            Auth::guard($guard)->login($user, $request->remember);
             return $user;
         }
     }

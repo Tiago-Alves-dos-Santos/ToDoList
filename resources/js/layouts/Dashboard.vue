@@ -55,6 +55,9 @@ export default {
         user() {
             return this.$page.props.auth.user;
         },
+        routeLogout(){
+            return this.$page.props.routes_fortify.logout;
+        }
     },
     methods: {
         toProfile() {
@@ -62,7 +65,7 @@ export default {
             router.get(url);
         },
         logout() {
-            router.post('/logout', {}, {
+            router.post(this.routeLogout, {}, {
                 onSuccess: () => {
                     router.get('/');
                 }
