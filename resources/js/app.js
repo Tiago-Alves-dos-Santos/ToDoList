@@ -3,13 +3,18 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 //inertia SPA
 import { Link } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3';
 //pacotes terceiros
 import Swal from 'sweetalert2'
 import VueApexCharts from "vue3-apexcharts";
 import VueDatePicker from '@vuepic/vue-datepicker';
-// import '@vuepic/vue-datepicker/dist/main.css'
 //components
 import * as components from './components';
+//remover style que o 'sidebar' coloca
+router.on('success', (event) => {
+    var bodyElement = document.body;
+    bodyElement.style = "";
+})
 createInertiaApp({
   progress: {
       delay: 250,

@@ -36,6 +36,21 @@ div#layout-auth {
             }
         }
     }
+
+    @media (max-width: 839px) {
+        div.container-image{
+            width: 0%;
+        }
+        div.container-body{
+            width: 100%;
+        }
+    }
+    @media (max-width: 409px) {
+        div.card{
+            width: 260px;
+        }
+    }
+
 }
 
 /********************************************LAYOUT DASHBOARD*************************************************/
