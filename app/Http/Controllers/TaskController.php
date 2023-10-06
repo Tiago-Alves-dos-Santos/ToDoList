@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Task;
 use Inertia\Inertia;
 use Inertia\Response;
 use PharIo\Manifest\Url;
 use App\Enums\TaskStatus;
+use App\Helpers\AuthHelper;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
@@ -21,7 +22,13 @@ class TaskController extends Controller
         $search = $request->task ?? '';
         $options = $request->options ?? null;
         $tasks = Task::query()->orderBy('id', 'desc');
-        $column_id = $request->guard() == 'admin' ? 'admin_id' : 'user_id';
+
+
+        // $authHelper = new AuthHelper($request->guard());
+        // $column_id = $authHelper->getColumnIdName();
+        $column_id = '';
+        dd($column_id);
+
         $tasks->where($column_id, $request->user()->id);
         if (!empty($search)) {
             $tasks->where('task', 'like', "%$search%");
