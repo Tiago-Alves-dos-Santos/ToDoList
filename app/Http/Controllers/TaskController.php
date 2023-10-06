@@ -6,18 +6,18 @@ use Carbon\Carbon;
 use App\Models\Task;
 use Inertia\Inertia;
 use Inertia\Response;
-use PharIo\Manifest\Url;
 use App\Enums\TaskStatus;
 use App\Facades\AuthServiceFacade;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $search = $request->task ?? '';
         $options = $request->options ?? null;
@@ -53,7 +53,7 @@ class TaskController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): void
     {
         $column_id = AuthServiceFacade::getColumnIdName();
         $request->validate([
@@ -66,33 +66,33 @@ class TaskController extends Controller
             'task' => $request->task
         ]);
     }
-    public function update(Request $request)
+    public function update(Request $request): void
     {
         Task::where('id', $request->id)->update(['task' => $request->task]);
     }
-    public function toggleStatus(Request $request)
+    public function toggleStatus(Request $request): void
     {
         Task::where('id', $request->id)->update(['status' => $request->status]);
     }
-    public function delete(Request $request)
+    public function delete(Request $request): void
     {
         Task::where('id', $request->id)->delete();
     }
 
-    public function printPDF(Request $request)
+    public function printPDF(Request $request) : HttpResponse
     {
         $data = json_decode($request->allData);
         $column_id = AuthServiceFacade::getColumnIdName();
         $tasks = Task::query();
         $tasks->withTrashed()->where($column_id, Auth::id())
-        ->whereDate('created_at', '>=', $data->dateStart)
-        ->whereDate('created_at', '<=',$data->dateEnd);
-        $pdf = PDF::loadView('pdf.reportTask',[
+            ->whereDate('created_at', '>=', $data->dateStart)
+            ->whereDate('created_at', '<=', $data->dateEnd);
+        $pdf = PDF::loadView('pdf.reportTask', [
             'tasks' => $tasks->cursor(),
             'all_count_tasks' => $tasks->count(),
             'user' => Auth::user(),
         ]);
 
-        return $pdf->stream('tasks_'.date('Y_m_d_H_i_s').'.pdf');
+        return $pdf->stream('tasks_' . date('Y_m_d_H_i_s') . '.pdf');
     }
 }
