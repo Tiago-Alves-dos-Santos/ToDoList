@@ -8,10 +8,15 @@ final class PageFront
 {
     public function __construct(
         private string $guard,
-        private array $routes = [],
+        private array $routes = [], //rotas acessadas pelo menu sidebar, saber titulo da pagina
     ) {
         $this->startArrayRoutes();
     }
+    /**
+     * Popular o array de routes
+     *
+     * @return void
+     */
     private function startArrayRoutes(): void
     {
         $this->routes = [
@@ -36,7 +41,7 @@ final class PageFront
         ];
     }
     /**
-     * Retorna rota atual e titulo da pagina de la tabla de datos
+     * Retorna rota atual e titulo da pagina atual pelo array de rotas
      *
      * @return array
      */
@@ -45,11 +50,11 @@ final class PageFront
         if (!empty($this->guard)) {
             $route_name = Route::currentRouteName();
             $title = '';
-            if (array_key_exists($route_name, $this->routes['comon'])) {
+            if (array_key_exists($route_name, $this->routes['comon'])) { //verfica em rotas comuns
                 $title = $this->routes['comon'][$route_name]['title'];
-            } else if (array_key_exists($route_name, $this->routes[$this->guard])) {
+            } else if (array_key_exists($route_name, $this->routes[$this->guard])) { //verfica nas rotas baseada no guard
                 $title = $this->routes[$this->guard][$route_name]['title'];
-            } else {
+            } else { //rota não encontrada, retorna o titulo
                 $title = 'Não econtrado';
             }
 
@@ -59,6 +64,11 @@ final class PageFront
             ];
         }
     }
+    /**
+     * Popular menu sidebar com os links, baseados no guard
+     *
+     * @return array
+     */
     public function getLinks(): array
     {
         $comon = [
