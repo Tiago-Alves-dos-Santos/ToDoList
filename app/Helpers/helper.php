@@ -1,5 +1,10 @@
 <?php
 if (!function_exists('routesFortify')) {
+    /**
+     * Retorna um array com as rotas do fortify, para saber o tipo use 'route:list'
+     *
+     * @return array
+     */
     function routesFortify(): array
     {
         return [

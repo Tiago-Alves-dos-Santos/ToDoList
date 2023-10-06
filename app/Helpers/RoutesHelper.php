@@ -3,9 +3,16 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
-//não configurada em 'config/app'
+/**
+ * Rotas em comum entre dois mais users(guards)
+ */
 final class RoutesHelper
 {
+    /**
+     * Rota de tarefas
+     *
+     * @return void
+     */
     public static function tasks(): void
     {
         Route::prefix('/task')->group(function () {
