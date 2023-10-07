@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AdminSeeder;
 
@@ -15,9 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(AdminSeeder::class);
-        // \App\Models\User::factory(10)->create();
-        \App\Models\Admin::factory(10)->create();
+        $this->call(AdminSeeder::class);
+        \App\Models\User::factory(10)->create();
+        Admin::factory(10)->has(Admin::factory(), 'admin_creator')->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
