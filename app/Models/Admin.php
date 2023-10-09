@@ -24,5 +24,11 @@ class Admin extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /*********************************RELACIONAMENTOS**********************************/
+    public function admin_creator()
+    {
+        return $this->hasOne(Admin::class, 'admin_creator_id');
+    }
+
 
 }
