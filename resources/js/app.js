@@ -8,6 +8,7 @@ import { router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2'
 import VueApexCharts from "vue3-apexcharts";
 import VueDatePicker from '@vuepic/vue-datepicker';
+import VueMask from '@devindex/vue-mask';
 //components
 import * as components from './components';
 //remover style que o 'sidebar' coloca
@@ -33,6 +34,7 @@ createInertiaApp({
     const app = createApp({ render: () => h(App, props) })
       .use(plugin)
       .use(VueApexCharts)
+      .use(VueMask)
       //layouts
       .component('layout-auth', components.AuthLayout)
       .component('layout-dashboard', components.DashboardLayout)

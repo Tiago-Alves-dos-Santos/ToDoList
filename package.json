@@ -16,6 +16,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@devindex/vue-mask": "^2.0.3",
         "@inertiajs/vue3": "^1.0.11",
         "@vuepic/vue-datepicker": "^7.0.0",
         "apexcharts": "^3.43.0",

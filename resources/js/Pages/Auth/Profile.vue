@@ -73,7 +73,7 @@
                             <div v-html="svg"></div>
                             <div class="confirm-code">
                                 <input type="text" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm"
-                                    @keyup="confirmAt2FA">
+                                    @keyup="confirmAt2FA" v-mask="'000 000'">
                             </div>
                             <div class="copy-recoveryCode">
                                 <code v-html="recovery_codes"></code>
