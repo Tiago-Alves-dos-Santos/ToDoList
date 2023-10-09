@@ -28,6 +28,9 @@ final class AuthService
      */
     public function getColumnIdName():string
     {
+        if($this->guard == Guard::WEB->value){
+            return 'user_id';
+        }
         return $this->guards[strtoupper($this->guard)]->value.'_id';
     }
 }
