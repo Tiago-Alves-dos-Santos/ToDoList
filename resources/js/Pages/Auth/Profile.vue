@@ -72,6 +72,9 @@
                     <simple-card title="QrCode" class="bg-white w-100 mt-2">
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                             <div v-html="svg"></div>
+                            <div class="confirm-code">
+                                <input type="text" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm" @keyup="confirmAt2FA">
+                            </div>
                             <div class="copy-recoveryCode">
                                 <code v-html="recovery_codes"></code>
                                 <button class="btn btn-light" @click="copy">
@@ -95,6 +98,7 @@ export default {
             svg: '',
             recovery_codes: '',
             toggle_2fa: false,
+            codeConfirm:'',
             loads: {
                 form_profile: false,
                 form_update_password: false,
@@ -213,6 +217,11 @@ export default {
                     this.loads.TFA = false;
                 }
             });
+        },
+        confirmAt2FA(){
+            if(this.codeConfirm.length == 6){ //com mascara fica 7, enviar requisição
+                console.log(this.codeConfirm);
+            }
         },
         newRecoveryCodes() {
             const self = this;
