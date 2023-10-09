@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
 use Laravel\Fortify\Features;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\Fortify;
 
 class AdminUserController extends Controller
 {
@@ -14,7 +18,7 @@ class AdminUserController extends Controller
      *
      * @return Response
      */
-    public function viewListUsers():Response
+    public function viewListUsers(): Response
     {
         $users = User::orderBy('id', 'desc')->cursor();
         return Inertia::render('Admin/Users', [
@@ -28,13 +32,13 @@ class AdminUserController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function disable2FAUser($id) : void
+    public function disable2FAUser($id): void
     {
         $values = [
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
         ];
-        if(Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm')){
+        if (Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm')) {
             $values['two_factor_confirmed_at'] = null;
         }
         User::find($id)->update($values);
@@ -45,7 +49,7 @@ class AdminUserController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function toggleActive($id) : void
+    public function toggleActive($id): void
     {
         $user = User::find($id);
         $user->active = !$user->active;

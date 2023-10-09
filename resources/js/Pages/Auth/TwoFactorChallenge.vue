@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label for="">Código</label>
-                        <input type="text" class="form-control me-2" placeholder="" v-model="code">
+                        <input type="text" class="form-control me-2" placeholder="" v-model="code" v-mask="'000000'">
                         <div class="text-danger" v-if="errors.code">
                             <span v-if="errors.code">{{ errors.code }}</span>
                         </div>
@@ -62,13 +62,6 @@ export default {
         }
     },
     mounted() {
-        // const self = this;
-        // axios.get(this.routes_fortify.two_factor_qr_code)
-        //     .then(function (response) {
-        //         //svg variavel no data do vue
-        //         self.svg = response.data.svg;
-
-        //     });
     }
 }
 </script>

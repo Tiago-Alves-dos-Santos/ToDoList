@@ -42,12 +42,11 @@ class TaskController extends Controller
 
     public function viewReport(Request $request): Response
     {
-        $route = ($request->guard() == 'admin') ? route('task.printPDF') : null;
         $column_id = AuthServiceFacade::getColumnIdName();
         $min_date = Task::where($column_id, Auth::id())->min('created_at');
         $min_date = Carbon::parse($min_date)->format('Y-m-d');
         return Inertia::render('Task/Report', [
-            'routePrintPDF' => $route,
+            'routePrintPDF' => route('task.printPDF'),
             'csrf' => csrf_token(),
             'min_date' => $min_date
         ]);

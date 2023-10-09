@@ -23,7 +23,8 @@ final class PageFront
             'comon' => [
                 'task.index' => ['title' => 'Tarefas'],
                 'relatorio' => ['title' => 'Relatorio'],
-                'password.confirm' => ['title' => 'Confirmar senha']
+                'password.confirm' => ['title' => 'Confirmar senha'],
+                'task.viewReport' => ['title' => 'PDF'],
             ],
             'web' => [
                 'user.dashboard' => ['title' => 'Dashboard'],
@@ -35,7 +36,6 @@ final class PageFront
                 'admin.viewRegister' => ['title' => 'Novo Admin'],
                 'admin.viewListUsers' => ['title' => 'Lista de usuários'],
                 'admin.viewAdmins' => ['title' => 'Lista de administradores'],
-                'task.viewReport' => ['title' => 'PDF'],
             ]
 
         ];
@@ -55,7 +55,7 @@ final class PageFront
             } else if (array_key_exists($route_name, $this->routes[$this->guard])) { //verfica nas rotas baseada no guard
                 $title = $this->routes[$this->guard][$route_name]['title'];
             } else { //rota não encontrada, retorna o titulo
-                $title = 'Não econtrado';
+                $title = 'Não encontrado';
             }
 
             return [

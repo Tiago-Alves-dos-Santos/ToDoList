@@ -66,12 +66,15 @@
                             v-else></button-load>
 
                         <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes"
-                            class="btn btn-primary ms-2" @click="newRecoveryCodes"
-                            v-if="!two_factor_isEnable"></button-load>
+                            class="btn btn-primary ms-2" @click="newRecoveryCodes" v-if="two_factor_isEnable"></button-load>
                     </simple-card>
                     <simple-card title="QrCode" class="bg-white w-100 mt-2">
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                             <div v-html="svg"></div>
+                            <div class="confirm-code">
+                                <input type="text" v-if="svg" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm"
+                                    @keyup="confirmAt2FA" v-mask="'000000'">
+                            </div>
                             <div class="copy-recoveryCode">
                                 <code v-html="recovery_codes"></code>
                                 <button class="btn btn-light" @click="copy">
@@ -95,6 +98,7 @@ export default {
             svg: '',
             recovery_codes: '',
             toggle_2fa: false,
+            codeConfirm: '',
             loads: {
                 form_profile: false,
                 form_update_password: false,
@@ -172,7 +176,7 @@ export default {
                 onSuccess: () => {
                     this.$alert.fire(
                         'Sucesso!',
-                        'Autenticação dois fatores desahabilitada!',
+                        'Autenticação dois fatores desahabilitada',
                         'success'
                     );
                     this.svg = '';
@@ -203,7 +207,7 @@ export default {
                             self.recovery_codes = response.data;
                             self.$alert.fire(
                                 'Sucesso!',
-                                'Autenticação dois fatores habilitada!',
+                                'QRcode gerado insira o código para habilitar!',
                                 'success'
                             );
                         });
@@ -213,6 +217,29 @@ export default {
                     this.loads.TFA = false;
                 }
             });
+        },
+        confirmAt2FA() {
+            if (this.codeConfirm.length == 6) { //com mascara fica 7, enviar requisição
+                router.post(this.routes_fortify.two_factor_confirm, {
+                    code: this.codeConfirm,
+                }, {
+                    onSuccess: () => {
+                        this.$alert.fire(
+                            'Sucesso!',
+                            'Autenticação dois fatores habilitada!',
+                            'success'
+                        );
+                    },
+                    onError: () => {
+                        this.$alert.fire(
+                            'Erro!',
+                            'Código invalida, 2FA não habilitada!',
+                            'error'
+                        );
+                        console.log(this.codeConfirm);
+                    }
+                });
+            }
         },
         newRecoveryCodes() {
             const self = this;

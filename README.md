@@ -114,7 +114,7 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 
 
 ## Versão atual
-:heavy_check_mark:  v1.0.0-alpha
+:heavy_check_mark:  v1.1.0-alpha
 
 
 <!-- LICENÇA -->

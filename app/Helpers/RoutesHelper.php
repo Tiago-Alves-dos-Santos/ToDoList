@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 
+use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 /**
