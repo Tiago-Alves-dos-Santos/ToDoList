@@ -33,8 +33,6 @@
     <li><a href="#versão-atual">Versão atual</a></li>
     <li><a href="#licença">Licença</a></li>
     <li><a href="#contato">Contato</a></li>
-    <!-- <li><a href="#agradecimentos">Agradecimentos</a></li> -->
-    <li><a href="#observação">Observação</a></li>
   </ol>
 </details>
 
@@ -54,7 +52,7 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 - [x] Controle de administradores
 - [x] Impressão PDF de tarefas
 - [x] Dashboard(básico)
-- [x] Dados fakes
+- [x] Dados fakes e seed
     
 <p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
@@ -82,17 +80,17 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 ## Instalação
 
 1. Certifique-se de ter instalado na sua máquina o php e node(npm) correto, se usa docker verficar a imagem
-2. Faça o 
+2. Clone do Projeto
     ~~~shell
     git clone <repo_url> -b <b_name or tag_name>
     ~~~
 3. Duplique o arquivo `.env.example` e retire o `.example`
 4. Configure as variaveis de conexao com o banco de dados
-5. Execute 
+5. Instalar pacotes 
     ~~~shell
     composer install 
     ~~~
-6. Caso queira fazer mudanças vite
+6. Caso queira fazer mudanças, com vite
     ~~~shell
     npm install && npm run dev
     ~~~ 
@@ -100,7 +98,7 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
    ~~~ shell
     php artisan key:generate 
    ~~~ 
-8. Rodar as migrations
+8. Rodar as migrations, com seed e fakers
    ~~~ shell
     php artisan migrate --seed
    ~~~ 
@@ -116,12 +114,12 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 
 
 ## Versão atual
-:heavy_check_mark:  v1.1.0
+:heavy_check_mark:  v1.0.0-alpha
 
 
 <!-- LICENÇA -->
 ## Licença
-Distribuído sob a licença MIT.
+Licença MIT.
 
 <p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
@@ -139,7 +137,7 @@ Formas de contato:
 
 <p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
-<!-- MARKDOWN -->
+<!-- MARKDOWN LINKS BADGES -->
 [whatsapp-shield]: https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white
 [whatsapp-url]: https://wa.link/h5vlzo
 [telegram-shield]: https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white
