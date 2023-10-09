@@ -66,14 +66,14 @@
                             v-else></button-load>
 
                         <button-load text="Novos códigos de recuperação" :load="loads.new_recovery_codes"
-                            class="btn btn-primary ms-2" @click="newRecoveryCodes"
-                            v-if="two_factor_isEnable"></button-load>
+                            class="btn btn-primary ms-2" @click="newRecoveryCodes" v-if="two_factor_isEnable"></button-load>
                     </simple-card>
                     <simple-card title="QrCode" class="bg-white w-100 mt-2">
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                             <div v-html="svg"></div>
                             <div class="confirm-code">
-                                <input type="text" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm" @keyup="confirmAt2FA">
+                                <input type="text" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm"
+                                    @keyup="confirmAt2FA">
                             </div>
                             <div class="copy-recoveryCode">
                                 <code v-html="recovery_codes"></code>
@@ -98,7 +98,7 @@ export default {
             svg: '',
             recovery_codes: '',
             toggle_2fa: false,
-            codeConfirm:'',
+            codeConfirm: '',
             loads: {
                 form_profile: false,
                 form_update_password: false,
@@ -218,9 +218,20 @@ export default {
                 }
             });
         },
-        confirmAt2FA(){
-            if(this.codeConfirm.length == 6){ //com mascara fica 7, enviar requisição
-                console.log(this.codeConfirm);
+        confirmAt2FA() {
+            if (this.codeConfirm.length == 6) { //com mascara fica 7, enviar requisição
+                router.post(this.routes_fortify.two_factor_confirm, {
+                    code: this.codeConfirm,
+                }, {
+
+                    onFinish: () => {
+                        this.$alert.fire(
+                            'Sucesso!',
+                            'Autenticação dois fatores habilitada!',
+                            'success'
+                        );
+                    }
+                });
             }
         },
         newRecoveryCodes() {

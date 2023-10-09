@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Laravel\Fortify\Fortify;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;

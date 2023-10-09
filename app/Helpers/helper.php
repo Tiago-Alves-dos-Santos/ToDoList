@@ -20,6 +20,7 @@ if (!function_exists('routesFortify')) {
             'confirmed_two_factor_authentication' => route('two-factor.confirm'), //POST
             'password' => route('user-password.update'),
             'profile_information' => route('user-profile-information.update'),
+            'two_factor_confirm' => route('two-factor.confirm'),//POST
             'two_factor_challenge' => route('two-factor.login'),//POST - DELETE
             'two_factor_authentication' => route('two-factor.enable'),//POST
             'two_factor_authentication_disable' => route('two-factor.disable'),// DELETE
