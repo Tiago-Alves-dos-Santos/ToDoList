@@ -32,7 +32,7 @@
                                 Lembrar-me
                             </label>
                         </div>
-                        <a @click="forgotPassword" class="link-danger pointer">Esqueceu a
+                        <a @click="forgotPassword" v-if="!isRouteAdmin" class="link-danger pointer">Esqueceu a
                             senha?</a>
                     </div>
                 </div>
