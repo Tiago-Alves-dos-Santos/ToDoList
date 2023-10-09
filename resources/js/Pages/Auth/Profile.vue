@@ -72,8 +72,8 @@
                         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
                             <div v-html="svg"></div>
                             <div class="confirm-code">
-                                <input type="text" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm"
-                                    @keyup="confirmAt2FA" v-mask="'000 000'">
+                                <input type="text" v-if="svg" class="form-control" placeholder="XXX-XXX" v-model="codeConfirm"
+                                    @keyup="confirmAt2FA" v-mask="'000000'">
                             </div>
                             <div class="copy-recoveryCode">
                                 <code v-html="recovery_codes"></code>
@@ -176,7 +176,7 @@ export default {
                 onSuccess: () => {
                     this.$alert.fire(
                         'Sucesso!',
-                        'Autenticação dois fatores desahabilitada!',
+                        'Autenticação dois fatores desahabilitada',
                         'success'
                     );
                     this.svg = '';
@@ -207,7 +207,7 @@ export default {
                             self.recovery_codes = response.data;
                             self.$alert.fire(
                                 'Sucesso!',
-                                'Autenticação dois fatores habilitada!',
+                                'QRcode gerado insira o código para habilitar!',
                                 'success'
                             );
                         });
@@ -223,13 +223,20 @@ export default {
                 router.post(this.routes_fortify.two_factor_confirm, {
                     code: this.codeConfirm,
                 }, {
-
-                    onFinish: () => {
+                    onSuccess: () => {
                         this.$alert.fire(
                             'Sucesso!',
                             'Autenticação dois fatores habilitada!',
                             'success'
                         );
+                    },
+                    onError: () => {
+                        this.$alert.fire(
+                            'Erro!',
+                            'Código invalida, 2FA não habilitada!',
+                            'error'
+                        );
+                        console.log(this.codeConfirm);
                     }
                 });
             }
