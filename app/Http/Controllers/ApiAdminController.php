@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Guard;
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class ApiAdminController extends Controller
@@ -31,7 +32,7 @@ class ApiAdminController extends Controller
                 }
             }
             if (empty($message)) {
-                $token = $admin->createToken('api_key', ['list-users', 'list-admin-YourControl']);
+                $token = $admin->createToken('api_key', ['list-users', 'list-admin-YourControl']); //habilidades que eu inventei o nome, dica: faza algo para gerenciar
             }
             return response()->json([
                 'token' => $token->plainTextToken ?? '',
@@ -44,9 +45,28 @@ class ApiAdminController extends Controller
 
     public function listUsers()
     {
-        $user = request()->user();
-        $user = $user->currentAccessToken();
-        ds($user->can('list-users'));
-        // return User::cursor();
+        //pega usuario de acordo com model 'tokenable_type' e 'tokenable_id'
+        $admin = request()->user();
+        $tokenHabilit  = $admin->currentAccessToken();
+        if($tokenHabilit->can('list-users')){
+            return User::cursor();
+        }else{
+            abort(401, 'Denied permision');
+        }
+    }
+    public function listAdmins()
+    {
+        //pega usuario de acordo com model 'tokenable_type' e 'tokenable_id'
+        $admin = request()->user();
+        $tokenHabilit  = $admin->currentAccessToken();
+
+        if(Gate::allows('listAllAdmins', $admin) && $tokenHabilit->can('list-admin-YourControl')){//verfica se o admin logado pode listar todos os admins
+            $admins = Admin::where('id','!=', $admin->id)->orderBy('id','desc')->cursor();
+        }else if($tokenHabilit->can('list-admin-YourControl')){//caso não, lista apenas oque ele cadastrou
+            $admins = Admin::where('id','!=', $admin->id)->where('admin_creator_id', $admin->id)->orderBy('id','desc')->cursor();
+        }else{
+            abort(401, 'Denied permision');
+        }
+        return $admins;
     }
 }
