@@ -23,11 +23,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', [ApiAdminController::class, 'login']);
-    // Route::get('/list/users', [ApiAdminController::class, 'listUsers']);
     Route::middleware('auth:sanctum')->group(function() {
         Route::get('/list/users', [ApiAdminController::class, 'listUsers']);
         Route::get('/list/admins', [ApiAdminController::class, 'listAdmins']);
+        Route::post('/revoke', [ApiAdminController::class, 'revoke']);
     });
-    //fazer rota listar 'user'e admin - verficando permissão do token
-    //fazer rota revogar token
+
 });
