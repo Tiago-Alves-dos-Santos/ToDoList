@@ -72,7 +72,6 @@ class ApiAdminController extends Controller
     public function revoke(Request $request)
     {
         $admin = $request->user();
-        ds($admin);
         $admin->currentAccessToken()->delete();
         $text_token =  $admin->createToken('api_key', ['list-users', 'list-admin-YourControl'])->plainTextToken;
         return response()->json([
