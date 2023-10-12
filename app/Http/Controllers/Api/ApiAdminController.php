@@ -1,18 +1,31 @@
 <?php
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Enums\Guard;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+/**
+ * @OA\Info(
+ *     title="Minha API Exemplo",
+ *     description="Esta é uma API de exemplo para fins de demonstração.",
+ *     version="1.0.0",
+ *     @OA\Contact(
+ *         name="Nome do Contato da API",
+ *         email="contato@example.com"
+ *     ),
+ *     @OA\License(
+ *         name="Licença de Exemplo",
+ *         url="https://www.example.com/license"
+ *     )
+ * )
+ */
 
 class ApiAdminController extends Controller
 {
-    private $guard = Guard::ADMIN;
     public function login(Request $request): mixed
     {
         $request->validate([
@@ -42,6 +55,42 @@ class ApiAdminController extends Controller
             abort(401, 'Invalid login'); //erro com status, mais indicado para api
         }
     }
+
+    /**
+     * @OA\Get(
+     *     tags = {"User"},
+     *     path="/api/admin/listUsers",
+     *     summary="Obtém um exemplo pelo ID",
+     *     description="Esta operação obtém um exemplo com base no ID fornecido.",
+     *     @OA\Response(
+     *         response="200",
+     *         description="Sucesso - Exemplo encontrado",
+     *         @OA\JsonContent(
+     *             type="object",
+        *         @OA\Property(
+        *             property="id",
+        *             type="integer",
+        *             format="int64",
+        *             example=1
+        *         ),
+        *         @OA\Property(
+        *             property="nome",
+        *             type="string",
+        *             example="Exemplo 1"
+        *         ),
+        *         @OA\Property(
+        *             property="outraPropriedade",
+        *             type="string",
+        *             example="Outro valor"
+        *         )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Não encontrado - Nenhum exemplo encontrado com o ID fornecido"
+     *     )
+     * )
+     */
 
     public function listUsers()
     {
