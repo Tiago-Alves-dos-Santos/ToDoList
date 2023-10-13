@@ -129,23 +129,60 @@ class ApiAdminController extends Controller
      *         response="200",
      *         description="Sucesso - Exemplo encontrado",
      *         @OA\JsonContent(
-     *             type="object",
-     *                @OA\Property(
-     *                    property="id",
-     *                    type="integer",
-     *                    format="int64",
-     *                    example=1
-     *                ),
-     *                @OA\Property(
-     *                    property="nome",
-     *                    type="string",
-     *                    example="Exemplo 1"
-     *                ),
-     *                @OA\Property(
-     *                    property="outraPropriedade",
-     *                    type="string",
-     *                    example="Outro valor"
-     *                )
+     *               type="array",
+     *               @OA\Items(
+     *                   type="object",
+     *                   @OA\Property(
+     *                       property="id",
+     *                       type="integer",
+     *                       format="int64",
+     *                       example=1
+     *                   ),
+     *                   @OA\Property(
+     *                       property="name",
+     *                       type="string",
+     *                       example="Roberto Anderson Carrara"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="email",
+     *                       type="string",
+     *                       example="hgil@example.org"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="active",
+     *                       type="boolean",
+     *                       example=true
+     *                   ),
+     *                   @OA\Property(
+     *                       property="email_verified_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example="2023-10-09T14:49:29.000000Z"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="created_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example="2023-10-09T14:49:29.000000Z"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="updated_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example="2023-10-09T14:49:29.000000Z"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="two_factor_confirmed_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example=null
+     *                   ),
+     *                   @OA\Property(
+     *                       property="two_factor_is_active",
+     *                       type="boolean",
+     *                       example=false
+     *                   )
+     *               ),
      *         ),
      *         @OA\Header(
      *           header="Authorization",
@@ -187,23 +224,71 @@ class ApiAdminController extends Controller
      *         response="200",
      *         description="Sucesso - Exemplo encontrado",
      *         @OA\JsonContent(
-     *             type="object",
-     *                @OA\Property(
-     *                    property="id",
-     *                    type="integer",
-     *                    format="int64",
-     *                    example=1
-     *                ),
-     *                @OA\Property(
-     *                    property="nome",
-     *                    type="string",
-     *                    example="Exemplo 1"
-     *                ),
-     *                @OA\Property(
-     *                    property="outraPropriedade",
-     *                    type="string",
-     *                    example="Outro valor"
-     *                )
+     *               type="array",
+     *               @OA\Items(
+     *                   type="object",
+     *                   @OA\Property(
+     *                       property="id",
+     *                       type="integer",
+     *                       format="int64",
+     *                       example=2
+     *                   ),
+     *                   @OA\Property(
+     *                       property="admin_creator_id",
+     *                       type="integer",
+     *                       format="int64",
+     *                       example=1
+     *                   ),
+     *                   @OA\Property(
+     *                       property="type",
+     *                       type="string",
+     *                       example="common"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="name",
+     *                       type="string",
+     *                       example="Roberto Anderson Carrara"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="email",
+     *                       type="string",
+     *                       example="hgil@example.org"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="active",
+     *                       type="boolean",
+     *                       example=true
+     *                   ),
+     *                   @OA\Property(
+     *                       property="email_verified_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example="2023-10-09T14:49:29.000000Z"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="created_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example="2023-10-09T14:49:29.000000Z"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="updated_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example="2023-10-09T14:49:29.000000Z"
+     *                   ),
+     *                   @OA\Property(
+     *                       property="two_factor_confirmed_at",
+     *                       type="string",
+     *                       format="date-time",
+     *                       example=null
+     *                   ),
+     *                   @OA\Property(
+     *                       property="two_factor_is_active",
+     *                       type="boolean",
+     *                       example=false
+     *                   )
+     *               ),
      *         ),
      *         @OA\Header(
      *           header="Authorization",
