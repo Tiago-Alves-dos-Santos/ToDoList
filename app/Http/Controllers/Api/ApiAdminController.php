@@ -1,14 +1,19 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
-use App\Enums\Guard;
 use App\Models\User;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+
+
 /**
+ * @OA\Server(
+ *     url="http://localhost:8000/api/"
+ * ),
  * @OA\Info(
  *     title="Minha API Exemplo",
  *     description="Esta é uma API de exemplo para fins de demonstração.",
@@ -19,13 +24,68 @@ use Illuminate\Support\Facades\Hash;
  *     ),
  *     @OA\License(
  *         name="Licença de Exemplo",
- *         url="https://www.example.com/license"
- *     )
+ *         url="http://locahost/api/"
+ *     ),
+ * ),
+ *
+ *  @OA\SecurityScheme(
+ *      securityScheme="BearerAuth",
+ *      in="header",
+ *      name="Authorization",
+ *      type="apiKey",
+ *      description = "Cabeçalho de autenticação Bearer"
  * )
  */
 
 class ApiAdminController extends Controller
 {
+    /**
+     * @OA\Post(
+     *     tags = {"Administradores"},
+     *     path="/admin/login",
+     *     summary="Obtem o token",
+     *     description="Resulta em um token ou mensagem de erro.",
+     *     @OA\RequestBody(
+     *         description="Dados do usuário para autenticação",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 format="email",
+     *                 example="usuario@example.com"
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 format="password",
+     *                 example="senha123"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *        response="200",
+     *        description="Sucesso - Exemplo encontrado",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="token",
+     *                  type="string",
+     *                  example="<seu_token>"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="O usuario já possui token valido e não expirado! Caso queira novo token, faça a revogação"
+     *              ),
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Invalid login"
+     *     )
+     * )
+     */
     public function login(Request $request): mixed
     {
         $request->validate([
@@ -58,37 +118,48 @@ class ApiAdminController extends Controller
 
     /**
      * @OA\Get(
-     *     tags = {"User"},
-     *     path="/api/admin/listUsers",
-     *     summary="Obtém um exemplo pelo ID",
-     *     description="Esta operação obtém um exemplo com base no ID fornecido.",
+     *     tags = {"Administradores"},
+     *     path="/admin/list/users",
+     *     summary="Obtem uma lista de usuarios",
+     *     description="Retorna todos os usuarios caso admin",
+     *     security={
+     *         {"BearerAuth": {}}
+     *     },
      *     @OA\Response(
      *         response="200",
      *         description="Sucesso - Exemplo encontrado",
      *         @OA\JsonContent(
      *             type="object",
-        *         @OA\Property(
-        *             property="id",
-        *             type="integer",
-        *             format="int64",
-        *             example=1
-        *         ),
-        *         @OA\Property(
-        *             property="nome",
-        *             type="string",
-        *             example="Exemplo 1"
-        *         ),
-        *         @OA\Property(
-        *             property="outraPropriedade",
-        *             type="string",
-        *             example="Outro valor"
-        *         )
-     *         )
+     *                @OA\Property(
+     *                    property="id",
+     *                    type="integer",
+     *                    format="int64",
+     *                    example=1
+     *                ),
+     *                @OA\Property(
+     *                    property="nome",
+     *                    type="string",
+     *                    example="Exemplo 1"
+     *                ),
+     *                @OA\Property(
+     *                    property="outraPropriedade",
+     *                    type="string",
+     *                    example="Outro valor"
+     *                )
+     *         ),
+     *         @OA\Header(
+     *           header="Authorization",
+     *           description="token de usuario autenticado",
+     *             @OA\Schema(
+     *                 type="string",
+     *                 example="Bearer <token value>"
+     *             )
+     *         ),
      *     ),
      *     @OA\Response(
-     *         response="404",
-     *         description="Não encontrado - Nenhum exemplo encontrado com o ID fornecido"
-     *     )
+     *         response="401",
+     *         description="Denied permision"
+     *     ),
      * )
      */
 
@@ -97,27 +168,113 @@ class ApiAdminController extends Controller
         //pega usuario de acordo com model 'tokenable_type' e 'tokenable_id'
         $admin = request()->user();
         $tokenHabilit  = $admin->currentAccessToken();
-        if($tokenHabilit->can('list-users')){
+        if ($tokenHabilit->can('list-users')) {
             return User::cursor();
-        }else{
+        } else {
             abort(401, 'Denied permision');
         }
     }
+    /**
+     * @OA\Get(
+     *     tags = {"Administradores"},
+     *     path="/admin/list/admins",
+     *     summary="Obtém uma lista de administratores",
+     *     description="Retorna administradores, todos caso admin master ou apenas os adminis caadasrtados pelo admin comum",
+     *     security={
+     *         {"BearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *         response="200",
+     *         description="Sucesso - Exemplo encontrado",
+     *         @OA\JsonContent(
+     *             type="object",
+     *                @OA\Property(
+     *                    property="id",
+     *                    type="integer",
+     *                    format="int64",
+     *                    example=1
+     *                ),
+     *                @OA\Property(
+     *                    property="nome",
+     *                    type="string",
+     *                    example="Exemplo 1"
+     *                ),
+     *                @OA\Property(
+     *                    property="outraPropriedade",
+     *                    type="string",
+     *                    example="Outro valor"
+     *                )
+     *         ),
+     *         @OA\Header(
+     *           header="Authorization",
+     *           description="token de usuario autenticado",
+     *             @OA\Schema(
+     *                 type="string",
+     *                 example="Bearer <token value>"
+     *             )
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Denied permision"
+     *     ),
+     * )
+     */
     public function listAdmins()
     {
         //pega usuario de acordo com model 'tokenable_type' e 'tokenable_id'
         $admin = request()->user();
         $tokenHabilit  = $admin->currentAccessToken();
 
-        if(Gate::allows('listAllAdmins', $admin) && $tokenHabilit->can('list-admin-YourControl')){//verfica se o admin logado pode listar todos os admins
-            $admins = Admin::where('id','!=', $admin->id)->orderBy('id','desc')->cursor();
-        }else if($tokenHabilit->can('list-admin-YourControl')){//caso não, lista apenas oque ele cadastrou
-            $admins = Admin::where('id','!=', $admin->id)->where('admin_creator_id', $admin->id)->orderBy('id','desc')->cursor();
-        }else{
+        if (Gate::allows('listAllAdmins', $admin) && $tokenHabilit->can('list-admin-YourControl')) { //verfica se o admin logado pode listar todos os admins
+            $admins = Admin::where('id', '!=', $admin->id)->orderBy('id', 'desc')->cursor();
+        } else if ($tokenHabilit->can('list-admin-YourControl')) { //caso não, lista apenas oque ele cadastrou
+            $admins = Admin::where('id', '!=', $admin->id)->where('admin_creator_id', $admin->id)->orderBy('id', 'desc')->cursor();
+        } else {
             abort(401, 'Denied permision');
         }
         return $admins;
     }
+    /**
+     * @OA\Post(
+     *     tags = {"Administradores"},
+     *     path="/admin/revoke",
+     *     summary="Recebe um novo token de acesso",
+     *     description="Recebe um novo token de acesso, indepedente do status atual.",
+     *     security={
+     *         {"BearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *        response="200",
+     *        description="Sucesso - Exemplo encontrado",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                  property="token",
+     *                  type="string",
+     *                  example="<seu_token>"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="O usuario já possui token valido e não expirado! Caso queira novo token, faça a revogação"
+     *              ),
+     *         ),
+     *         @OA\Header(
+     *           header="Authorization",
+     *           description="token de usuario autenticado",
+     *             @OA\Schema(
+     *                 type="string",
+     *                 example="Bearer <token value>"
+     *             )
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Invalid login"
+     *     )
+     * ),
+     */
     public function revoke(Request $request)
     {
         $admin = $request->user();

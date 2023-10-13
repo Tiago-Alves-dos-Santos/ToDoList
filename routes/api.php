@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::prefix('admin')->group(function() {
-    Route::get('/login', [ApiAdminController::class, 'login']);
+    Route::post('/login', [ApiAdminController::class, 'login']);
     Route::middleware('auth:sanctum')->group(function() {
         Route::get('/list/users', [ApiAdminController::class, 'listUsers']);
         Route::get('/list/admins', [ApiAdminController::class, 'listAdmins']);
