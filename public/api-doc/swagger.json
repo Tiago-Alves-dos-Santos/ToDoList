@@ -1,17 +1,17 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Minha API Exemplo",
-        "description": "Esta é uma API de exemplo para fins de demonstração.",
+        "title": "Api para administração",
+        "description": "Esta é uma API de demonstração básica do swagger ui",
         "contact": {
-            "name": "Nome do Contato da API",
-            "email": "contato@example.com"
+            "name": "Tiago Alves dos Santos de Oliveira",
+            "email": "tiagooliveiraaso@gmail.com"
         },
         "license": {
-            "name": "Licença de Exemplo",
-            "url": "http://locahost/api/"
+            "name": "Licença MIT",
+            "url": ""
         },
-        "version": "1.0.0"
+        "version": "1.0.0-beta"
     },
     "servers": [
         {

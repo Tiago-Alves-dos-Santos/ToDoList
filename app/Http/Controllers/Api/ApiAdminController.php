@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\Hash;
  *     url="http://localhost:8000/api/"
  * ),
  * @OA\Info(
- *     title="Minha API Exemplo",
- *     description="Esta é uma API de exemplo para fins de demonstração.",
- *     version="1.0.0",
+ *     title="Api para administração",
+ *     description="Esta é uma API de demonstração básica do swagger ui",
+ *     version="1.0.0-beta",
  *     @OA\Contact(
- *         name="Nome do Contato da API",
- *         email="contato@example.com"
+ *         name="Tiago Alves dos Santos de Oliveira",
+ *         email="tiagooliveiraaso@gmail.com"
  *     ),
  *     @OA\License(
- *         name="Licença de Exemplo",
- *         url="http://locahost/api/"
+ *         name="Licença MIT",
+ *         url=""
  *     ),
  * ),
  *
