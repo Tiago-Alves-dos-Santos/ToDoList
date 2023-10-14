@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-
-
+define('URL_HOST', url()->current().getPortEnvironmentLocal().'/api');
 /**
  * @OA\Server(
- *     url="http://localhost:8000/api/"
+ *     url=URL_HOST
  * ),
  * @OA\Info(
  *     title="Api para administração",
