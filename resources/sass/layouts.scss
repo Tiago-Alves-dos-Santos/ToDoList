@@ -1,0 +1,131 @@
+/********************************************LAYOUT AUTH*************************************************/
+div#layout-auth {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    div.container-image {
+        position: absolute;
+        z-index: 2;
+        width: 50%;
+        height: 100%;
+        background-color: $theme-primary;
+        background-image: url('../../public/img/list-black.svg');
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    div.container-body {
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        div.form-login {
+            div.img-logo {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    @media (max-width: 839px) {
+        div.container-image{
+            width: 0%;
+        }
+        div.container-body{
+            width: 100%;
+        }
+    }
+    @media (max-width: 409px) {
+        div.card{
+            width: 260px;
+        }
+    }
+
+}
+
+/********************************************LAYOUT DASHBOARD*************************************************/
+div#layout-dashboard {
+    div.myNavbar {
+        width: 100%;
+        background-color: $theme-primary;
+        color: white;
+
+        div.container {
+            position: relative;
+            padding: 5px 0 3px 0;
+
+            h3 {
+                line-height: 30px;
+            }
+        }
+
+        a {
+            //menu hamburger
+            position: absolute;
+            left: 3px;
+            top: 0px;
+            font-size: 30px;
+            color: inherit;
+        }
+    }
+
+    div.offcanvas-body {
+        ul {
+            list-style-type: none;
+            padding: 0;
+
+            a {
+                display: block;
+                margin: 3px 0;
+                padding: 5px 10px;
+                color: #bababa;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 20px;
+                cursor: pointer;
+
+                &:hover,
+                &.active {
+                    color: white;
+                    background-color: $theme-primary;
+                }
+            }
+
+            a.logout {
+                color: white;
+                background-color: red;
+            }
+        }
+    }
+}
+
+/********************************************LAYOUT CENTER*************************************************/
+div#layout-center {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    div.content {
+        display: flex;
+        justify-content: center;
+        h1,h3{
+            text-align: center;
+            font-weight: bolder;
+            color: black;
+        }
+    }
+}

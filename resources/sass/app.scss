@@ -1,0 +1,15 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import '@vuepic/vue-datepicker/dist/main.css';
+@import 'animations.scss';
+@import 'global.scss';
+@import 'layouts.scss';
+@import 'components.scss';
+@import 'pages.scss';
