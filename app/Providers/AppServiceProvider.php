@@ -2,13 +2,16 @@
 
 namespace App\Providers;
 
-use App\Services\AuthService;
 use App\Services\PageFront;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\Sanctum;
+use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
+
+use App\Models\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Http\Controllers\EmailVerificationNotificationController;
 
@@ -71,5 +74,7 @@ class AppServiceProvider extends ServiceProvider
                 return back()->withErrors(['error' => 'Limite de taxa excedido. Tente novamente mais tarde.']);
             });
         });
+        //SANCTUM
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
 }

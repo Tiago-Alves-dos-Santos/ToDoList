@@ -31,4 +31,10 @@ if (!function_exists('routesFortify')) {
     }
 }
 
+if(!function_exists('getPortEnvironmentLocal')){
+    function getPortEnvironmentLocal() : string {
+        return config('app.env') != 'production' ? ':8000':'';
+    }
+}
+
 

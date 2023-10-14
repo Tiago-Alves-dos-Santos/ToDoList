@@ -1,0 +1,319 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api para administração",
+        "description": "Esta é uma API de demonstração básica do swagger ui",
+        "contact": {
+            "name": "Tiago Alves dos Santos de Oliveira",
+            "email": "tiagooliveiraaso@gmail.com"
+        },
+        "license": {
+            "name": "Licença MIT",
+            "url": ""
+        },
+        "version": "1.0.0-beta"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api"
+        }
+    ],
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Obtem o token",
+                "description": "Resulta em um token ou mensagem de erro.",
+                "operationId": "706026a2266bb326d99cf1722ca1d38d",
+                "requestBody": {
+                    "description": "Dados do usuário para autenticação",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "usuario@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "senha123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso - Exemplo encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "<seu_token>"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "O usuario já possui token valido e não expirado! Caso queira novo token, faça a revogação"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid login"
+                    }
+                }
+            }
+        },
+        "/admin/list/users": {
+            "get": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Obtem uma lista de usuarios",
+                "description": "Retorna todos os usuarios caso admin",
+                "operationId": "7d4bfe1e4073f80119947d119f7c1a43",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso - Exemplo encontrado",
+                        "headers": {
+                            "Authorization": {
+                                "description": "token de usuario autenticado",
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Bearer <token value>"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Roberto Anderson Carrara"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "hgil@example.org"
+                                            },
+                                            "active": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "email_verified_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-10-09T14:49:29.000000Z"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-10-09T14:49:29.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-10-09T14:49:29.000000Z"
+                                            },
+                                            "two_factor_confirmed_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": null
+                                            },
+                                            "two_factor_is_active": {
+                                                "type": "boolean",
+                                                "example": false
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Denied permision"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/list/admins": {
+            "get": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Obtém uma lista de administratores",
+                "description": "Retorna administradores, todos caso admin master ou apenas os adminis caadasrtados pelo admin comum",
+                "operationId": "73b962b714a868399ed90fe5e2981a85",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso - Exemplo encontrado",
+                        "headers": {
+                            "Authorization": {
+                                "description": "token de usuario autenticado",
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Bearer <token value>"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "format": "int64",
+                                                "example": 2
+                                            },
+                                            "admin_creator_id": {
+                                                "type": "integer",
+                                                "format": "int64",
+                                                "example": 1
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "example": "common"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Roberto Anderson Carrara"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "hgil@example.org"
+                                            },
+                                            "active": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "email_verified_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-10-09T14:49:29.000000Z"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-10-09T14:49:29.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2023-10-09T14:49:29.000000Z"
+                                            },
+                                            "two_factor_confirmed_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": null
+                                            },
+                                            "two_factor_is_active": {
+                                                "type": "boolean",
+                                                "example": false
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Denied permision"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/revoke": {
+            "post": {
+                "tags": [
+                    "Administradores"
+                ],
+                "summary": "Recebe um novo token de acesso",
+                "description": "Recebe um novo token de acesso, indepedente do status atual.",
+                "operationId": "d83fdea234d263b352dd62433d02a93a",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso - Exemplo encontrado",
+                        "headers": {
+                            "Authorization": {
+                                "description": "token de usuario autenticado",
+                                "schema": {
+                                    "type": "string",
+                                    "example": "Bearer <token value>"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "<seu_token>"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "O usuario já possui token valido e não expirado! Caso queira novo token, faça a revogação"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid login"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "apiKey",
+                "description": "Cabeçalho de autenticação Bearer",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

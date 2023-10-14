@@ -50,9 +50,12 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 - [x] CRUD de tarefas
 - [x] Controle de usuários
 - [x] Controle de administradores
-- [x] Impressão PDF de tarefas
+- [x] Impressão relatório(PDF)
 - [x] Dashboard(básico)
 - [x] Dados fakes e seed
+- [x] Api sanctum
+- [x] Autenticação gerenciada por Fortify
+- [x] Swagger, documentação de api: <url_site/api-doc>
     
 <p align="right">(<a href="#readme-top">Voltar ao topo</a>)</p>
 
@@ -114,7 +117,7 @@ O sistema como finalidade demonstrar o uso de autenticação de dois fatores com
 
 
 ## Versão atual
-:heavy_check_mark:  v1.1.0-alpha
+:heavy_check_mark:  v1.0.0-beta
 
 
 <!-- LICENÇA -->
